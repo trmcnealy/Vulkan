@@ -1,0 +1,1861 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #><#
+
+//VK_DEFINE_HANDLE(VkInstance)
+//VK_DEFINE_HANDLE(VkPhysicalDevice)
+//VK_DEFINE_HANDLE(VkDevice)
+//VK_DEFINE_HANDLE(VkQueue)
+//VK_DEFINE_HANDLE(VkCommandBuffer)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkBuffer)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkImage)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSemaphore)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkFence)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDeviceMemory)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkEvent)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkQueryPool)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkBufferView)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkImageView)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkShaderModule)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPipelineCache)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPipelineLayout)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPipeline)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkRenderPass)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorSetLayout)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSampler)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorSet)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorPool)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkFramebuffer)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkCommandPool)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkSamplerYcbcrConversion)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDescriptorUpdateTemplate)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDisplayKHR)
+//VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDisplayModeKHR)
+
+    List<string> structNames = new List<string>
+    {
+        "VkInstance",
+        "VkPhysicalDevice",
+        "VkDevice",
+        "VkQueue",
+        "VkCommandBuffer",
+        //"VkAccelerationStructureKHR",
+        //"VkAccelerationStructureNV",
+        "VkBufferView",
+        "VkBuffer",
+        "VkCommandPool",
+        //"VkCuFunctionNVX",
+        //"VkCuModuleNVX",
+        //"VkDebugReportCallbackEXT",
+        //"VkDebugUtilsMessengerEXT",
+        //"VkDeferredOperationKHR",
+        "VkDescriptorPool",
+        "VkDescriptorSetLayout",
+        "VkDescriptorSet",
+        "VkDescriptorUpdateTemplate",
+        "VkDeviceMemory",
+        "VkDisplayKHR",
+        "VkDisplayModeKHR",
+        "VkEvent",
+        "VkFence",
+        "VkFramebuffer",
+        "VkImageView",
+        "VkImage",
+        //"VkIndirectCommandsLayoutNV",
+        "VkPerformanceConfigurationINTEL",
+        "VkPipelineCache",
+        "VkPipelineLayout",
+        "VkPipeline",
+        //"VkPrivateDataSlotEXT",
+        "VkQueryPool",
+        "VkRenderPass",
+        "VkSamplerYcbcrConversion",
+        "VkSampler",
+        "VkSemaphore",
+        "VkShaderModule",
+        "VkSurfaceKHR",
+        "VkSwapchainKHR",
+        //"VkValidationCacheEXT"
+    };
+
+    Dictionary<string, (string ctorArgs, string ctorApi)> structCtors = new Dictionary<string, (string ctorArgs, string ctorApi)>
+    {
+        //{"VkAccelerationStructureKHR", ("(VkDevice device, ref VkAccelerationStructureCreateInfoKHR pCreateInfo)","Api.CreateAccelerationStructureKHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkAccelerationStructureKHR newHandle));")},
+        //{"VkAccelerationStructureNV", ("(VkDevice device, ref VkAccelerationStructureCreateInfoNV pCreateInfo)","Api.CreateAccelerationStructureNV(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkAccelerationStructureNV newHandle));")},
+        {"VkBuffer", ("(VkDevice device, ref VkBufferCreateInfo pCreateInfo)","Api.Check(Api.CreateBuffer(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkBuffer newHandle));")},
+        {"VkBufferView", ("(VkDevice device, ref VkBufferViewCreateInfo pCreateInfo)","Api.Check(Api.CreateBufferView(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkBufferView newHandle));")},
+        {"VkCommandPool", ("(VkDevice device, ref VkCommandPoolCreateInfo pCreateInfo)","Api.Check(Api.CreateCommandPool(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkCommandPool newHandle));")},
+        {"_VkPipelineCompute", ("(VkDevice device, VkPipelineCache pipelineCache, uint createInfoCount, ref VkComputePipelineCreateInfo pCreateInfos)","Api.Check(Api.CreateComputePipelines(device, pipelineCache, createInfoCount, ref pCreateInfos, VkAllocationCallbacks.Null, out VkPipeline newHandle));")},
+        //{"VkCuFunctionNVX", ("(VkDevice device, ref VkCuFunctionCreateInfoNVX pCreateInfo)","Api.Check(Api.CreateCuFunctionNVX(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkCuFunctionNVX newHandle));")},
+        //{"VkCuModuleNVX", ("(VkDevice device, ref VkCuModuleCreateInfoNVX pCreateInfo)","Api.Check(Api.CreateCuModuleNVX(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkCuModuleNVX newHandle));")},
+        //{"VkDebugReportCallbackEXT", ("(VkInstance instance, ref VkDebugReportCallbackCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugReportCallbackEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugReportCallbackEXT newHandle));")},
+        //{"VkDebugUtilsMessengerEXT", ("(VkInstance instance, ref VkDebugUtilsMessengerCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugUtilsMessengerEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugUtilsMessengerEXT newHandle));")},
+        //{"VkDeferredOperationKHR", ("(VkDevice device)","Api.Check(Api.CreateDeferredOperationKHR(device, VkAllocationCallbacks.Null, out VkDeferredOperationKHR newHandle));")},
+        {"VkDescriptorPool", ("(VkDevice device, ref VkDescriptorPoolCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorPool(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorPool newHandle));")},
+        {"VkDescriptorSetLayout", ("(VkDevice device, ref VkDescriptorSetLayoutCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorSetLayout(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorSetLayout newHandle));")},
+        {"VkDescriptorUpdateTemplate", ("(VkDevice device, ref VkDescriptorUpdateTemplateCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorUpdateTemplate(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorUpdateTemplate newHandle));")},
+        {"_VkDescriptorUpdateTemplate", ("(VkDevice device, ref VkDescriptorUpdateTemplateCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorUpdateTemplateKHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorUpdateTemplate newHandle));")},
+        {"VkDevice", ("(VkPhysicalDevice physicalDevice, ref VkDeviceCreateInfo pCreateInfo)","Api.Check(Api.CreateDevice(physicalDevice, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDevice newHandle));")},
+        {"VkDisplayModeKHR", ("(VkPhysicalDevice physicalDevice, VkDisplayKHR display, ref VkDisplayModeCreateInfoKHR pCreateInfo)","Api.Check(Api.CreateDisplayModeKHR(physicalDevice, display, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDisplayModeKHR newHandle));")},
+        {"VkSurfaceKHR", ("(VkInstance instance, ref VkDisplaySurfaceCreateInfoKHR pCreateInfo)","Api.Check(Api.CreateDisplayPlaneSurfaceKHR(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSurfaceKHR newHandle));")},
+        {"VkEvent", ("(VkDevice device, ref VkEventCreateInfo pCreateInfo)","Api.Check(Api.CreateEvent(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkEvent newHandle));")},
+        {"VkFence", ("(VkDevice device, ref VkFenceCreateInfo pCreateInfo)","Api.Check(Api.CreateFence(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkFence newHandle));")},
+        {"VkFramebuffer", ("(VkDevice device, ref VkFramebufferCreateInfo pCreateInfo)","Api.Check(Api.CreateFramebuffer(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkFramebuffer newHandle));")},
+        {"VkPipeline", ("(VkDevice device, VkPipelineCache pipelineCache, ref VkGraphicsPipelineCreateInfo pCreateInfo)","VkPipeline newHandle = Api.CreateGraphicsPipelines(device, pipelineCache, new[]{pCreateInfo}, VkAllocationCallbacks.Null).FirstOrDefault();")},
+        {"_VkSurfaceKHR", ("(VkInstance instance, ref VkHeadlessSurfaceCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateHeadlessSurfaceEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSurfaceKHR newHandle));")},
+        {"VkImage", ("(VkDevice device, ref VkImageCreateInfo pCreateInfo)","Api.Check(Api.CreateImage(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkImage newHandle));")},
+        {"VkImageView", ("(VkDevice device, ref VkImageViewCreateInfo pCreateInfo)","Api.Check(Api.CreateImageView(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkImageView newHandle));")},
+        //{"VkIndirectCommandsLayoutNV", ("(VkDevice device, ref VkIndirectCommandsLayoutCreateInfoNV pCreateInfo)","Api.Check(Api.CreateIndirectCommandsLayoutNV(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkIndirectCommandsLayoutNV newHandle));")},
+        {"VkInstance", ("(ref VkInstanceCreateInfo pCreateInfo)","Api.Check(Api.CreateInstance(ref pCreateInfo, VkAllocationCallbacks.Null, out VkInstance newHandle));")},
+        {"VkPipelineCache", ("(VkDevice device, ref VkPipelineCacheCreateInfo pCreateInfo)","Api.Check(Api.CreatePipelineCache(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkPipelineCache newHandle));")},
+        {"VkPipelineLayout", ("(VkDevice device, ref VkPipelineLayoutCreateInfo pCreateInfo)","Api.Check(Api.CreatePipelineLayout(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkPipelineLayout newHandle));")},
+        //{"VkPrivateDataSlotEXT", ("(VkDevice device, ref VkPrivateDataSlotCreateInfoEXT pCreateInfo)","Api.Check(Api.CreatePrivateDataSlotEXT(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkPrivateDataSlotEXT newHandle));")},
+        {"VkQueryPool", ("(VkDevice device, ref VkQueryPoolCreateInfo pCreateInfo)","Api.Check(Api.CreateQueryPool(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkQueryPool newHandle));")},
+        {"_VkPipelineKHR", ("(VkDevice device, VkDeferredOperationKHR deferredOperation, VkPipelineCache pipelineCache, uint createInfoCount, ref VkRayTracingPipelineCreateInfoKHR pCreateInfos)","Api.Check(Api.CreateRayTracingPipelinesKHR(device, deferredOperation, pipelineCache, createInfoCount, pCreateInfos, VkAllocationCallbacks.Null, out VkPipeline newHandle));")},
+        {"_VkPipelineNV", ("(VkDevice device, VkPipelineCache pipelineCache, uint createInfoCount, ref VkRayTracingPipelineCreateInfoNV pCreateInfos)","Api.Check(Api.CreateRayTracingPipelinesNV(device, pipelineCache, createInfoCount, pCreateInfos, VkAllocationCallbacks.Null, out VkPipeline newHandle));")},
+        {"VkRenderPass", ("(VkDevice device, ref VkRenderPassCreateInfo pCreateInfo)","Api.Check(Api.CreateRenderPass(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkRenderPass newHandle));")},
+        {"_VkRenderPass2", ("(VkDevice device, ref VkRenderPassCreateInfo2 pCreateInfo)","Api.Check(Api.CreateRenderPass2(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkRenderPass newHandle));")},
+        {"_VkRenderPass2KHR", ("(VkDevice device, ref VkRenderPassCreateInfo2 pCreateInfo)","Api.Check(Api.CreateRenderPass2KHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkRenderPass newHandle));")},
+        {"VkSampler", ("(VkDevice device, ref VkSamplerCreateInfo pCreateInfo)","Api.Check(Api.CreateSampler(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSampler newHandle));")},
+        {"VkSamplerYcbcrConversion", ("(VkDevice device, ref VkSamplerYcbcrConversionCreateInfo pCreateInfo)","Api.Check(Api.CreateSamplerYcbcrConversion(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSamplerYcbcrConversion newHandle));")},
+        {"_VkSamplerYcbcrConversion", ("(VkDevice device, ref VkSamplerYcbcrConversionCreateInfo pCreateInfo)","Api.Check(Api.CreateSamplerYcbcrConversionKHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSamplerYcbcrConversion newHandle));")},
+        {"VkSemaphore", ("(VkDevice device, ref VkSemaphoreCreateInfo pCreateInfo)","Api.Check(Api.CreateSemaphore(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSemaphore newHandle));")},
+        {"VkShaderModule", ("(VkDevice device, ref VkShaderModuleCreateInfo pCreateInfo)","Api.Check(Api.CreateShaderModule(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkShaderModule newHandle));")},
+        {"_VkSwapchainKHR", ("(VkDevice device, uint swapchainCount, ref VkSwapchainCreateInfoKHR pCreateInfos)","Api.Check(Api.CreateSharedSwapchainsKHR(device, swapchainCount, pCreateInfos, VkAllocationCallbacks.Null, out VkSwapchainKHR newHandle));")},
+        {"VkSwapchainKHR", ("(VkDevice device, ref VkSwapchainCreateInfoKHR pCreateInfo)","Api.Check(Api.CreateSwapchainKHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkSwapchainKHR newHandle));")},
+        //{"VkValidationCacheEXT", ("(VkDevice device, ref VkValidationCacheCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateValidationCacheEXT(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkValidationCacheEXT newHandle));")},
+        {"VkDescriptorSet", ("","")},
+        {"VkCommandBuffer", ("","")},
+        {"VkDeviceMemory", ("","")},
+        {"VkDisplayKHR", ("","")},
+        {"VkPerformanceConfigurationINTEL", ("","")},
+        {"VkPhysicalDevice", ("","")},
+        {"VkQueue", ("","")}
+    };
+
+
+    Dictionary<string, string> structDtors = new Dictionary<string, string>
+    {
+        {"VkInstance", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyInstance(this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkDevice", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyDevice(this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkFence", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyFence(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkSemaphore", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroySemaphore(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkEvent", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyEvent(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkQueryPool", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyQueryPool(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkBuffer", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyBuffer(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkBufferView", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyBufferView(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkImage", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyImage(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkImageView", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyImageView(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkShaderModule", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyShaderModule(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkPipelineCache", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyPipelineCache(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkPipeline", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyPipeline(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkPipelineLayout", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyPipelineLayout(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkSampler", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroySampler(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkDescriptorSetLayout", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyDescriptorSetLayout(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkDescriptorPool", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyDescriptorPool(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkFramebuffer", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyFramebuffer(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkRenderPass", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyRenderPass(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkCommandPool", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyCommandPool(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkSamplerYcbcrConversion", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroySamplerYcbcrConversion(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkDescriptorUpdateTemplate", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroyDescriptorUpdateTemplate(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkSurfaceKHR", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroySurfaceKHR(instance, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkSwapchainKHR", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.DestroySwapchainKHR(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"},
+        {"VkDeviceMemory", $@"
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public void Dispose(VkInstance instance, VkDevice device)
+        {{
+            unsafe
+            {{
+                Api.FreeMemory(device, this, VkAllocationCallbacks.Null);
+            }}
+        }}
+"}
+    };
+        
+    Func<string, string> nintStructTemplateFunc = (structName) =>
+    {
+
+        (string Args, string Api) ctors = structCtors[structName];
+
+        string template;
+
+        if(ctors.Args.Length > 0)
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(nint);
+        }}
+
+        public static readonly {structName} Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nint _handle;
+        public nint Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(nint handle)
+        {{
+            _handle = handle;
+        }}        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}{ctors.Args}
+        {{
+            unsafe
+            {{
+                {ctors.Api}
+                _handle = newHandle;
+            }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return ((nuint)_handle) == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator {structName}*(in {structName} value)
+        {{
+            return ({structName}*)value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nint(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(nint value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, nint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, nint right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+        }
+        else
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(nint);
+        }}
+
+        public static readonly {structName} Null = new();
+
+        [FieldOffset(0)]
+        private readonly nint _handle;
+        public nint Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(nint handle)
+        {{
+            _handle = handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return ((nuint)_handle) == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator {structName}*(in {structName} value)
+        {{
+            return ({structName}*)value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nint(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(nint value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, nint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, nint right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+    }
+
+        return template;
+    };
+
+            
+    Func<string, string> nuintStructTemplateFunc = (structName) =>
+    {
+
+        (string Args, string Api) ctors = structCtors[structName];
+        
+        string iDisposable = "";
+        string disposable  = "";
+
+        if (structDtors.ContainsKey(structName))
+        {
+            iDisposable = "IDispose, ";
+            disposable = structDtors[structName];
+        }
+
+        string template;
+
+        if(ctors.Args.Length > 0)
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : {iDisposable}IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(nuint);
+        }}
+
+        public static readonly {structName} Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(nuint handle)
+        {{
+            _handle = handle;
+        }}        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}{ctors.Args}
+        {{
+            unsafe
+            {{
+                {ctors.Api}
+                _handle = newHandle;
+            }}
+        }}
+        {disposable}
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator {structName}*(in {structName} value)
+        {{
+            return ({structName}*)value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(nuint value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, nuint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, nuint right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+        }
+        else
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : {iDisposable}IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(nuint);
+        }}
+
+        public static readonly {structName} Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(nuint handle)
+        {{
+            _handle = handle;
+        }}
+        {disposable}
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return _handle == (nuint)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator {structName}*(in {structName} value)
+        {{
+            return ({structName}*)value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(nuint value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, nuint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, nuint right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+    }
+
+        return template;
+    };
+                
+    Func<string, string> ulongStructTemplateFunc = (structName) =>
+    {
+
+        (string Args, string Api) ctors = structCtors[structName];
+
+        string template;
+
+        if(ctors.Args.Length > 0)
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(ulong);
+        }}
+
+        public static readonly {structName} Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly ulong _handle;
+        public ulong Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(ulong handle)
+        {{
+            _handle = handle;
+        }}        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}{ctors.Args}
+        {{
+            unsafe
+            {{
+                {ctors.Api}
+                _handle = newHandle;
+            }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator {structName}*(in {structName} value)
+        {{
+            return ({structName}*)value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator ulong(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(int value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(uint value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(long value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(ulong value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+        }
+        else
+        {
+        template = $@"
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct {structName} : IEquatable{@"<"}{structName}{@">"}
+    {{
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe {structName}()
+        {{
+            TSize = sizeof(ulong);
+        }}
+
+        public static readonly {structName} Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly ulong _handle;
+        public ulong Handle
+        {{
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get {{ return _handle; }}
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public {structName}(ulong handle)
+        {{
+            _handle = handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {{
+            return _handle == (ulong)other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {{
+            return _handle == other;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals({structName} other)
+        {{
+            return _handle == other._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {{
+            return obj is {structName} other && Equals(other);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {{
+            return _handle.GetHashCode();
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {{
+            return ""0x"" + (TSize == 8 ? _handle.ToString(""X16"") : _handle.ToString(""X8""));
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator ulong(in {structName} value)
+        {{
+            return value._handle;
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(int value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(uint value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(long value)
+        {{
+            return new {structName}((ulong)value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator {structName}(ulong value)
+        {{
+            return new {structName}(value);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, in {structName} right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, in {structName} right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, int right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, int right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, uint right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, uint right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, long right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, long right)
+        {{
+            return !left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in {structName} left, ulong right)
+        {{
+            return left.Equals(right);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in {structName} left, ulong right)
+        {{
+            return !left.Equals(right);
+        }}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in {structName} right)
+        {{
+            return right.Equals(left);
+        }}
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in {structName} right)
+        {{
+            return !right.Equals(left);
+        }}
+    }}";
+    }
+
+        return template;
+    };
+
+#>
+// ReSharper disable RedundantCast
+// ReSharper disable PartialTypeWithSinglePart
+using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+namespace Vulkan
+{
+<#for (int i = 0; i < structNames.Count; ++i){#><#= nuintStructTemplateFunc(structNames[i]) #>
+<#}#>
+}

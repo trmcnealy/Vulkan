@@ -1,0 +1,207 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="$([MSBuild]::GetPathOfFileAbove(GlobalVersioning.props))" />
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>10.0</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IncludeMicrosoftAttributes>true</IncludeMicrosoftAttributes>
+        <IncludeNativeTypeNameAttribute>true</IncludeNativeTypeNameAttribute>
+    </PropertyGroup>
+
+    <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Artifacts.props))\Artifacts.props" Condition="'$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Artifacts.props))' != '' " />
+
+    <ItemGroup>
+      <None Remove="Vulkan.csproj.DotSettings" />
+      <None Remove="Vulkan.dll.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Vulkan.dll.config">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Vulkan\Delegates\*.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureBuildGeometryInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureBuildRangeInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureBuildSizesInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureCreateInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureCreateInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureDeviceAddressInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryAabbsDataKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryDataKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryInstancesDataKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryMotionTrianglesDataNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureGeometryTrianglesDataKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureInstanceKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureMatrixMotionInstanceNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureMemoryRequirementsInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureMotionInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureMotionInstanceDataNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureMotionInstanceNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureSRTMotionInstanceNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkAccelerationStructureVersionInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkBindAccelerationStructureMemoryInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkCopyAccelerationStructureInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkCopyAccelerationStructureToMemoryInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkCopyMemoryToAccelerationStructureInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkCuFunctionCreateInfoNVX.cs" />
+      <Compile Remove="Vulkan\Structs\VkCuLaunchInfoNVX.cs" />
+      <Compile Remove="Vulkan\Structs\VkCuModuleCreateInfoNVX.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugReportCallbackCreateInfoEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugUtilsLabelEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugUtilsMessengerCallbackDataEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugUtilsMessengerCreateInfoEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugUtilsObjectNameInfoEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkDebugUtilsObjectTagInfoEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkGeneratedCommandsInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkGeneratedCommandsMemoryRequirementsInfoNV.cs" />
+      <Compile Remove="Vulkan\Structs\VkShaderModuleValidationCacheCreateInfoEXT.cs" />
+      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="Vulkan\DataTypes\Vector.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Vector.tt</DependentUpon>
+      </None>
+      <None Include="Vulkan\Structs\VkAccelerationStructureBuildGeometryInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureBuildRangeInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureBuildSizesInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureCreateInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureCreateInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureDeviceAddressInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryAabbsDataKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryDataKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryInstancesDataKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryMotionTrianglesDataNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureGeometryTrianglesDataKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureInstanceKHR.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureMatrixMotionInstanceNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureMemoryRequirementsInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureMotionInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureMotionInstanceDataNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureMotionInstanceNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureSRTMotionInstanceNV.cs" />
+      <None Include="Vulkan\Structs\VkAccelerationStructureVersionInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkBindAccelerationStructureMemoryInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkCopyAccelerationStructureInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkCopyAccelerationStructureToMemoryInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkCopyMemoryToAccelerationStructureInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkCuFunctionCreateInfoNVX.cs" />
+      <None Include="Vulkan\Structs\VkCuLaunchInfoNVX.cs" />
+      <None Include="Vulkan\Structs\VkCuModuleCreateInfoNVX.cs" />
+      <None Include="Vulkan\Structs\VkDebugReportCallbackCreateInfoEXT.cs" />
+      <None Include="Vulkan\Structs\VkDebugUtilsLabelEXT.cs" />
+      <None Include="Vulkan\Structs\VkDebugUtilsMessengerCallbackDataEXT.cs" />
+      <None Include="Vulkan\Structs\VkDebugUtilsMessengerCreateInfoEXT.cs" />
+      <None Include="Vulkan\Structs\VkDebugUtilsObjectNameInfoEXT.cs" />
+      <None Include="Vulkan\Structs\VkDebugUtilsObjectTagInfoEXT.cs" />
+      <None Include="Vulkan\Structs\VkGeneratedCommandsInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkGeneratedCommandsMemoryRequirementsInfoNV.cs" />
+      <None Include="Vulkan\Structs\VkShaderModuleValidationCacheCreateInfoEXT.cs" />
+      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
+      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="cglm-0.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="FreeType\Structs\FT_Error.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>FT_Error.cs</LastGenOutput>
+      </None>
+      <None Update="runtimes\win-x64\native\cglm-0.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\freetype.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\glew32.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\vulkan-1.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\vulkan-1.pdb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\VulkanMemoryAllocator.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Vulkan\DataTypes\NativeStructBuilder.ttinclude">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>NativeStructBuilder.cs</LastGenOutput>
+      </None>
+      <None Update="Vulkan\DataTypes\Vector.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>Vector.cs</LastGenOutput>
+      </None>
+      <None Update="Vulkan\Enums\VkResult.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>VkResult.cs</LastGenOutput>
+      </None>
+      <Compile Update="FreeType\Structs\FT_Error.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FT_Error.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Vulkan\DataTypes\NativeStructBuilder.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>NativeStructBuilder.ttinclude</DependentUpon>
+      </Compile>
+      <Compile Update="Vulkan\DataTypes\Vector.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Vector.tt</DependentUpon>
+      </Compile>
+      <Compile Update="Vulkan\Enums\VkResult.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>VkResult.tt</DependentUpon>
+      </Compile>
+      <None Update="Vulkan\Enums\VkResult.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>VkResult.tt</DependentUpon>
+      </None>
+
+      <None Update="Vulkan\Structs\HandleGenerator.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>HandleGenerator.cs</LastGenOutput>
+      </None>
+      <Compile Update="Vulkan\Structs\HandleGenerator.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>HandleGenerator.tt</DependentUpon>
+      </Compile>
+      <None Update="Vulkan\Structs\HandleGenerator.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>HandleGenerator.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+
+</Project>

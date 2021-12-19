@@ -1,0 +1,103 @@
+﻿<#@ template debug="true" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ include file ="../../../../BuildTools/Templates/EnumBuilder.ttinclude" #>
+<#
+    string enumName = "VkResult";
+
+    List<string> enumValueNames = new List<string>()
+    {
+        "Success",
+        "NotReady",
+        "Timeout",
+        "EventSet",
+        "EventReset",
+        "Incomplete",
+        "OutOfHostMemory",
+        "OutOfDeviceMemory",
+        "InitializationFailed",
+        "DeviceLost",
+        "MemoryMapFailed",
+        "LayerNotPresent",
+        "ErrorExtensionNotPresent",
+        "FeatureNotPresent",
+        "IncompatibleDriver",
+        "ErrorTooManyObjects",
+        "FormatNotSupported",
+        "FragmentedPool",
+        "Unknown",
+        "OutOfPoolMemory",
+        "InvalidernalHandle",
+        "Fragmentation",
+        "InvalidOpaqueCaptureAddress",
+        "SurfaceLost",
+        "NativeWindowInUse",
+        "Suboptimal",
+        "OutOfDate",
+        "IncompatibleDisplay",
+        "ValidationFailed",
+        "InvalidShader",
+        "InvalidDrmFormatModifierPlaneLayout",
+        "NotPermitted",
+        "FullScreenExclusiveModeLost",
+        "ThreadIdle",
+        "ThreadDone",
+        "OperationDeferred",
+        "OperationNotDeferred",
+        "PipelineCompileRequired",
+        "MaxEnumFlag"
+    };
+
+    List<string> enumValueValues = new List<string>()
+    {
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "-1",
+        "-2",
+        "-3",
+        "-4",
+        "-5",
+        "-6",
+        "-7",
+        "-8",
+        "-9",
+        "-10",
+        "-11",
+        "-12",
+        "-13",
+        "-1000069000",
+        "-1000072003",
+        "-1000161000",
+        "-1000257000",
+        "-1000000000",
+        "-1000000001",
+        "1000001003",
+        "-1000001004",
+        "-1000003001",
+        "-1000011001",
+        "-1000012000",
+        "-1000158000",
+        "-1000174001",
+        "-1000255000",
+        "1000268000",
+        "1000268001",
+        "1000268002",
+        "1000268003",
+        "1000297000",
+        "0x7FFFFFFF"
+    };
+
+    string valueType = "int";
+    int indentLevel = 1;
+#>
+namespace Vulkan
+{
+<#= ENUM_BUILDER(false, enumName, enumValueNames, enumValueValues, valueType, indentLevel)#>
+}

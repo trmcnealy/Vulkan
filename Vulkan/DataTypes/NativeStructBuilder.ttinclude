@@ -1,0 +1,267 @@
+﻿<#@ assembly name ="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Runtime.CompilerServices" #>
+<#@ import namespace="System.Text" #>
+<#
+    bool _needIndent  = false;
+    int  _indentLevel = 0;
+
+    Action<StringWriter> WRITE_INDENT = (writer) =>
+                                                        {
+        _needIndent = false;
+
+        for(int i = 0; i < _indentLevel; i++)
+        {
+            writer.Write("    ");
+        }
+    };
+
+    Action<StringWriter, string> WRITE = (writer, buffer) =>
+    {
+        if(_needIndent)
+        {
+            WRITE_INDENT(writer);
+        }
+
+        writer.Write(buffer);
+    };
+
+    Action<StringWriter, string> WRITE_LINE = (writer, buffer) =>
+    {
+        if(_needIndent)
+        {
+            WRITE_INDENT(writer);
+        }
+
+        writer.WriteLine(buffer);
+        _needIndent = true;
+    };
+
+    const string structLayout = "[StructLayout(LayoutKind.Sequential)]";
+    //const string classString = "public sealed unsafe class";
+    //const string offsetString = "public sealed unsafe class";
+
+    Func<string, List<(string Name, string Constraint)>, string> ClassName = (className, genericTypeList) =>
+    {
+        string name = $"{className}<";
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            if(i > 0)
+            {
+                name += ", ";
+            }
+
+            name += genericTypeList[i].Name;
+        }
+
+        name += ">";
+
+        return name;
+    };
+
+    Action<StringWriter, string, List<(string Name, string Constraint)>> ClassHeader = (writer, className, genericTypeList) =>
+    {
+        WRITE_LINE(writer, structLayout);
+        WRITE(writer, $"public unsafe partial struct {className}<");
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            if(i > 0)
+            {
+                WRITE(writer, ", ");
+            }
+
+            WRITE(writer, genericTypeList[i].Name);
+        }
+
+        WRITE(writer, "> : IDisposable");
+        WRITE_LINE(writer, "");
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+           WRITE_LINE(writer, $"    where {genericTypeList[i].Name} : {genericTypeList[i].Constraint}");
+        }
+    };
+
+    Func<string, List<(string Name, string Constraint)>, List<(string type, string fieldName, string propertyName)>, int, string> NATIVE_STRUCT_BUILDER =
+    (structName, genericTypeList, propertyList, indentLevel) =>
+    {
+        StringWriter writer = new StringWriter();
+
+        string classTypeName = ClassName(structName, genericTypeList);
+
+        _indentLevel = indentLevel;
+
+        ClassHeader(writer, structName, genericTypeList);
+
+        WRITE_LINE(writer, "{");
+
+        ++_indentLevel;
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            WRITE_LINE(writer, $"private static readonly Type _{genericTypeList[i].Name} = typeof({genericTypeList[i].Name});");
+        }
+
+        WRITE_LINE(writer, $"public static readonly int ThisSize;");
+
+        WRITE_LINE(writer, "");
+
+        for(int i = 0; i < propertyList.Count; i++)
+        {
+            WRITE_LINE(writer, $"private static readonly nint {propertyList[i].fieldName}Offset;");
+        }
+
+        WRITE_LINE(writer, "");
+
+        WRITE_LINE(writer, $"static {structName}()");
+
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        for(int i = 0; i < propertyList.Count; i++)
+        {
+            WRITE_LINE(writer, $"{propertyList[i].fieldName}Offset  = (nint)Marshal.OffsetOf<{classTypeName}>(nameof({propertyList[i].fieldName})).ToInt32();");
+        }
+
+        WRITE_LINE(writer, $"ThisSize = (int){propertyList[propertyList.Count - 1].fieldName}Offset + Unsafe.SizeOf<{propertyList[propertyList.Count - 1].type}>();");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        WRITE_LINE(writer, "");
+
+        for(int i = 0; i < propertyList.Count; i++)
+        {
+            WRITE_LINE(writer, $"private {propertyList[i].type} {propertyList[i].fieldName};");
+        }
+
+        WRITE_LINE(writer, "");
+        WRITE_LINE(writer, "private readonly NativePointer pointer;");
+        WRITE_LINE(writer, "");
+
+        for(int i = 0; i < propertyList.Count; i++)
+        {
+            WRITE_LINE(writer, $"public {propertyList[i].type} {propertyList[i].propertyName}");
+
+            WRITE_LINE(writer, "{");
+            ++_indentLevel;
+
+            WRITE_LINE(writer, "[MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]");
+            WRITE_LINE(writer, $"get {{ return *({propertyList[i].type}*)(pointer.Data + {propertyList[i].fieldName}Offset); }}");
+            WRITE_LINE(writer, "[MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]");
+            WRITE_LINE(writer, $"set {{ *({propertyList[i].type}*)(pointer.Data + {propertyList[i].fieldName}Offset) = value; }}");
+
+            --_indentLevel;
+            WRITE_LINE(writer, "}");
+            WRITE_LINE(writer, "");
+        }
+
+        WRITE_LINE(writer, $"public NativePointer Instance");
+
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE_LINE(writer, "[MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]");
+        WRITE_LINE(writer, $"get {{ return pointer; }}");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+        WRITE_LINE(writer, "");
+
+        WRITE_LINE(writer, $"public {structName}()");
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE_LINE(writer, $"pointer = NativePointer.Allocate(ThisSize);");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        WRITE_LINE(writer, "");
+
+        WRITE_LINE(writer, $"internal {structName}(IntPtr intPtr)");
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE_LINE(writer, $"pointer = new NativePointer(intPtr, ThisSize, false);");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        WRITE_LINE(writer, "");
+
+        WRITE(writer, $"internal {structName}({structName}<");
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            if(i > 0)
+            {
+                WRITE(writer, ",");
+            }
+
+            WRITE(writer, $"{genericTypeList[i].Name}");
+        }
+        WRITE_LINE(writer, $"> copy)");
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE_LINE(writer, $"pointer = new NativePointer(copy.Instance);");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        WRITE_LINE(writer, "");
+
+        WRITE_LINE(writer, $"public void Dispose()");
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE_LINE(writer, $"pointer.Dispose();");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        WRITE_LINE(writer, "");
+
+        WRITE(writer, $"public static implicit operator {structName}<");
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            if(i > 0)
+            {
+                WRITE(writer, ",");
+            }
+
+            WRITE(writer, $"{genericTypeList[i].Name}");
+        }
+
+        WRITE_LINE(writer, $">(IntPtr intPtr)");
+        WRITE_LINE(writer, "{");
+        ++_indentLevel;
+
+        WRITE(writer, $"return new {structName}<");
+
+        for(int i = 0; i < genericTypeList.Count; i++)
+        {
+            if(i > 0)
+            {
+                WRITE(writer, ",");
+            }
+
+            WRITE(writer, $"{genericTypeList[i].Name}");
+        }
+
+        WRITE_LINE(writer, $">(intPtr);");
+
+        --_indentLevel;
+        WRITE_LINE(writer, "}");
+
+        --_indentLevel;
+        WRITE(writer, "}");
+
+        return writer.ToString();
+    };
+#>
