@@ -7,22 +7,1517 @@
 <#@ output extension=".cs" #>
 <#@ include file="NativeStructBuilder.ttinclude" #>
 <#
-    string structName = "Vector2";
-    List<(string Name, string Constraint)> genericTypeList = new List<(string Name, string Constraint)>{("T", "unmanaged")};
-    List<(string type, string fieldName, string propertyName)> propertyList = new List<(string type, string fieldName, string propertyName)>
+    List<(string type, string initial, string math, string intrin, string intrin4,  string intrin3,  string intrin2)> VectorList = new List<(string type, string initial, string math, string intrin, string intrin4, string intrin3, string intrin2)>
     {
-        ("T", "_x", "X"),
-        ("T", "_y", "Y")
+        ("float", "F", "MathF", "Sse", "Vector128", "Vector128", "Vector64"),
+        ("int", "I", "Math", "Sse", "Vector128", "Vector128", "Vector64"),
+        ("uint", "U", "Math", "Sse", "Vector128", "Vector128", "Vector64"),
     };
-    int indentLevel = 1;
 #>
 using System;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
+using System.Text;
 
 namespace Vulkan
 {
-    //<= NATIVE_STRUCT_BUILDER(structName, genericTypeList, propertyList, indentLevel) >
+<# foreach ((string type, string initial, string math, string intrin, string intrin4,  string intrin3,  string intrin2) vector in VectorList) { #>
+
+    [StructLayout(LayoutKind.Explicit, Pack = Align, Size = Size)]
+    public unsafe partial struct Vector2<#=vector.initial#> : IEquatable<Vector2<#=vector.initial#>>, IFormattable
+    {
+        public const       int Size  = sizeof(<#=vector.type#>) * 2;
+        public const       int Align = Size;
+
+        public static readonly Vector2<#=vector.initial#> Zero = new((<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector2<#=vector.initial#> One = new   ((<#=vector.type#>)1, (<#=vector.type#>)1);
+        public static readonly Vector2<#=vector.initial#> UnitX = new ((<#=vector.type#>)1, (<#=vector.type#>)0);
+        public static readonly Vector2<#=vector.initial#> UnitY = new ((<#=vector.type#>)0, (<#=vector.type#>)1);
+
+        [FieldOffset(0)]
+        private <#=vector.type#> _x;
+
+        [FieldOffset(sizeof(<#=vector.type#>))]
+        private <#=vector.type#> _y;
+
+        [FieldOffset(0)]
+        private fixed <#=vector.type#> _values[2];
+
+        [FieldOffset(0)]
+        private Vector64<<#=vector.type#>> _vector;
+
+        public <#=vector.type#> X
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _x; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _x = value; }
+        }
+
+        public <#=vector.type#> Y
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _y; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _y = value; }
+        }
+        
+        public Vector2<#=vector.initial#>()
+        {
+            _vector = default;
+            _x      = (<#=vector.type#>)0;
+            _y      = (<#=vector.type#>)0;
+        }
+        public Vector2<#=vector.initial#>(<#=vector.type#> value) : this()
+        {
+            _x = value;
+            _y = value;
+        }
+        public Vector2<#=vector.initial#>(<#=vector.type#> x, <#=vector.type#> y) : this()
+        {
+            _x = x;
+            _y = y;
+        }
+        
+        public Vector2<#=vector.initial#>(<#=vector.type#>[] values) : this()
+        {
+            _x = values[0];
+            _y = values[1];
+        }
+
+        public Vector2<#=vector.initial#>(Vector2<#=vector.initial#> vector) : this()
+        {
+            _x = vector._x;
+            _y = vector._y;
+        }
+
+        public Vector2<#=vector.initial#>(Vector64<<#=vector.type#>> values) : this()
+        {
+            _x = values.GetElement(0);
+            _y = values.GetElement(1);
+        }
+
+        public Vector2<#=vector.initial#>(ReadOnlySpan<<#=vector.type#>> values)
+        {
+            if (values.Length < 2)
+            {
+                throw new ArgumentOutOfRangeException(nameof(values));
+            }
+
+            this = Unsafe.ReadUnaligned<Vector2<#=vector.initial#>>(ref Unsafe.As<<#=vector.type#>, byte>(ref MemoryMarshal.GetReference(values)));
+        }
+
+        public <#=vector.type#> this[int index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[uint index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[long index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[ulong index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(int index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(uint index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(long index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(ulong index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is Vector2<#=vector.initial#> other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_x, _y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsZero()
+        {
+            return IsZero(this);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(Vector2<#=vector.initial#> point)
+        {
+            if(point.X == 0 && point.Y == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return !lhs.Equals(rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string ToString()
+        {
+            return ToString("G", CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format)
+        {
+            return ToString(format, CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = NumberFormatInfo.GetInstance(formatProvider).NumberGroupSeparator;
+
+            sb.Append('[');
+            sb.Append(_values[0].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[1].ToString(format, formatProvider));
+            sb.Append(']');
+
+            return sb.ToString();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator -(Vector2<#=vector.initial#> value)
+        {
+            return Zero - value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator +(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X + rhs.X, lhs.Y + rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator -(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X - rhs.X, lhs.Y - rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator *(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X * rhs.X, lhs.Y * rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator *(Vector2<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X * rhs, lhs.Y * rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator *(<#=vector.type#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs * rhs.X, lhs * rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator /(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X / rhs.X, lhs.Y / rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator /(Vector2<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs.X / rhs, lhs.Y / rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> operator /(<#=vector.type#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>(lhs / rhs.X, lhs / rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Abs(Vector2<#=vector.initial#> value)
+        {
+<#if(vector.type.StartsWith("u")){#>
+            return new Vector2<#=vector.initial#>(value.X, value.Y);
+<#}else{#>
+            return new Vector2<#=vector.initial#>(<#=vector.math#>.Abs(value.X), <#=vector.math#>.Abs(value.Y));
+<#}#>
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Add(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs + rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Clamp(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> min, Vector2<#=vector.initial#> max)
+        {
+            return Min(Max(lhs, min), max);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Divide(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs / rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Divide(Vector2<#=vector.initial#> lhs, <#=vector.type#> divisor)
+        {
+            return lhs / divisor;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Max(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>((lhs.X > rhs.X) ? lhs.X : rhs.X, (lhs.Y > rhs.Y) ? lhs.Y : rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Min(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return new Vector2<#=vector.initial#>((lhs.X < rhs.X) ? lhs.X : rhs.X, (lhs.Y < rhs.Y) ? lhs.Y : rhs.Y);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Multiply(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Multiply(Vector2<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Multiply(<#=vector.type#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Negate(Vector2<#=vector.initial#> value)
+        {
+            return -value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector2<#=vector.initial#> Subtract(Vector2<#=vector.initial#> lhs, Vector2<#=vector.initial#> rhs)
+        {
+            return lhs - rhs;
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit, Pack = Align, Size = Size)]
+    public unsafe partial struct Vector3<#=vector.initial#> : IEquatable<Vector3<#=vector.initial#>>, IFormattable
+    {
+        public const int Size  = sizeof(<#=vector.type#>) * 4;
+        public const int Align = Size;
+
+        public static readonly Vector3<#=vector.initial#> Zero = new((<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector3<#=vector.initial#> One = new   ((<#=vector.type#>)1, (<#=vector.type#>)1, (<#=vector.type#>)1);
+        public static readonly Vector3<#=vector.initial#> UnitX = new ((<#=vector.type#>)1, (<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector3<#=vector.initial#> UnitY = new ((<#=vector.type#>)0, (<#=vector.type#>)1, (<#=vector.type#>)0);
+        public static readonly Vector3<#=vector.initial#> UnitZ = new ((<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)1);
+
+        [FieldOffset(0)]
+        private <#=vector.type#> _x;
+
+        [FieldOffset(sizeof(<#=vector.type#>))]
+        private <#=vector.type#> _y;
+
+        [FieldOffset(sizeof(<#=vector.type#>) * 2)]
+        private <#=vector.type#> _z;
+
+        /// <summary>
+        /// Dummy field
+        /// </summary>
+        [FieldOffset(sizeof(<#=vector.type#>) * 3)]
+        private <#=vector.type#> _w;
+
+        [FieldOffset(0)]
+        private fixed <#=vector.type#> _values[4];
+
+        [FieldOffset(0)]
+        private Vector128<<#=vector.type#>> _vector;
+
+        public <#=vector.type#> X
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _x; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _x = value; }
+        }
+
+        public <#=vector.type#> Y
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _y; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _y = value; }
+        }
+
+        public <#=vector.type#> Z
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _z; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _z = value; }
+        }
+
+        public Vector128<<#=vector.type#>> Vector
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _vector; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _vector = value; }
+        }
+        public Vector2<#=vector.initial#> XY
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector2<#=vector.initial#>(_x, _y); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+            }
+        }
+
+        public <#=vector.type#> R
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _x; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _x = value; }
+        }
+
+        public <#=vector.type#> G
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _y; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _y = value; }
+        }
+
+        public <#=vector.type#> B
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _z; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _z = value; }
+        }
+        
+        public Vector2<#=vector.initial#> RG
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector2<#=vector.initial#>(_x, _y); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+            }
+        }
+        
+        public Vector3<#=vector.initial#>()
+        {
+            _vector = default;
+            _x      = (<#=vector.type#>)0;
+            _y      = (<#=vector.type#>)0;
+            _z      = (<#=vector.type#>)0;
+            _w      = (<#=vector.type#>)0;
+        }
+        public Vector3<#=vector.initial#>(<#=vector.type#> value) : this()
+        {
+            _x = value;
+            _y = value;
+            _z = value;
+            _w = (<#=vector.type#>)0;
+        }
+
+        public Vector3<#=vector.initial#>(<#=vector.type#> x, <#=vector.type#> y, <#=vector.type#> z) : this()
+        {
+            _x = x;
+            _y = y;
+            _z = z;
+            _w = (<#=vector.type#>)0;
+        }
+
+        public Vector3<#=vector.initial#>(<#=vector.type#>[] values) : this()
+        {
+            _x = values[0];
+            _y = values[1];
+            _z = values[2];
+            _w = (<#=vector.type#>)0;
+        }
+
+        public Vector3<#=vector.initial#>(Vector3<#=vector.initial#> vector) : this()
+        {
+            _x = vector._x;
+            _y = vector._y;
+            _z = vector._z;
+            _w = (<#=vector.type#>)0;
+        }
+
+        public Vector3<#=vector.initial#>(Vector128<<#=vector.type#>> values) : this()
+        {
+            _x = values.GetElement(0);
+            _y = values.GetElement(1);
+            _z = values.GetElement(2);
+            _w = (<#=vector.type#>)0;
+        }
+
+        public Vector3<#=vector.initial#>(ReadOnlySpan<<#=vector.type#>> values)
+        {
+            if (values.Length < 3)
+            {
+                throw new ArgumentOutOfRangeException(nameof(values));
+            }
+
+            this = Unsafe.ReadUnaligned<Vector3<#=vector.initial#>>(ref Unsafe.As<<#=vector.type#>, byte>(ref MemoryMarshal.GetReference(values)));
+        }
+
+        public <#=vector.type#> this[int index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[uint index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[long index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[ulong index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(int index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(uint index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(long index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(ulong index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is Vector3<#=vector.initial#> other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_x, _y, _z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return (Sse.MoveMask(Sse.CompareEqual(lhs._vector, rhs._vector)) == 0x0F);
+            }
+<#}#>
+            return lhs.Equals(rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return (Sse.MoveMask(Sse.CompareNotEqual(lhs._vector, rhs._vector)) == 0x0F);
+            }
+<#}#>
+            return !lhs.Equals(rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string ToString()
+        {
+            return ToString("G", CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format)
+        {
+            return ToString(format, CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = NumberFormatInfo.GetInstance(formatProvider).NumberGroupSeparator;
+
+            sb.Append('[');
+            sb.Append(_values[0].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[1].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[2].ToString(format, formatProvider));
+            sb.Append(']');
+
+            return sb.ToString();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsZero()
+        {
+            return IsZero(this);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(Vector3<#=vector.initial#> point)
+        {
+            if(point.X == 0 && point.Y == 0 && point.Z == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator -(Vector3<#=vector.initial#> value)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Subtract(Zero._vector, value._vector));
+            }
+<#}#>
+            return Zero - value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator +(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Add(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator +(Vector3<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector3<#=vector.initial#>(Sse.Add(lhs._vector, v));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X + rhs, lhs.Y + rhs, lhs.Z + rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator +(<#=vector.type#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector3<#=vector.initial#>(Sse.Add(v, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs + rhs.X, lhs + rhs.Y, lhs + rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator -(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Subtract(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator -(Vector3<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector3<#=vector.initial#>(Sse.Add(lhs._vector, v));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X - rhs, lhs.Y - rhs, lhs.Z - rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator -(<#=vector.type#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector3<#=vector.initial#>(Sse.Add(v, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs - rhs.X, lhs - rhs.Y, lhs - rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator *(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Multiply(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X * rhs.X, lhs.Y * rhs.Y, lhs.Z * rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator *(Vector3<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector3<#=vector.initial#>(Sse.Multiply(lhs._vector, v));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X * rhs, lhs.Y * rhs, lhs.Z * rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator *(<#=vector.type#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector3<#=vector.initial#>(Sse.Multiply(v, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs * rhs.X, lhs * rhs.Y, lhs * rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator /(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Divide(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X / rhs.X, lhs.Y / rhs.Y, lhs.Z / rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator /(Vector3<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector3<#=vector.initial#>(Sse.Divide(lhs._vector, v));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs.X / rhs, lhs.Y / rhs, lhs.Z / rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> operator /(<#=vector.type#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector3<#=vector.initial#>(Sse.Divide(v, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>(lhs / rhs.X, lhs / rhs.Y, lhs / rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Abs(Vector3<#=vector.initial#> value)
+        {
+<#if(vector.type.StartsWith("u")){#>
+            return new Vector3<#=vector.initial#>(value.X, value.Y, value.Z);
+<#}else{#>
+            return new Vector3<#=vector.initial#>(<#=vector.math#>.Abs(value.X), <#=vector.math#>.Abs(value.Y), <#=vector.math#>.Abs(value.Z));
+<#}#>
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Add(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+            return lhs + rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Clamp(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> min, Vector3<#=vector.initial#> max)
+        {
+            return Min(Max(lhs, min), max);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Divide(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+            return lhs / rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Divide(Vector3<#=vector.initial#> lhs, <#=vector.type#> divisor)
+        {
+            return lhs / divisor;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Max(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Max(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>((lhs.X > rhs.X) ? lhs.X : rhs.X,
+                                (lhs.Y > rhs.Y) ? lhs.Y : rhs.Y,
+                                (lhs.Z > rhs.Z) ? lhs.Z : rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Min(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector3<#=vector.initial#>(Sse.Min(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector3<#=vector.initial#>((lhs.X < rhs.X) ? lhs.X : rhs.X,
+                                (lhs.Y < rhs.Y) ? lhs.Y : rhs.Y,
+                                (lhs.Z < rhs.Z) ? lhs.Z : rhs.Z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Multiply(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Multiply(Vector3<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Multiply(<#=vector.type#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Negate(Vector3<#=vector.initial#> value)
+        {
+            return -value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector3<#=vector.initial#> Subtract(Vector3<#=vector.initial#> lhs, Vector3<#=vector.initial#> rhs)
+        {
+            return lhs - rhs;
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit, Pack = Align, Size = Size)]
+    public unsafe partial struct Vector4<#=vector.initial#> : IEquatable<Vector4<#=vector.initial#>>, IFormattable
+    {
+        public const int Size  = sizeof(<#=vector.type#>) * 4;
+        public const int Align = Size;
+
+        public static readonly Vector4<#=vector.initial#> Zero = new((<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector4<#=vector.initial#> One = new   ((<#=vector.type#>)1, (<#=vector.type#>)1, (<#=vector.type#>)1, (<#=vector.type#>)1);
+        public static readonly Vector4<#=vector.initial#> UnitX = new ((<#=vector.type#>)1, (<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector4<#=vector.initial#> UnitY = new ((<#=vector.type#>)0, (<#=vector.type#>)1, (<#=vector.type#>)0, (<#=vector.type#>)0);
+        public static readonly Vector4<#=vector.initial#> UnitZ = new ((<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)1, (<#=vector.type#>)0);
+        public static readonly Vector4<#=vector.initial#> UnitW = new ((<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)0, (<#=vector.type#>)1);
+
+        [FieldOffset(0)]
+        private <#=vector.type#> _x;
+
+        [FieldOffset(sizeof(<#=vector.type#>))]
+        private <#=vector.type#> _y;
+
+        [FieldOffset(sizeof(<#=vector.type#>) * 2)]
+        private <#=vector.type#> _z;
+
+        [FieldOffset(sizeof(<#=vector.type#>) * 3)]
+        private <#=vector.type#> _w;
+
+        [FieldOffset(0)]
+        private fixed <#=vector.type#> _values[4];
+
+        [FieldOffset(0)]
+        private Vector128<<#=vector.type#>> _vector;
+
+        public <#=vector.type#> X
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _x; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _x = value; }
+        }
+
+        public <#=vector.type#> Y
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _y; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _y = value; }
+        }
+
+        public <#=vector.type#> Z
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _z; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _z = value; }
+        }
+
+        public <#=vector.type#> W
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _w; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _w = value; }
+        }
+
+        public Vector128<<#=vector.type#>> Vector
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _vector; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _vector = value; }
+        }
+        
+        public Vector2<#=vector.initial#> XY
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector2<#=vector.initial#>(_x, _y); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+            }
+        }
+        public Vector3<#=vector.initial#> XYZ
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector3<#=vector.initial#>(_x, _y, _z); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+                _z = value.Z;
+            }
+        }
+
+        public <#=vector.type#> R
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _x; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _x = value; }
+        }
+
+        public <#=vector.type#> G
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _y; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _y = value; }
+        }
+
+        public <#=vector.type#> B
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _z; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _z = value; }
+        }
+
+        public <#=vector.type#> A
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _w; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _w = value; }
+        }
+
+        public Vector2<#=vector.initial#> RG
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector2<#=vector.initial#>(_x, _y); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+            }
+        }
+        public Vector3<#=vector.initial#> RGB
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return new Vector3<#=vector.initial#>(_x, _y, _z); }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                _x = value.X;
+                _y = value.Y;
+                _z = value.Z;
+            }
+        }
+
+        public Vector4<#=vector.initial#>()
+        {
+            _vector = default;
+            _x      = (<#=vector.type#>)0;
+            _y      = (<#=vector.type#>)0;
+            _z      = (<#=vector.type#>)0;
+            _w      = (<#=vector.type#>)0;
+        }
+        public Vector4<#=vector.initial#>(<#=vector.type#> value) : this()
+        {
+            _x = value;
+            _y = value;
+            _z = value;
+            _w = value;
+        }
+        public Vector4<#=vector.initial#>(Vector3<#=vector.initial#> vector, <#=vector.type#> w) : this()
+        {
+            _x = vector.X;
+            _y = vector.Y;
+            _z = vector.Z;
+            _w = w;
+        }
+        public Vector4<#=vector.initial#>(<#=vector.type#> x, <#=vector.type#> y, <#=vector.type#> z, <#=vector.type#> w) : this()
+        {
+            _x = x;
+            _y = y;
+            _z = z;
+            _w = w;
+        }
+
+        public Vector4<#=vector.initial#>(<#=vector.type#>[] values) : this()
+        {
+            _x = values[0];
+            _y = values[1];
+            _z = values[2];
+            _w = values[3];
+        }
+
+        public Vector4<#=vector.initial#>(Vector4<#=vector.initial#> vector) : this()
+        {
+            _x = vector._x;
+            _y = vector._y;
+            _z = vector._z;
+            _w = vector._w;
+        }
+
+        public Vector4<#=vector.initial#>(Vector128<<#=vector.type#>> values) : this()
+        {
+            _x = values.GetElement(0);
+            _y = values.GetElement(1);
+            _z = values.GetElement(2);
+            _w = values.GetElement(3);
+        }
+
+        public Vector4<#=vector.initial#>(ReadOnlySpan<<#=vector.type#>> values)
+        {
+            if (values.Length < 4)
+            {
+                throw new ArgumentOutOfRangeException(nameof(values));
+            }
+
+            this = Unsafe.ReadUnaligned<Vector4<#=vector.initial#>>(ref Unsafe.As<<#=vector.type#>, byte>(ref MemoryMarshal.GetReference(values)));
+        }
+
+        public <#=vector.type#> this[int index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[uint index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[long index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        public <#=vector.type#> this[ulong index]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _values[index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set { _values[index] = value; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(int index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(uint index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(long index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref <#=vector.type#> Ref(ulong index)
+        {
+            return ref _values[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is Vector4<#=vector.initial#> other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_x, _y, _z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return (Sse.MoveMask(Sse.CompareEqual(lhs._vector, rhs._vector)) == 0x0F);
+            }
+<#}#>
+            return lhs.Equals(rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return (Sse.MoveMask(Sse.CompareNotEqual(lhs._vector, rhs._vector)) == 0x0F);
+            }
+<#}#>
+            return !lhs.Equals(rhs);
+        }
+    
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string ToString()
+        {
+            return ToString("G", CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format)
+        {
+            return ToString(format, CultureInfo.CurrentCulture);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string separator = NumberFormatInfo.GetInstance(formatProvider).NumberGroupSeparator;
+
+            sb.Append('[');
+            sb.Append(_values[0].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[1].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[2].ToString(format, formatProvider));
+            sb.Append(separator);
+            sb.Append(' ');
+            sb.Append(_values[3].ToString(format, formatProvider));
+            sb.Append(']');
+
+            return sb.ToString();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsZero()
+        {
+            return IsZero(this);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsZero(Vector4<#=vector.initial#> point)
+        {
+            if(point.X == 0 && point.Y == 0 && point.Z == 0 && point.W == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator -(Vector4<#=vector.initial#> value)
+        {
+            return Zero - value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator +(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Add(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X + rhs.X, lhs.Y + rhs.Y, lhs.Z + rhs.Z, lhs.W + rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator +(Vector4<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector4<#=vector.initial#>(Sse.Add(lhs._vector, v));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X + rhs, lhs.Y + rhs, lhs.Z + rhs, lhs.W + rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator +(<#=vector.type#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector4<#=vector.initial#>(Sse.Add(v, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs + rhs.X, lhs + rhs.Y, lhs + rhs.Z, lhs + rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator -(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Subtract(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X - rhs.X, lhs.Y - rhs.Y, lhs.Z - rhs.Z, lhs.W - rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator -(Vector4<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(rhs);
+                return new Vector4<#=vector.initial#>(Sse.Add(lhs._vector, v));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X - rhs, lhs.Y - rhs, lhs.Z - rhs, lhs.W - rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator -(<#=vector.type#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                Vector128<<#=vector.type#>> v = Vector128.Create(lhs);
+                return new Vector4<#=vector.initial#>(Sse.Add(v, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs - rhs.X, lhs - rhs.Y, lhs - rhs.Z, lhs - rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator *(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Multiply(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X * rhs.X, lhs.Y * rhs.Y, lhs.Z * rhs.Z, lhs.W * rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator *(Vector4<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return new Vector4<#=vector.initial#>(lhs.X * rhs, lhs.Y * rhs, lhs.Z * rhs, lhs.W * rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator *(<#=vector.type#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return new Vector4<#=vector.initial#>(lhs * rhs.X, lhs * rhs.Y, lhs * rhs.Z, lhs * rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator /(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Divide(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>(lhs.X / rhs.X, lhs.Y / rhs.Y, lhs.Z / rhs.Z, lhs.W / rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator /(Vector4<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return new Vector4<#=vector.initial#>(lhs.X / rhs, lhs.Y / rhs, lhs.Z / rhs, lhs.W / rhs);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> operator /(<#=vector.type#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return new Vector4<#=vector.initial#>(lhs / rhs.X, lhs / rhs.Y, lhs / rhs.Z, lhs / rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Abs(Vector4<#=vector.initial#> value)
+        {
+<#if(vector.type.StartsWith("u")){#>
+            return new Vector4<#=vector.initial#>(value.X, value.Y, value.Z, value.W);
+<#}else{#>
+            return new Vector4<#=vector.initial#>(<#=vector.math#>.Abs(value.X), <#=vector.math#>.Abs(value.Y), <#=vector.math#>.Abs(value.Z), <#=vector.math#>.Abs(value.W));
+<#}#>
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Add(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return lhs + rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Clamp(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> min, Vector4<#=vector.initial#> max)
+        {
+            return Min(Max(lhs, min), max);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Divide(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return lhs / rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Divide(Vector4<#=vector.initial#> lhs, <#=vector.type#> divisor)
+        {
+            return lhs / divisor;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Max(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Max(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>((lhs.X > rhs.X) ? lhs.X : rhs.X,
+                                (lhs.Y > rhs.Y) ? lhs.Y : rhs.Y,
+                                (lhs.Z > rhs.Z) ? lhs.Z : rhs.Z,
+                                (lhs.W > rhs.W) ? lhs.W : rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Min(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+<#if(vector.type == "float"){#>
+            if (Sse.IsSupported)
+            {
+                return new Vector4<#=vector.initial#>(Sse.Min(lhs._vector, rhs._vector));
+            }
+<#}#>
+            return new Vector4<#=vector.initial#>((lhs.X < rhs.X) ? lhs.X : rhs.X,
+                                (lhs.Y < rhs.Y) ? lhs.Y : rhs.Y,
+                                (lhs.Z < rhs.Z) ? lhs.Z : rhs.Z,
+                                (lhs.W < rhs.W) ? lhs.W : rhs.W);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Multiply(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Multiply(Vector4<#=vector.initial#> lhs, <#=vector.type#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Multiply(<#=vector.type#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return lhs * rhs;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Negate(Vector4<#=vector.initial#> value)
+        {
+            return -value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static Vector4<#=vector.initial#> Subtract(Vector4<#=vector.initial#> lhs, Vector4<#=vector.initial#> rhs)
+        {
+            return lhs - rhs;
+        }
+    }
+
+<# } #>
 }
-
-
