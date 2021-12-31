@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint PrimitiveTopologyListRestart;
+        [NativeTypeName("Bool32")] public uint PrimitiveTopologyListRestart;
 
-        [NativeTypeName("VkBool32")] public uint PrimitiveTopologyPatchListRestart;
+        [NativeTypeName("Bool32")] public uint PrimitiveTopologyPatchListRestart;
     }
 }

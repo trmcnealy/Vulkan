@@ -15,7 +15,7 @@ namespace Vulkan
 
         public VkPrimitiveTopology Topology;
 
-        [NativeTypeName("VkBool32")]
+        [NativeTypeName("Bool32")]
         public uint PrimitiveRestartEnable;
     }
 }

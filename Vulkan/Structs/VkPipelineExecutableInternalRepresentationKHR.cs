@@ -13,7 +13,7 @@ namespace Vulkan
 
         [NativeTypeName("char [256]")] public fixed sbyte Description[256];
 
-        [NativeTypeName("VkBool32")] public uint IsText;
+        [NativeTypeName("Bool32")] public uint IsText;
 
         [NativeTypeName("size_t")] public nuint DataSize;
 

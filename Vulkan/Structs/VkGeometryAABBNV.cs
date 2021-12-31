@@ -15,6 +15,6 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint Stride;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Offset;
+        [NativeTypeName("ulong")] public ulong Offset;
     }
 }

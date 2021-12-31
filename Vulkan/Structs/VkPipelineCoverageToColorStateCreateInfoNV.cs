@@ -12,7 +12,7 @@ namespace Vulkan
         [NativeTypeName("VkPipelineCoverageToColorStateCreateFlagsNV")]
         public uint Flags;
 
-        [NativeTypeName("VkBool32")] public uint CoverageToColorEnable;
+        [NativeTypeName("Bool32")] public uint CoverageToColorEnable;
 
         [NativeTypeName("uint32_t")] public uint CoverageToColorLocation;
     }

@@ -18,16 +18,34 @@ namespace Glfw
 
         private readonly nint _handle;
             
-        public GLFWcursor(nint handle) => _handle = handle;
-            
-        public nint Handle => _handle;
-            
-        public bool Equals(GLFWcursor other) => _handle.Equals(other._handle);
-            
-        public override bool Equals(object? obj) => obj is GLFWcursor other && Equals(other);
-            
-        public override int GetHashCode() => _handle.GetHashCode();
-            
+        public GLFWcursor(nint handle)
+        {
+            _handle = handle;
+        }
+
+        public nint Handle
+        {
+            get
+            {
+                return _handle;
+            }
+        }
+
+        public bool Equals(GLFWcursor other)
+        {
+            return _handle.Equals(other._handle);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is GLFWcursor other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
         public override string? ToString()
         {
             unsafe
@@ -36,8 +54,14 @@ namespace Glfw
             }
         }
 
-        public static bool operator ==(GLFWcursor left, GLFWcursor right) => left.Equals(right);
-            
-        public static bool operator !=(GLFWcursor left, GLFWcursor right) => !left.Equals(right);
+        public static bool operator ==(GLFWcursor left, GLFWcursor right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(GLFWcursor left, GLFWcursor right)
+        {
+            return !left.Equals(right);
+        }
     }
 }

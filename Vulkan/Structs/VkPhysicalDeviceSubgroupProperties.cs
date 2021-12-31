@@ -16,6 +16,6 @@ namespace Vulkan
         [NativeTypeName("VkSubgroupFeatureFlags")]
         public uint SupportedOperations;
 
-        [NativeTypeName("VkBool32")] public uint QuadOperationsInAllStages;
+        [NativeTypeName("Bool32")] public uint QuadOperationsInAllStages;
     }
 }

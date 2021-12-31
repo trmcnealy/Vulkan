@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint VariablePointersStorageBuffer;
+        [NativeTypeName("Bool32")] public uint VariablePointersStorageBuffer;
 
-        [NativeTypeName("VkBool32")] public uint VariablePointers;
+        [NativeTypeName("Bool32")] public uint VariablePointers;
     }
 }

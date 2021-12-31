@@ -13,6 +13,6 @@ namespace Vulkan
 
         public VkRect2D DstRect;
 
-        [NativeTypeName("VkBool32")] public uint Persistent;
+        [NativeTypeName("Bool32")] public uint Persistent;
     }
 }

@@ -16,6 +16,6 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint SampleLocationSubPixelBits;
 
-        [NativeTypeName("VkBool32")] public uint VariableSampleLocations;
+        [NativeTypeName("Bool32")] public uint VariableSampleLocations;
     }
 }

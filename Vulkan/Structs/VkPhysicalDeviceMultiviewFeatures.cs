@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint Multiview;
+        [NativeTypeName("Bool32")] public uint Multiview;
 
-        [NativeTypeName("VkBool32")] public uint MultiviewGeometryShader;
+        [NativeTypeName("Bool32")] public uint MultiviewGeometryShader;
 
-        [NativeTypeName("VkBool32")] public uint MultiviewTessellationShader;
+        [NativeTypeName("Bool32")] public uint MultiviewTessellationShader;
     }
 }

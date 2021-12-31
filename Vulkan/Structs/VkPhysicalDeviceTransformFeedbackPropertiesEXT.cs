@@ -13,7 +13,7 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxTransformFeedbackBuffers;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MaxTransformFeedbackBufferSize;
+        [NativeTypeName("ulong")] public ulong MaxTransformFeedbackBufferSize;
 
         [NativeTypeName("uint32_t")] public uint MaxTransformFeedbackStreamDataSize;
 
@@ -21,12 +21,12 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxTransformFeedbackBufferDataStride;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackQueries;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackQueries;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackStreamsLinesTriangles;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackStreamsLinesTriangles;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackRasterizationStreamSelect;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackRasterizationStreamSelect;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackDraw;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackDraw;
     }
 }

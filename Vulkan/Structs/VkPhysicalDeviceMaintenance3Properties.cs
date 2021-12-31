@@ -11,6 +11,6 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxPerSetDescriptors;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MaxMemoryAllocationSize;
+        [NativeTypeName("ulong")] public ulong MaxMemoryAllocationSize;
     }
 }

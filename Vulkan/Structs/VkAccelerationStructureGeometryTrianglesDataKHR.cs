@@ -13,7 +13,7 @@ namespace Vulkan
 
         public VkDeviceOrHostAddressConstKHR VertexData;
 
-        [NativeTypeName("VkDeviceSize")] public ulong VertexStride;
+        [NativeTypeName("ulong")] public ulong VertexStride;
 
         [NativeTypeName("uint32_t")] public uint MaxVertex;
 

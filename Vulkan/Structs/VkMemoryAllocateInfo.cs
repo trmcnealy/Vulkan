@@ -9,7 +9,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong AllocationSize;
+        [NativeTypeName("ulong")] public ulong AllocationSize;
 
         [NativeTypeName("uint32_t")] public uint MemoryTypeIndex;
     }

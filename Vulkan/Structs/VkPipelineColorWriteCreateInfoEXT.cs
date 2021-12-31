@@ -10,6 +10,6 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint AttachmentCount;
 
-        [NativeTypeName("const VkBool32 *")] public uint* PColorWriteEnables;
+        [NativeTypeName("const Bool32 *")] public uint* PColorWriteEnables;
     }
 }

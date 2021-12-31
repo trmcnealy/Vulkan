@@ -11,7 +11,7 @@ namespace Vulkan
 
         public VkLineRasterizationModeEXT LineRasterizationMode;
 
-        [NativeTypeName("VkBool32")] public uint StippledLineEnable;
+        [NativeTypeName("Bool32")] public uint StippledLineEnable;
 
         [NativeTypeName("uint32_t")] public uint LineStippleFactor;
 

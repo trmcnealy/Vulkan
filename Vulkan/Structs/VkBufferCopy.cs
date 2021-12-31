@@ -5,13 +5,13 @@ namespace Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct VkBufferCopy
     {
-        [NativeTypeName("VkDeviceSize")]
+        [NativeTypeName("ulong")]
         public ulong SrcOffset;
 
-        [NativeTypeName("VkDeviceSize")]
+        [NativeTypeName("ulong")]
         public ulong DstOffset;
 
-        [NativeTypeName("VkDeviceSize")]
+        [NativeTypeName("ulong")]
         public ulong Size;
     }
 }

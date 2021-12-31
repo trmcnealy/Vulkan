@@ -5,7 +5,7 @@ namespace Vulkan
     [StructLayout(LayoutKind.Sequential)]
     public struct VkBufferImageCopy
     {
-        [NativeTypeName("VkDeviceSize")] public ulong BufferOffset;
+        [NativeTypeName("ulong")] public ulong BufferOffset;
 
         [NativeTypeName("uint32_t")] public uint BufferRowLength;
 

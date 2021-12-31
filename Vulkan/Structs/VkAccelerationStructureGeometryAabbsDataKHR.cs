@@ -11,6 +11,6 @@ namespace Vulkan
 
         public VkDeviceOrHostAddressConstKHR Data;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Stride;
+        [NativeTypeName("ulong")] public ulong Stride;
     }
 }

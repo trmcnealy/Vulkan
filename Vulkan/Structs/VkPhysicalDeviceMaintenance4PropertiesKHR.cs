@@ -9,6 +9,6 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MaxBufferSize;
+        [NativeTypeName("ulong")] public ulong MaxBufferSize;
     }
 }

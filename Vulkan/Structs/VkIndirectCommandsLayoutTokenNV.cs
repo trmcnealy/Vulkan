@@ -18,7 +18,7 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint VertexBindingUnit;
 
-        [NativeTypeName("VkBool32")] public uint VertexDynamicStride;
+        [NativeTypeName("Bool32")] public uint VertexDynamicStride;
 
         [NativeTypeName("VkPipelineLayout")] public VkPipelineLayout PushconstantPipelineLayout;
 

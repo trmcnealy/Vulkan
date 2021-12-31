@@ -13,15 +13,15 @@ namespace Vulkan
 
         public VkSampleCountFlagBits RasterizationSamples;
 
-        [NativeTypeName("VkBool32")] public uint SampleShadingEnable;
+        [NativeTypeName("Bool32")] public uint SampleShadingEnable;
 
         public float MinSampleShading;
 
         [NativeTypeName("const VkSampleMask *")]
         public uint* PSampleMask;
 
-        [NativeTypeName("VkBool32")] public uint AlphaToCoverageEnable;
+        [NativeTypeName("Bool32")] public uint AlphaToCoverageEnable;
 
-        [NativeTypeName("VkBool32")] public uint AlphaToOneEnable;
+        [NativeTypeName("Bool32")] public uint AlphaToOneEnable;
     }
 }

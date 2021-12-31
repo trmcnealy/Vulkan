@@ -9,9 +9,9 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint SrcPremultiplied;
+        [NativeTypeName("Bool32")] public uint SrcPremultiplied;
 
-        [NativeTypeName("VkBool32")] public uint DstPremultiplied;
+        [NativeTypeName("Bool32")] public uint DstPremultiplied;
 
         public VkBlendOverlapEXT BlendOverlap;
     }

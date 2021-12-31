@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong RobustStorageBufferAccessSizeAlignment;
+        [NativeTypeName("ulong")] public ulong RobustStorageBufferAccessSizeAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong RobustUniformBufferAccessSizeAlignment;
+        [NativeTypeName("ulong")] public ulong RobustUniformBufferAccessSizeAlignment;
     }
 }

@@ -78,7 +78,7 @@ namespace Vulkan
 
             Value = (sbyte*)Marshal.AllocHGlobal(length);
 
-            Buffer.MemoryCopy(value.Value,
+            System.Buffer.MemoryCopy(value.Value,
                               Value,
                               length,
                               length);
@@ -93,10 +93,10 @@ namespace Vulkan
 
             Value = (sbyte*)Marshal.AllocHGlobal(length);
 
-            Buffer.MemoryCopy(value,
-                              Value,
-                              length,
-                              length);
+            System.Buffer.MemoryCopy(value,
+                                     Value,
+                                     length,
+                                     length);
 
             GC.KeepAlive(this);
         }
@@ -326,7 +326,7 @@ namespace Vulkan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public override string ToString()
+        public override string? ToString()
         {
             return new string(Value);
         }
@@ -529,10 +529,10 @@ namespace Vulkan
 
             Value = (sbyte*)Marshal.AllocHGlobal(length);
 
-            Buffer.MemoryCopy(value,
-                              Value,
-                              length,
-                              length);
+            System.Buffer.MemoryCopy(value,
+                                     Value,
+                                     length,
+                                     length);
 
             GC.KeepAlive(this);
         }
@@ -751,7 +751,7 @@ namespace Vulkan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public override string ToString()
+        public override string? ToString()
         {
             return new string(Value);
         }
@@ -1007,7 +1007,7 @@ namespace Vulkan
     //    }
 
     //    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    //    public override string ToString()
+    //    public override string? ToString()
     //    {
     //        return new string(Value);
     //    }
@@ -1123,7 +1123,7 @@ namespace Vulkan
     //    }
 
     //    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    //    public override string ToString()
+    //    public override string? ToString()
     //    {
     //        return new string(Value);
     //    }

@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ShadingRateImage;
+        [NativeTypeName("Bool32")] public uint ShadingRateImage;
 
-        [NativeTypeName("VkBool32")] public uint ShadingRateCoarseSampleOrder;
+        [NativeTypeName("Bool32")] public uint ShadingRateCoarseSampleOrder;
     }
 }

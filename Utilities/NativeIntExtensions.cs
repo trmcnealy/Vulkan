@@ -89,7 +89,7 @@ namespace System
         {
             T[] array = new T[(int)length];
 
-            //int byteSize = (Marshal.SizeOf<T>() * (int)length);
+            //int byteSize = (Unsafe.SizeOf<T>() * (int)length);
             //Buffer.MemoryCopy(arrayPtr, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
 
             T*   src     = arrayPtr;
@@ -140,7 +140,7 @@ namespace System
         public static unsafe ArrayPointer<T> CreateArrayPointer<T>(int length)
             where T : unmanaged
         {
-            int byteSize = (Marshal.SizeOf<T>() * length);
+            int byteSize = (Unsafe.SizeOf<T>() * length);
             T*  pArray   = (T*)Marshal.AllocHGlobal(byteSize);
 
             return new ArrayPointer<T>((uint)length, pArray);
@@ -151,7 +151,7 @@ namespace System
         public static unsafe ArrayPointer<T> CreateArrayPointer<T>(uint length)
             where T : unmanaged
         {
-            int byteSize = (Marshal.SizeOf<T>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<T>() * (int)length);
             T*  pArray   = (T*)Marshal.AllocHGlobal(byteSize);
 
             return new ArrayPointer<T>((uint)length, pArray);
@@ -181,7 +181,7 @@ namespace System
         public static unsafe T[] CopyAndDeleteArrayPointer<T>(ArrayPointer<T> arrayPointer)
             where T : unmanaged
         {
-            int byteSize = (Marshal.SizeOf<T>() * (int)arrayPointer.Length);
+            int byteSize = (Unsafe.SizeOf<T>() * (int)arrayPointer.Length);
 
             T[] array = new T[(int)arrayPointer.Length];
 

@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint BufferDeviceAddress;
+        [NativeTypeName("Bool32")] public uint BufferDeviceAddress;
 
-        [NativeTypeName("VkBool32")] public uint BufferDeviceAddressCaptureReplay;
+        [NativeTypeName("Bool32")] public uint BufferDeviceAddressCaptureReplay;
 
-        [NativeTypeName("VkBool32")] public uint BufferDeviceAddressMultiDevice;
+        [NativeTypeName("Bool32")] public uint BufferDeviceAddressMultiDevice;
     }
 }

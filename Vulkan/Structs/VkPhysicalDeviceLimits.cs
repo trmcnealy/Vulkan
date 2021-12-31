@@ -27,9 +27,9 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxSamplerAllocationCount;
 
-        [NativeTypeName("VkDeviceSize")] public ulong BufferImageGranularity;
+        [NativeTypeName("ulong")] public ulong BufferImageGranularity;
 
-        [NativeTypeName("VkDeviceSize")] public ulong SparseAddressSpaceSize;
+        [NativeTypeName("ulong")] public ulong SparseAddressSpaceSize;
 
         [NativeTypeName("uint32_t")] public uint MaxBoundDescriptorSets;
 
@@ -139,11 +139,11 @@ namespace Vulkan
 
         [NativeTypeName("size_t")] public nuint MinMemoryMapAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MinTexelBufferOffsetAlignment;
+        [NativeTypeName("ulong")] public ulong MinTexelBufferOffsetAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MinUniformBufferOffsetAlignment;
+        [NativeTypeName("ulong")] public ulong MinUniformBufferOffsetAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MinStorageBufferOffsetAlignment;
+        [NativeTypeName("ulong")] public ulong MinStorageBufferOffsetAlignment;
 
         [NativeTypeName("int32_t")] public int MinTexelOffset;
 
@@ -187,7 +187,7 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxSampleMaskWords;
 
-        [NativeTypeName("VkBool32")] public uint TimestampComputeAndGraphics;
+        [NativeTypeName("Bool32")] public uint TimestampComputeAndGraphics;
 
         public float TimestampPeriod;
 
@@ -207,14 +207,14 @@ namespace Vulkan
 
         public float LineWidthGranularity;
 
-        [NativeTypeName("VkBool32")] public uint StrictLines;
+        [NativeTypeName("Bool32")] public uint StrictLines;
 
-        [NativeTypeName("VkBool32")] public uint StandardSampleLocations;
+        [NativeTypeName("Bool32")] public uint StandardSampleLocations;
 
-        [NativeTypeName("VkDeviceSize")] public ulong OptimalBufferCopyOffsetAlignment;
+        [NativeTypeName("ulong")] public ulong OptimalBufferCopyOffsetAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong OptimalBufferCopyRowPitchAlignment;
+        [NativeTypeName("ulong")] public ulong OptimalBufferCopyRowPitchAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong NonCoherentAtomSize;
+        [NativeTypeName("ulong")] public ulong NonCoherentAtomSize;
     }
 }

@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint FilterMinmaxSingleComponentFormats;
+        [NativeTypeName("Bool32")] public uint FilterMinmaxSingleComponentFormats;
 
-        [NativeTypeName("VkBool32")] public uint FilterMinmaxImageComponentMapping;
+        [NativeTypeName("Bool32")] public uint FilterMinmaxImageComponentMapping;
     }
 }

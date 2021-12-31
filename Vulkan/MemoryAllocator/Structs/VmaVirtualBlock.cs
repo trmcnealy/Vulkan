@@ -37,7 +37,7 @@ public readonly partial struct VmaVirtualBlock : IEquatable<VmaVirtualBlock>
         return _handle.GetHashCode();
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
         unsafe
         {

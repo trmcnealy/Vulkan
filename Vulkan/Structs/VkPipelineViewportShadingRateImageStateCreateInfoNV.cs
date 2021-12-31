@@ -10,7 +10,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ShadingRateImageEnable;
+        [NativeTypeName("Bool32")] public uint ShadingRateImageEnable;
 
         [NativeTypeName("uint32_t")]
         public uint ViewportCount;

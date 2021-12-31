@@ -12,15 +12,15 @@ namespace Vulkan
         [NativeTypeName("VkPipelineDepthStencilStateCreateFlags")]
         public uint Flags;
 
-        [NativeTypeName("VkBool32")] public uint DepthTestEnable;
+        [NativeTypeName("Bool32")] public uint DepthTestEnable;
 
-        [NativeTypeName("VkBool32")] public uint DepthWriteEnable;
+        [NativeTypeName("Bool32")] public uint DepthWriteEnable;
 
         public VkCompareOp DepthCompareOp;
 
-        [NativeTypeName("VkBool32")] public uint DepthBoundsTestEnable;
+        [NativeTypeName("Bool32")] public uint DepthBoundsTestEnable;
 
-        [NativeTypeName("VkBool32")] public uint StencilTestEnable;
+        [NativeTypeName("Bool32")] public uint StencilTestEnable;
 
         public VkStencilOpState Front;
 

@@ -16,6 +16,6 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint DeviceNodeMask;
 
-        [NativeTypeName("VkBool32")] public uint DeviceLuidValid;
+        [NativeTypeName("Bool32")] public uint DeviceLuidValid;
     }
 }

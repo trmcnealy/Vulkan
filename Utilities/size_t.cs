@@ -28,7 +28,7 @@ public readonly struct size_t : IEquatable<size_t>
         return Value.GetHashCode();
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
         return Value.ToString();
     }

@@ -11,6 +11,6 @@ namespace Vulkan
 
         [NativeTypeName("VkDeviceAddress")] public ulong DeviceAddress;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Size;
+        [NativeTypeName("ulong")] public ulong Size;
     }
 }

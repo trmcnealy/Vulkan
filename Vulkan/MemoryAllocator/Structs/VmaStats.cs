@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace Vulkan.MemoryAllocator;
 
@@ -13,7 +14,7 @@ public unsafe struct VmaStats : IDispose
 
     static VmaStats()
     {
-        VmaStatInfoSize = Marshal.SizeOf<VmaStatInfo>();
+        VmaStatInfoSize = Unsafe.SizeOf<VmaStatInfo>();
     }
 
 

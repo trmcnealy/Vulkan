@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint SubgroupSizeControl;
+        [NativeTypeName("Bool32")] public uint SubgroupSizeControl;
 
-        [NativeTypeName("VkBool32")] public uint ComputeFullSubgroups;
+        [NativeTypeName("Bool32")] public uint ComputeFullSubgroups;
     }
 }

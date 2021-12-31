@@ -14,9 +14,9 @@ namespace Vulkan
 
         [NativeTypeName("VkBuffer")] public VkBuffer Buffer;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Offset;
+        [NativeTypeName("ulong")] public ulong Offset;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Size;
+        [NativeTypeName("ulong")] public ulong Size;
 
         public VkAccelerationStructureTypeKHR Type;
 

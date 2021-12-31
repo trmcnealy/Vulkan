@@ -3,6 +3,7 @@
     <Import Project="$([MSBuild]::GetPathOfFileAbove(GlobalVersioning.props))" />
 
     <PropertyGroup>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
         <TargetFramework>net6.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>10.0</LangVersion>
@@ -28,7 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Vulkan\Delegates\*.cs" />
+      <Compile Remove="Vulkan\Delegates\*.cs" />
+      <Compile Remove="Vulkan\Framework\Backup\*.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -73,12 +75,25 @@
       <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
     </ItemGroup>
 
+
+
     <ItemGroup>
-      <None Include="Vulkan\DataTypes\Vector.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Vector.tt</DependentUpon>
-      </None>
+      <None Include="Vulkan\Framework\Backup\*.cs" />
+      <None Include="Vulkan\Framework\Barrier.cs" />
+      <None Include="Vulkan\Framework\BarrierBuffer.cs" />
+      <None Include="Vulkan\Framework\BarrierImage.cs" />
+      <None Include="Vulkan\Framework\Buffer.cs" />
+      <None Include="Vulkan\Framework\BufferRegions.cs" />
+      <None Include="Vulkan\Framework\BufferType.cs" />
+      <None Include="Vulkan\Framework\CommandBufferType.cs" />
+      <None Include="Vulkan\Framework\DefaultQueue.cs" />
+      <None Include="Vulkan\Framework\FilterType.cs" />
+      <None Include="Vulkan\Framework\GraphicsFlagBits.cs" />
+      <None Include="Vulkan\Framework\Images.cs" />
+      <None Include="Vulkan\Framework\ObjectStatus.cs" />
+      <None Include="Vulkan\Framework\ObjectType.cs" />
+      <None Include="Vulkan\Framework\QueueType.cs" />
+      <None Include="Vulkan\Framework\TextureAxis.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildGeometryInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildRangeInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildSizesInfoKHR.cs" />
@@ -125,30 +140,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="cglm-0.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <None Update="DataTypes\Primitives\Vector.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>Vector.cs</LastGenOutput>
       </None>
       <None Update="FreeType\Structs\FT_Error.tt">
         <Generator>TextTemplatingFileGenerator</Generator>
         <LastGenOutput>FT_Error.cs</LastGenOutput>
-      </None>
-      <None Update="runtimes\win-x64\native\cglm-0.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="runtimes\win-x64\native\freetype.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="runtimes\win-x64\native\glew32.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="runtimes\win-x64\native\vulkan-1.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="runtimes\win-x64\native\vulkan-1.pdb">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="runtimes\win-x64\native\VulkanMemoryAllocator.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Vulkan\DataTypes\NativeStructBuilder.ttinclude">
         <Generator>TextTemplatingFileGenerator</Generator>
@@ -162,6 +160,11 @@
         <Generator>TextTemplatingFileGenerator</Generator>
         <LastGenOutput>VkResult.cs</LastGenOutput>
       </None>
+      <Compile Update="DataTypes\Primitives\Vector.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Vector.tt</DependentUpon>
+      </Compile>
       <Compile Update="FreeType\Structs\FT_Error.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -177,6 +180,7 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Vector.tt</DependentUpon>
       </Compile>
+
       <Compile Update="Vulkan\Enums\VkResult.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -201,6 +205,33 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>HandleGenerator.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="cglm-0.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\cglm-0.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\freetype.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\glew32.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\vulkan-1.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\vulkan-1.pdb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\VEZ.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="runtimes\win-x64\native\VulkanMemoryAllocator.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

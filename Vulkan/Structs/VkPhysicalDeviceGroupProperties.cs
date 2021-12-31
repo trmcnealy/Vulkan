@@ -15,7 +15,7 @@ namespace Vulkan
         [NativeTypeName("VkPhysicalDevice [32]")]
         public _physicalDevices_e__FixedBuffer PhysicalDevices;
 
-        [NativeTypeName("VkBool32")] public uint SubsetAllocation;
+        [NativeTypeName("Bool32")] public uint SubsetAllocation;
 
         public unsafe struct _physicalDevices_e__FixedBuffer
         {

@@ -9,7 +9,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong CompactedSize;
+        [NativeTypeName("ulong")] public ulong CompactedSize;
 
         public VkAccelerationStructureInfoNV Info;
     }

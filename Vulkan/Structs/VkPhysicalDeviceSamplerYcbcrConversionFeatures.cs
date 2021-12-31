@@ -9,6 +9,6 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint SamplerYcbcrConversion;
+        [NativeTypeName("Bool32")] public uint SamplerYcbcrConversion;
     }
 }

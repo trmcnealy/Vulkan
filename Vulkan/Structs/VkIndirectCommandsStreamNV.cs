@@ -7,6 +7,6 @@ namespace Vulkan
     {
         [NativeTypeName("VkBuffer")] public VkBuffer Buffer;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Offset;
+        [NativeTypeName("ulong")] public ulong Offset;
     }
 }

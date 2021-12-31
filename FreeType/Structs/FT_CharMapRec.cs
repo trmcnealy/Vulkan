@@ -10,7 +10,7 @@ namespace FreeType
 
         static FT_CharMapRec()
         {
-            ThisSize = Marshal.SizeOf<FT_CharMapRec>();
+            ThisSize = Unsafe.SizeOf<FT_CharMapRec>();
         }
 
         [NativeTypeName("FT_Face")]

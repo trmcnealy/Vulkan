@@ -9,9 +9,9 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint SubsampledLoads;
+        [NativeTypeName("Bool32")] public uint SubsampledLoads;
 
-        [NativeTypeName("VkBool32")] public uint SubsampledCoarseReconstructionEarlyAccess;
+        [NativeTypeName("Bool32")] public uint SubsampledCoarseReconstructionEarlyAccess;
 
         [NativeTypeName("uint32_t")] public uint MaxSubsampledArrayLayers;
 

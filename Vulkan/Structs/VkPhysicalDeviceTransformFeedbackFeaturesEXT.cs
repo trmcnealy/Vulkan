@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedback;
+        [NativeTypeName("Bool32")] public uint TransformFeedback;
 
-        [NativeTypeName("VkBool32")] public uint GeometryStreams;
+        [NativeTypeName("Bool32")] public uint GeometryStreams;
     }
 }

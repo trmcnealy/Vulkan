@@ -15,7 +15,7 @@ namespace Vulkan
 
         [NativeTypeName("VkFramebuffer")] public VkFramebuffer Framebuffer;
 
-        [NativeTypeName("VkBool32")] public uint OcclusionQueryEnable;
+        [NativeTypeName("Bool32")] public uint OcclusionQueryEnable;
 
         [NativeTypeName("VkQueryControlFlags")]
         public uint QueryFlags;

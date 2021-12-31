@@ -11,7 +11,7 @@ namespace Vulkan
 
         public VkPerformanceOverrideTypeINTEL Type;
 
-        [NativeTypeName("VkBool32")] public uint Enable;
+        [NativeTypeName("Bool32")] public uint Enable;
 
         [NativeTypeName("uint64_t")] public ulong Parameter;
     }

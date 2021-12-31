@@ -9,6 +9,6 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint RepresentativeFragmentTestEnable;
+        [NativeTypeName("Bool32")] public uint RepresentativeFragmentTestEnable;
     }
 }

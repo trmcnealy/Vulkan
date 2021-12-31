@@ -39,16 +39,16 @@ namespace Vulkan
 
         [NativeTypeName("VkBuffer")] public VkBuffer PreprocessBuffer;
 
-        [NativeTypeName("VkDeviceSize")] public ulong PreprocessOffset;
+        [NativeTypeName("ulong")] public ulong PreprocessOffset;
 
-        [NativeTypeName("VkDeviceSize")] public ulong PreprocessSize;
+        [NativeTypeName("ulong")] public ulong PreprocessSize;
 
         [NativeTypeName("VkBuffer")] public VkBuffer SequencesCountBuffer;
 
-        [NativeTypeName("VkDeviceSize")] public ulong SequencesCountOffset;
+        [NativeTypeName("ulong")] public ulong SequencesCountOffset;
 
         [NativeTypeName("VkBuffer")] public VkBuffer SequencesIndexBuffer;
 
-        [NativeTypeName("VkDeviceSize")] public ulong SequencesIndexOffset;
+        [NativeTypeName("ulong")] public ulong SequencesIndexOffset;
     }
 }

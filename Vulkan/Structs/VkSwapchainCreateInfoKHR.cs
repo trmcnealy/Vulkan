@@ -61,7 +61,7 @@ namespace Vulkan
 
         public VkPresentModeKHR PresentMode;
 
-        [NativeTypeName("VkBool32")]
+        [NativeTypeName("Bool32")]
         public uint Clipped;
 
         [NativeTypeName("VkSwapchainKHR")]

@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateEnums;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateEnums;
 
-        [NativeTypeName("VkBool32")] public uint SupersampleFragmentShadingRates;
+        [NativeTypeName("Bool32")] public uint SupersampleFragmentShadingRates;
 
-        [NativeTypeName("VkBool32")] public uint NoInvocationFragmentShadingRates;
+        [NativeTypeName("Bool32")] public uint NoInvocationFragmentShadingRates;
     }
 }

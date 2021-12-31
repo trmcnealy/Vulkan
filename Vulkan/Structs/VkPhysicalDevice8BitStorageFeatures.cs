@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint StorageBuffer8BitAccess;
+        [NativeTypeName("Bool32")] public uint StorageBuffer8BitAccess;
 
-        [NativeTypeName("VkBool32")] public uint UniformAndStorageBuffer8BitAccess;
+        [NativeTypeName("Bool32")] public uint UniformAndStorageBuffer8BitAccess;
 
-        [NativeTypeName("VkBool32")] public uint StoragePushConstant8;
+        [NativeTypeName("Bool32")] public uint StoragePushConstant8;
     }
 }

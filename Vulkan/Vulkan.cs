@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Linq;
 
+
 #if x86
 using size_t = System.UInt32;
 #else
@@ -1074,7 +1075,7 @@ namespace Vulkan
                                                                   VkGraphicsPipelineCreateInfo[] createInfos,
                                                                   VkAllocationCallbacks*         pAllocator)
         {
-            int         byteSize = (Marshal.SizeOf<VkPipeline>() * createInfos.Length);
+            int         byteSize = (Unsafe.SizeOf<VkPipeline>() * createInfos.Length);
             VkPipeline* pArray   = (VkPipeline*)Marshal.AllocHGlobal(byteSize);
             
             ArrayPointer<VkGraphicsPipelineCreateInfo> pcreateInfos = createInfos.ToArrayPointer();
@@ -1083,7 +1084,7 @@ namespace Vulkan
 
             VkPipeline[] array = new VkPipeline[createInfos.Length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref Unsafe.As<RawArrayData>(array).Data), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref Unsafe.As<RawArrayData>(array).Data), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1095,7 +1096,7 @@ namespace Vulkan
                                                                  VkComputePipelineCreateInfo[] createInfos,
                                                                  VkAllocationCallbacks*        pAllocator)
         {
-            int         byteSize = (Marshal.SizeOf<VkPipeline>() * createInfos.Length);
+            int         byteSize = (Unsafe.SizeOf<VkPipeline>() * createInfos.Length);
             VkPipeline* pArray   = (VkPipeline*)Marshal.AllocHGlobal(byteSize);
             
             ArrayPointer<VkComputePipelineCreateInfo> pcreateInfos = createInfos.ToArrayPointer();
@@ -1104,7 +1105,7 @@ namespace Vulkan
 
             VkPipeline[] array = new VkPipeline[createInfos.Length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
 
             Marshal.FreeHGlobal((IntPtr)pArray);
 
@@ -1119,14 +1120,14 @@ namespace Vulkan
             {
                 Check(_EnumeratePhysicalDevices(instance, out uint pPhysicalDeviceCount, null));
 
-                int byteSize = (Marshal.SizeOf<VkPhysicalDevice>() * (int)pPhysicalDeviceCount);
+                int byteSize = (Unsafe.SizeOf<VkPhysicalDevice>() * (int)pPhysicalDeviceCount);
                 VkPhysicalDevice* pPhysicalDevices = (VkPhysicalDevice*)Marshal.AllocHGlobal(byteSize);
 
                 Check(_EnumeratePhysicalDevices(instance, out pPhysicalDeviceCount, pPhysicalDevices));
                 
                 VkPhysicalDevice[] physicalDevices = new VkPhysicalDevice[(int)pPhysicalDeviceCount];
 
-                Buffer.MemoryCopy(pPhysicalDevices, Unsafe.AsPointer(ref physicalDevices[0]), byteSize, byteSize);
+                System.Buffer.MemoryCopy(pPhysicalDevices, Unsafe.AsPointer(ref physicalDevices[0]), byteSize, byteSize);
                 Marshal.FreeHGlobal((IntPtr)pPhysicalDevices);
 
                 return physicalDevices;
@@ -1142,7 +1143,7 @@ namespace Vulkan
                 //    return null;
                 //}
 
-                //int size                = Marshal.SizeOf(typeof(IntPtr));
+                //int size                = Unsafe.SizeOf(typeof(IntPtr));
 
                 //var refpPhysicalDevices = new NativeReference((int)(size * pPhysicalDeviceCount));
 
@@ -1178,14 +1179,14 @@ namespace Vulkan
         {
             Check(_EnumeratePhysicalDevices(instance, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkPhysicalDevice>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkPhysicalDevice>() * (int)length);
             VkPhysicalDevice* pArray = (VkPhysicalDevice*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumeratePhysicalDevices(instance, out length, pArray));
             
             VkPhysicalDevice[] array = new VkPhysicalDevice[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1196,14 +1197,14 @@ namespace Vulkan
         {
             _GetPhysicalDeviceQueueFamilyProperties(physicalDevice, out uint length, null);
 
-            int byteSize = (Marshal.SizeOf<VkQueueFamilyProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkQueueFamilyProperties>() * (int)length);
             VkQueueFamilyProperties* pArray = (VkQueueFamilyProperties*)Marshal.AllocHGlobal(byteSize);
 
             _GetPhysicalDeviceQueueFamilyProperties(physicalDevice, out length, pArray);
             
             VkQueueFamilyProperties[] array = new VkQueueFamilyProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1214,14 +1215,14 @@ namespace Vulkan
         {
             Check(_EnumerateInstanceExtensionProperties(utf8string.Null, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkExtensionProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkExtensionProperties>() * (int)length);
             VkExtensionProperties* pArray = (VkExtensionProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateInstanceExtensionProperties(utf8string.Null, out length, pArray));
             
             VkExtensionProperties[] array = new VkExtensionProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1232,14 +1233,14 @@ namespace Vulkan
         {
             Check(_EnumerateInstanceExtensionProperties(str, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkExtensionProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkExtensionProperties>() * (int)length);
             VkExtensionProperties* pArray = (VkExtensionProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateInstanceExtensionProperties(str, out length, pArray));
             
             VkExtensionProperties[] array = new VkExtensionProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1250,14 +1251,14 @@ namespace Vulkan
         {
             Check(_EnumerateDeviceExtensionProperties(physicalDevice, utf8string.Null, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkExtensionProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkExtensionProperties>() * (int)length);
             VkExtensionProperties* pArray = (VkExtensionProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateDeviceExtensionProperties(physicalDevice, utf8string.Null, out length, pArray));
             
             VkExtensionProperties[] array = new VkExtensionProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1269,14 +1270,14 @@ namespace Vulkan
         {
             Check(_EnumerateDeviceExtensionProperties(physicalDevice, str, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkExtensionProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkExtensionProperties>() * (int)length);
             VkExtensionProperties* pArray = (VkExtensionProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateDeviceExtensionProperties(physicalDevice, str, out length, pArray));
 
             VkExtensionProperties[] array = new VkExtensionProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1287,14 +1288,14 @@ namespace Vulkan
         {
             Check(_EnumerateInstanceLayerProperties(out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkLayerProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkLayerProperties>() * (int)length);
             VkLayerProperties* pArray = (VkLayerProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateInstanceLayerProperties(out length, pArray));
             
             VkLayerProperties[] array = new VkLayerProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1305,14 +1306,14 @@ namespace Vulkan
         {
             Check(_EnumerateDeviceLayerProperties(physicalDevice, out uint length, null));
 
-            int byteSize = (Marshal.SizeOf<VkLayerProperties>() * (int)length);
+            int byteSize = (Unsafe.SizeOf<VkLayerProperties>() * (int)length);
             VkLayerProperties* pArray = (VkLayerProperties*)Marshal.AllocHGlobal(byteSize);
 
             Check(_EnumerateDeviceLayerProperties(physicalDevice, out length, pArray));
 
             VkLayerProperties[] array = new VkLayerProperties[(int)length];
 
-            Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
+            System.Buffer.MemoryCopy(pArray, Unsafe.AsPointer(ref array[0]), byteSize, byteSize);
             Marshal.FreeHGlobal((IntPtr)pArray);
 
             return array;
@@ -1929,7 +1930,7 @@ namespace Vulkan
         //        if(pPropertyCount <= 0)
         //            return null;
 
-        //        int size = Marshal.SizeOf(typeof(Interop.LayerProperties));
+        //        int size = Unsafe.SizeOf(typeof(Interop.LayerProperties));
         //        var refpProperties = new NativeReference((int)(size * pPropertyCount));
         //        var ptrpProperties = refpProperties.Handle;
         //        result = Interop.NativeMethods.vkEnumerateInstanceLayerProperties(&pPropertyCount, (Interop.LayerProperties*)ptrpProperties);
@@ -1960,7 +1961,7 @@ namespace Vulkan
         //        if(pPropertyCount <= 0)
         //            return null;
 
-        //        int size = Marshal.SizeOf(typeof(Interop.ExtensionProperties));
+        //        int size = Unsafe.SizeOf(typeof(Interop.ExtensionProperties));
         //        var refpProperties = new NativeReference((int)(size * pPropertyCount));
         //        var ptrpProperties = refpProperties.Handle;
         //        result = Interop.NativeMethods.vkEnumerateInstanceExtensionProperties(pLayerName, &pPropertyCount, (Interop.ExtensionProperties*)ptrpProperties);

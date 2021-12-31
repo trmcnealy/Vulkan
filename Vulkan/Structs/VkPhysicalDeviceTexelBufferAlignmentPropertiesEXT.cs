@@ -9,12 +9,12 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong StorageTexelBufferOffsetAlignmentBytes;
+        [NativeTypeName("ulong")] public ulong StorageTexelBufferOffsetAlignmentBytes;
 
-        [NativeTypeName("VkBool32")] public uint StorageTexelBufferOffsetSingleTexelAlignment;
+        [NativeTypeName("Bool32")] public uint StorageTexelBufferOffsetSingleTexelAlignment;
 
-        [NativeTypeName("VkDeviceSize")] public ulong UniformTexelBufferOffsetAlignmentBytes;
+        [NativeTypeName("ulong")] public ulong UniformTexelBufferOffsetAlignmentBytes;
 
-        [NativeTypeName("VkBool32")] public uint UniformTexelBufferOffsetSingleTexelAlignment;
+        [NativeTypeName("Bool32")] public uint UniformTexelBufferOffsetSingleTexelAlignment;
     }
 }

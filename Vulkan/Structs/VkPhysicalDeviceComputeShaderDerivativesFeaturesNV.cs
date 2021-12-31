@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ComputeDerivativeGroupQuads;
+        [NativeTypeName("Bool32")] public uint ComputeDerivativeGroupQuads;
 
-        [NativeTypeName("VkBool32")] public uint ComputeDerivativeGroupLinear;
+        [NativeTypeName("Bool32")] public uint ComputeDerivativeGroupLinear;
     }
 }

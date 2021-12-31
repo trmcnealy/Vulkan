@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint TaskShader;
+        [NativeTypeName("Bool32")] public uint TaskShader;
 
-        [NativeTypeName("VkBool32")] public uint MeshShader;
+        [NativeTypeName("Bool32")] public uint MeshShader;
     }
 }

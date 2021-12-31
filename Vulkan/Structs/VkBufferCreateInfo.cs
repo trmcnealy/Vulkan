@@ -15,7 +15,7 @@ namespace Vulkan
         [NativeTypeName("VkBufferCreateFlags")]
         public VkBufferUsageFlagBits Flags;
 
-        [NativeTypeName("VkDeviceSize")]
+        [NativeTypeName("ulong")]
         public ulong Size;
 
         [NativeTypeName("VkBufferUsageFlags")]

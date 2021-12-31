@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint PerformanceCounterQueryPools;
+        [NativeTypeName("Bool32")] public uint PerformanceCounterQueryPools;
 
-        [NativeTypeName("VkBool32")] public uint PerformanceCounterMultipleQueryPools;
+        [NativeTypeName("Bool32")] public uint PerformanceCounterMultipleQueryPools;
     }
 }

@@ -26,11 +26,11 @@ namespace Vulkan
 
         public float MipLodBias;
 
-        [NativeTypeName("VkBool32")] public uint AnisotropyEnable;
+        [NativeTypeName("Bool32")] public uint AnisotropyEnable;
 
         public float MaxAnisotropy;
 
-        [NativeTypeName("VkBool32")] public uint CompareEnable;
+        [NativeTypeName("Bool32")] public uint CompareEnable;
 
         public VkCompareOp CompareOp;
 
@@ -40,6 +40,6 @@ namespace Vulkan
 
         public VkBorderColor BorderColor;
 
-        [NativeTypeName("VkBool32")] public uint UnnormalizedCoordinates;
+        [NativeTypeName("Bool32")] public uint UnnormalizedCoordinates;
     }
 }

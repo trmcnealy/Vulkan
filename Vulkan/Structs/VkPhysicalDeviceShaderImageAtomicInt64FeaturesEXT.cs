@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ShaderImageInt64Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderImageInt64Atomics;
 
-        [NativeTypeName("VkBool32")] public uint SparseImageInt64Atomics;
+        [NativeTypeName("Bool32")] public uint SparseImageInt64Atomics;
     }
 }

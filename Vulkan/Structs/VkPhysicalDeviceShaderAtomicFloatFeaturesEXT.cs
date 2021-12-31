@@ -9,28 +9,28 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ShaderBufferFloat32Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderBufferFloat32Atomics;
 
-        [NativeTypeName("VkBool32")] public uint ShaderBufferFloat32AtomicAdd;
+        [NativeTypeName("Bool32")] public uint ShaderBufferFloat32AtomicAdd;
 
-        [NativeTypeName("VkBool32")] public uint ShaderBufferFloat64Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderBufferFloat64Atomics;
 
-        [NativeTypeName("VkBool32")] public uint ShaderBufferFloat64AtomicAdd;
+        [NativeTypeName("Bool32")] public uint ShaderBufferFloat64AtomicAdd;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSharedFloat32Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderSharedFloat32Atomics;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSharedFloat32AtomicAdd;
+        [NativeTypeName("Bool32")] public uint ShaderSharedFloat32AtomicAdd;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSharedFloat64Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderSharedFloat64Atomics;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSharedFloat64AtomicAdd;
+        [NativeTypeName("Bool32")] public uint ShaderSharedFloat64AtomicAdd;
 
-        [NativeTypeName("VkBool32")] public uint ShaderImageFloat32Atomics;
+        [NativeTypeName("Bool32")] public uint ShaderImageFloat32Atomics;
 
-        [NativeTypeName("VkBool32")] public uint ShaderImageFloat32AtomicAdd;
+        [NativeTypeName("Bool32")] public uint ShaderImageFloat32AtomicAdd;
 
-        [NativeTypeName("VkBool32")] public uint SparseImageFloat32Atomics;
+        [NativeTypeName("Bool32")] public uint SparseImageFloat32Atomics;
 
-        [NativeTypeName("VkBool32")] public uint SparseImageFloat32AtomicAdd;
+        [NativeTypeName("Bool32")] public uint SparseImageFloat32AtomicAdd;
     }
 }

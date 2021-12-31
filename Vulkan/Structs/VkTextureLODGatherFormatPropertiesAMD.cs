@@ -10,7 +10,7 @@ namespace Vulkan
         [NativeTypeName("void *")]
         public nint PNext;
 
-        [NativeTypeName("VkBool32")]
+        [NativeTypeName("Bool32")]
         public uint SupportsTextureGatherLodBiasAmd;
     }
 }

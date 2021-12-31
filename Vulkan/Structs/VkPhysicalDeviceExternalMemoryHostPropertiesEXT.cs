@@ -9,6 +9,6 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MinImportedHostPointerAlignment;
+        [NativeTypeName("ulong")] public ulong MinImportedHostPointerAlignment;
     }
 }

@@ -37,7 +37,7 @@ public readonly partial struct VmaAllocation : IEquatable<VmaAllocation>
         return _handle.GetHashCode();
     }
 
-    public override string ToString()
+    public override string? ToString()
     {
         unsafe
         {

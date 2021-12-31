@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShaderSampleInterlock;
+        [NativeTypeName("Bool32")] public uint FragmentShaderSampleInterlock;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShaderPixelInterlock;
+        [NativeTypeName("Bool32")] public uint FragmentShaderPixelInterlock;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShaderShadingRateInterlock;
+        [NativeTypeName("Bool32")] public uint FragmentShaderShadingRateInterlock;
     }
 }

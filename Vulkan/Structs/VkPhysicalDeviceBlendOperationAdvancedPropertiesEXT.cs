@@ -11,14 +11,14 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint AdvancedBlendMaxColorAttachments;
 
-        [NativeTypeName("VkBool32")] public uint AdvancedBlendIndependentBlend;
+        [NativeTypeName("Bool32")] public uint AdvancedBlendIndependentBlend;
 
-        [NativeTypeName("VkBool32")] public uint AdvancedBlendNonPremultipliedSrcColor;
+        [NativeTypeName("Bool32")] public uint AdvancedBlendNonPremultipliedSrcColor;
 
-        [NativeTypeName("VkBool32")] public uint AdvancedBlendNonPremultipliedDstColor;
+        [NativeTypeName("Bool32")] public uint AdvancedBlendNonPremultipliedDstColor;
 
-        [NativeTypeName("VkBool32")] public uint AdvancedBlendCorrelatedOverlap;
+        [NativeTypeName("Bool32")] public uint AdvancedBlendCorrelatedOverlap;
 
-        [NativeTypeName("VkBool32")] public uint AdvancedBlendAllOperations;
+        [NativeTypeName("Bool32")] public uint AdvancedBlendAllOperations;
     }
 }

@@ -80,7 +80,7 @@ namespace Glfw
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public override string ToString()
+        public override string? ToString()
         {
             return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
         }

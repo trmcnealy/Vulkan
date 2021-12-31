@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint CustomBorderColors;
+        [NativeTypeName("Bool32")] public uint CustomBorderColors;
 
-        [NativeTypeName("VkBool32")] public uint CustomBorderColorWithoutFormat;
+        [NativeTypeName("Bool32")] public uint CustomBorderColorWithoutFormat;
     }
 }

@@ -11,6 +11,6 @@ namespace Vulkan
 
         public VkComponentMapping Components;
 
-        [NativeTypeName("VkBool32")] public uint Srgb;
+        [NativeTypeName("Bool32")] public uint Srgb;
     }
 }

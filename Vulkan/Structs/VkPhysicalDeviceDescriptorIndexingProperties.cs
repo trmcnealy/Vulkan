@@ -11,19 +11,19 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxUpdateAfterBindDescriptorsInAllPools;
 
-        [NativeTypeName("VkBool32")] public uint ShaderUniformBufferArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public uint ShaderUniformBufferArrayNonUniformIndexingNative;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSampledImageArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public uint ShaderSampledImageArrayNonUniformIndexingNative;
 
-        [NativeTypeName("VkBool32")] public uint ShaderStorageBufferArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public uint ShaderStorageBufferArrayNonUniformIndexingNative;
 
-        [NativeTypeName("VkBool32")] public uint ShaderStorageImageArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public uint ShaderStorageImageArrayNonUniformIndexingNative;
 
-        [NativeTypeName("VkBool32")] public uint ShaderInputAttachmentArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public uint ShaderInputAttachmentArrayNonUniformIndexingNative;
 
-        [NativeTypeName("VkBool32")] public uint RobustBufferAccessUpdateAfterBind;
+        [NativeTypeName("Bool32")] public uint RobustBufferAccessUpdateAfterBind;
 
-        [NativeTypeName("VkBool32")] public uint QuadDivergentImplicitLod;
+        [NativeTypeName("Bool32")] public uint QuadDivergentImplicitLod;
 
         [NativeTypeName("uint32_t")] public uint MaxPerStageDescriptorUpdateAfterBindSamplers;
 

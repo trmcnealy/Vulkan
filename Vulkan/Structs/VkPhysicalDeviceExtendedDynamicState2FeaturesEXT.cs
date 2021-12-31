@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ExtendedDynamicState2;
+        [NativeTypeName("Bool32")] public uint ExtendedDynamicState2;
 
-        [NativeTypeName("VkBool32")] public uint ExtendedDynamicState2LogicOp;
+        [NativeTypeName("Bool32")] public uint ExtendedDynamicState2LogicOp;
 
-        [NativeTypeName("VkBool32")] public uint ExtendedDynamicState2PatchControlPoints;
+        [NativeTypeName("Bool32")] public uint ExtendedDynamicState2PatchControlPoints;
     }
 }

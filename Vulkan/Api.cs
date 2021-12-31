@@ -99,7 +99,7 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkDeviceMemory, VkAllocationCallbacks*, void> FreeMemory;
         /// <summary>        
-        /// VkResult vkMapMemory(VkDevice device, VkDeviceMemory memory, VkDeviceSize offset, VkDeviceSize size VkMemoryMapFlags flags, void** ppData);
+        /// VkResult vkMapMemory(VkDevice device, VkDeviceMemory memory, ulong offset, ulong size VkMemoryMapFlags flags, void** ppData);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkDeviceMemory, ulong, ulong, uint, out nint, VkResult> MapMemory;
         /// <summary>        
@@ -115,15 +115,15 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, uint, VkMappedMemoryRange*, VkResult> _InvalidateMappedMemoryRanges;
         /// <summary>        
-        /// void vkGetDeviceMemoryCommitment(VkDevice device, VkDeviceMemory memory, VkDeviceSize* pCommittedMemoryInBytes);
+        /// void vkGetDeviceMemoryCommitment(VkDevice device, VkDeviceMemory memory, ulong* pCommittedMemoryInBytes);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkDeviceMemory, out ulong, void> GetDeviceMemoryCommitment;
         /// <summary>        
-        /// VkResult vkBindBufferMemory(VkDevice device, VkBuffer buffer, VkDeviceMemory memory, VkDeviceSize memoryOffset);
+        /// VkResult vkBindBufferMemory(VkDevice device, VkBuffer buffer, VkDeviceMemory memory, ulong memoryOffset);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkBuffer, VkDeviceMemory, ulong, VkResult> BindBufferMemory;
         /// <summary>        
-        /// VkResult vkBindImageMemory(VkDevice device, VkImage image, VkDeviceMemory memory, VkDeviceSize memoryOffset);
+        /// VkResult vkBindImageMemory(VkDevice device, VkImage image, VkDeviceMemory memory, ulong memoryOffset);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkImage, VkDeviceMemory, ulong, VkResult> BindImageMemory;
         /// <summary>        
@@ -163,7 +163,7 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkFence, VkResult> GetFenceStatus;
         /// <summary>        
-        /// VkResult vkWaitForFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences, VkBool32 waitAll, uint64_t timeout);
+        /// VkResult vkWaitForFences(VkDevice device, uint32_t fenceCount, const VkFence* pFences, Bool32 waitAll, uint64_t timeout);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, uint, VkFence*, uint, ulong, VkResult> _WaitForFences;
         /// <summary>        
@@ -203,7 +203,7 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkQueryPool, VkAllocationCallbacks*, void> DestroyQueryPool;
         /// <summary>        
-        /// VkResult vkGetQueryPoolResults(VkDevice device, VkQueryPool queryPool, uint32_t firstQuery, uint32_t querCount, size_t dataSize, void* pData, VkDeviceSize stride, VkQueryResultFlags flags);
+        /// VkResult vkGetQueryPoolResults(VkDevice device, VkQueryPool queryPool, uint32_t firstQuery, uint32_t querCount, size_t dataSize, void* pData, ulong stride, VkQueryResultFlags flags);
         /// </summary>
         internal static readonly unsafe delegate*<VkDevice, VkQueryPool, uint, uint, nuint, nint, ulong, VkQueryResultFlagBits, VkResult> GetQueryPoolResults;
         /// <summary>        
@@ -423,11 +423,11 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkCommandBuffer, VkPipelineBindPoint, VkPipelineLayout, uint, uint, VkDescriptorSet*, uint, uint*, void> _CmdBindDescriptorSets;
         /// <summary>        
-        /// void vkCmdBindIndexBuffer(VkCommandBuffer commandBuffer, VkBuffer buffer, VkDeviceSize offset, VkIndexType indexType);
+        /// void vkCmdBindIndexBuffer(VkCommandBuffer commandBuffer, VkBuffer buffer, ulong offset, VkIndexType indexType);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, VkIndexType, void> CmdBindIndexBuffer;
         /// <summary>        
-        /// void vkCmdBindVertexBuffers(VkCommandBuffer commandBuffer, uint32_t firstBinding, uint32_t bindingCount, const VkBuffer* pBuffers, const VkDeviceSize* pOffsets);
+        /// void vkCmdBindVertexBuffers(VkCommandBuffer commandBuffer, uint32_t firstBinding, uint32_t bindingCount, const VkBuffer* pBuffers, const ulong* pOffsets);
         /// </summary>
         internal static readonly unsafe delegate*<VkCommandBuffer, uint, uint, VkBuffer*, ulong*, void> _CmdBindVertexBuffers;
         /// <summary>        
@@ -439,11 +439,11 @@ namespace Vulkan
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, uint, uint, uint, int, uint, void> CmdDrawIndexed;
         /// <summary>        
-        /// void vkCmdDrawIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, VkDeviceSize offset, uint32_t drawCount, uint32_t stride);
+        /// void vkCmdDrawIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, ulong offset, uint32_t drawCount, uint32_t stride);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, uint, uint, void> CmdDrawIndirect;
         /// <summary>        
-        /// void vkCmdDrawIndexedIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, VkDeviceSize offset, uint32_t drawCount, uint32_t stride);
+        /// void vkCmdDrawIndexedIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, ulong offset, uint32_t drawCount, uint32_t stride);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, uint, uint, void> CmdDrawIndexedIndirect;
         /// <summary>        
@@ -451,7 +451,7 @@ namespace Vulkan
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, uint, uint, uint, void> CmdDispatch;
         /// <summary>        
-        /// void vkCmdDispatchIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, VkDeviceSize offset);
+        /// void vkCmdDispatchIndirect(VkCommandBuffer commandBuffer, VkBuffer buffer, ulong offset);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, void> CmdDispatchIndirect;
         /// <summary>        
@@ -475,11 +475,11 @@ namespace Vulkan
         /// </summary>
         internal static readonly unsafe delegate*<VkCommandBuffer, VkImage, VkImageLayout, VkBuffer, uint, VkBufferImageCopy*, void> _CmdCopyImageToBuffer;
         /// <summary>        
-        /// void vkCmdUpdateBuffer(VkCommandBuffer commandBuffer, VkBuffer dstBuffer, VkDeviceSize dstOffset, VkDeviceSize dataSize, const void* pData);
+        /// void vkCmdUpdateBuffer(VkCommandBuffer commandBuffer, VkBuffer dstBuffer, ulong dstOffset, ulong dataSize, const void* pData);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, ulong, nint, void> CmdUpdateBuffer;
         /// <summary>        
-        /// void vkCmdFillBuffer(VkCommandBuffer commandBuffer, VkBuffer dstBuffer, VkDeviceSize dstOffset, VkDeviceSize size, uint32_t data);
+        /// void vkCmdFillBuffer(VkCommandBuffer commandBuffer, VkBuffer dstBuffer, ulong dstOffset, ulong size, uint32_t data);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkBuffer, ulong, ulong, uint, void> CmdFillBuffer;
         /// <summary>        
@@ -531,7 +531,7 @@ namespace Vulkan
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkPipelineStageFlagBits, VkQueryPool, uint, void> CmdWriteTimestamp;
         /// <summary>        
-        /// void vkCmdCopyQueryPoolResults(VkCommandBuffer commandBuffer, VkQueryPool queryPool, uint32_t firstQuery, uint32_t queryCount, VkBuffer dstBuffer, VkDeviceSize dstOffset, VkDeviceSize stride, VkQueryResultFlags flags);
+        /// void vkCmdCopyQueryPoolResults(VkCommandBuffer commandBuffer, VkQueryPool queryPool, uint32_t firstQuery, uint32_t queryCount, VkBuffer dstBuffer, ulong dstOffset, ulong stride, VkQueryResultFlags flags);
         /// </summary>
         public static readonly unsafe delegate*<VkCommandBuffer, VkQueryPool, uint, uint, VkBuffer, ulong, ulong, uint, void> CmdCopyQueryPoolResults;
         /// <summary>        

@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint ImageMipTailFirstLod;
 
-        [NativeTypeName("VkDeviceSize")] public ulong ImageMipTailSize;
+        [NativeTypeName("ulong")] public ulong ImageMipTailSize;
 
-        [NativeTypeName("VkDeviceSize")] public ulong ImageMipTailOffset;
+        [NativeTypeName("ulong")] public ulong ImageMipTailOffset;
 
-        [NativeTypeName("VkDeviceSize")] public ulong ImageMipTailStride;
+        [NativeTypeName("ulong")] public ulong ImageMipTailStride;
     }
 }

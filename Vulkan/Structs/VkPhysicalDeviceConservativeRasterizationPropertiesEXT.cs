@@ -15,16 +15,16 @@ namespace Vulkan
 
         public float ExtraPrimitiveOverestimationSizeGranularity;
 
-        [NativeTypeName("VkBool32")] public uint PrimitiveUnderestimation;
+        [NativeTypeName("Bool32")] public uint PrimitiveUnderestimation;
 
-        [NativeTypeName("VkBool32")] public uint ConservativePointAndLineRasterization;
+        [NativeTypeName("Bool32")] public uint ConservativePointAndLineRasterization;
 
-        [NativeTypeName("VkBool32")] public uint DegenerateTrianglesRasterized;
+        [NativeTypeName("Bool32")] public uint DegenerateTrianglesRasterized;
 
-        [NativeTypeName("VkBool32")] public uint DegenerateLinesRasterized;
+        [NativeTypeName("Bool32")] public uint DegenerateLinesRasterized;
 
-        [NativeTypeName("VkBool32")] public uint FullyCoveredFragmentShaderInputVariable;
+        [NativeTypeName("Bool32")] public uint FullyCoveredFragmentShaderInputVariable;
 
-        [NativeTypeName("VkBool32")] public uint ConservativeRasterizationPostDepthCoverage;
+        [NativeTypeName("Bool32")] public uint ConservativeRasterizationPostDepthCoverage;
     }
 }

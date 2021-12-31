@@ -16,7 +16,7 @@ namespace Vulkan
 
         [NativeTypeName("uint64_t")] public ulong MemoryObjectId;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Size;
+        [NativeTypeName("ulong")] public ulong Size;
 
         public VkObjectType ObjectType;
 

@@ -9,14 +9,14 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingPipeline;
+        [NativeTypeName("Bool32")] public uint RayTracingPipeline;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingPipelineShaderGroupHandleCaptureReplay;
+        [NativeTypeName("Bool32")] public uint RayTracingPipelineShaderGroupHandleCaptureReplay;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingPipelineShaderGroupHandleCaptureReplayMixed;
+        [NativeTypeName("Bool32")] public uint RayTracingPipelineShaderGroupHandleCaptureReplayMixed;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingPipelineTraceRaysIndirect;
+        [NativeTypeName("Bool32")] public uint RayTracingPipelineTraceRaysIndirect;
 
-        [NativeTypeName("VkBool32")] public uint RayTraversalPrimitiveCulling;
+        [NativeTypeName("Bool32")] public uint RayTraversalPrimitiveCulling;
     }
 }

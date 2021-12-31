@@ -17,8 +17,8 @@ namespace Vulkan
         [NativeTypeName("VkSurfaceTransformFlagsKHR")]
         public uint SupportedTransforms;
 
-        [NativeTypeName("VkBool32")] public uint PlaneReorderPossible;
+        [NativeTypeName("Bool32")] public uint PlaneReorderPossible;
 
-        [NativeTypeName("VkBool32")] public uint PersistentContent;
+        [NativeTypeName("Bool32")] public uint PersistentContent;
     }
 }

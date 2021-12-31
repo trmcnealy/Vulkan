@@ -5,7 +5,7 @@ namespace Vulkan
     [StructLayout(LayoutKind.Explicit)]
     public struct VkPipelineExecutableStatisticValueKHR
     {
-        [FieldOffset(0)] [NativeTypeName("VkBool32")]
+        [FieldOffset(0)] [NativeTypeName("Bool32")]
         public uint b32;
 
         [FieldOffset(0)] [NativeTypeName("int64_t")]

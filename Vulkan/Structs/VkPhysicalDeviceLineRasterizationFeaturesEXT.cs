@@ -9,16 +9,16 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint RectangularLines;
+        [NativeTypeName("Bool32")] public uint RectangularLines;
 
-        [NativeTypeName("VkBool32")] public uint BresenhamLines;
+        [NativeTypeName("Bool32")] public uint BresenhamLines;
 
-        [NativeTypeName("VkBool32")] public uint SmoothLines;
+        [NativeTypeName("Bool32")] public uint SmoothLines;
 
-        [NativeTypeName("VkBool32")] public uint StippledRectangularLines;
+        [NativeTypeName("Bool32")] public uint StippledRectangularLines;
 
-        [NativeTypeName("VkBool32")] public uint StippledBresenhamLines;
+        [NativeTypeName("Bool32")] public uint StippledBresenhamLines;
 
-        [NativeTypeName("VkBool32")] public uint StippledSmoothLines;
+        [NativeTypeName("Bool32")] public uint StippledSmoothLines;
     }
 }

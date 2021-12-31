@@ -13,6 +13,6 @@ namespace Vulkan
 
         [NativeTypeName("VkSampleCountFlags")] public uint SampleCounts;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MaxResourceSize;
+        [NativeTypeName("ulong")] public ulong MaxResourceSize;
     }
 }

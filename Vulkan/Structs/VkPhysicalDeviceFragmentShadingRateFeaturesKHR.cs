@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint PipelineFragmentShadingRate;
+        [NativeTypeName("Bool32")] public uint PipelineFragmentShadingRate;
 
-        [NativeTypeName("VkBool32")] public uint PrimitiveFragmentShadingRate;
+        [NativeTypeName("Bool32")] public uint PrimitiveFragmentShadingRate;
 
-        [NativeTypeName("VkBool32")] public uint AttachmentFragmentShadingRate;
+        [NativeTypeName("Bool32")] public uint AttachmentFragmentShadingRate;
     }
 }

@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ProvokingVertexModePerPipeline;
+        [NativeTypeName("Bool32")] public uint ProvokingVertexModePerPipeline;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackPreservesTriangleFanProvokingVertex;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackPreservesTriangleFanProvokingVertex;
     }
 }

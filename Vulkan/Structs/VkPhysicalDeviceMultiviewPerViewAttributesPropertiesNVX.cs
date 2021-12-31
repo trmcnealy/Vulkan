@@ -9,6 +9,6 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint PerViewPositionAllComponents;
+        [NativeTypeName("Bool32")] public uint PerViewPositionAllComponents;
     }
 }

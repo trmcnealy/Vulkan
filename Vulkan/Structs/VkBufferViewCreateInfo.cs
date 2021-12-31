@@ -16,8 +16,8 @@ namespace Vulkan
 
         public VkFormat Format;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Offset;
+        [NativeTypeName("ulong")] public ulong Offset;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Range;
+        [NativeTypeName("ulong")] public ulong Range;
     }
 }

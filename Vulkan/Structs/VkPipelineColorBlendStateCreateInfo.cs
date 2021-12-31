@@ -13,7 +13,7 @@ namespace Vulkan
         [NativeTypeName("VkPipelineColorBlendStateCreateFlags")]
         public uint Flags;
 
-        [NativeTypeName("VkBool32")] public uint LogicOpEnable;
+        [NativeTypeName("Bool32")] public uint LogicOpEnable;
 
         public VkLogicOp LogicOp;
 

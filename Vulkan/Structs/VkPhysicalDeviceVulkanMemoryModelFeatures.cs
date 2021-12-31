@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint VulkanMemoryModel;
+        [NativeTypeName("Bool32")] public uint VulkanMemoryModel;
 
-        [NativeTypeName("VkBool32")] public uint VulkanMemoryModelDeviceScope;
+        [NativeTypeName("Bool32")] public uint VulkanMemoryModelDeviceScope;
 
-        [NativeTypeName("VkBool32")] public uint VulkanMemoryModelAvailabilityVisibilityChains;
+        [NativeTypeName("Bool32")] public uint VulkanMemoryModelAvailabilityVisibilityChains;
     }
 }

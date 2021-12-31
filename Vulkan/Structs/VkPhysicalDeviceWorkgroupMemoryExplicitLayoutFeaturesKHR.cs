@@ -9,12 +9,12 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint WorkgroupMemoryExplicitLayout;
+        [NativeTypeName("Bool32")] public uint WorkgroupMemoryExplicitLayout;
 
-        [NativeTypeName("VkBool32")] public uint WorkgroupMemoryExplicitLayoutScalarBlockLayout;
+        [NativeTypeName("Bool32")] public uint WorkgroupMemoryExplicitLayoutScalarBlockLayout;
 
-        [NativeTypeName("VkBool32")] public uint WorkgroupMemoryExplicitLayout8BitAccess;
+        [NativeTypeName("Bool32")] public uint WorkgroupMemoryExplicitLayout8BitAccess;
 
-        [NativeTypeName("VkBool32")] public uint WorkgroupMemoryExplicitLayout16BitAccess;
+        [NativeTypeName("Bool32")] public uint WorkgroupMemoryExplicitLayout16BitAccess;
     }
 }

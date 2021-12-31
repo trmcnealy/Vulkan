@@ -23,6 +23,6 @@ namespace Vulkan
 
         public VkFilter ChromaFilter;
 
-        [NativeTypeName("VkBool32")] public uint ForceExplicitReconstruction;
+        [NativeTypeName("Bool32")] public uint ForceExplicitReconstruction;
     }
 }

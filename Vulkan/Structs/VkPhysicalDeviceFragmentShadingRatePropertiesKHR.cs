@@ -15,11 +15,11 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxFragmentShadingRateAttachmentTexelSizeAspectRatio;
 
-        [NativeTypeName("VkBool32")] public uint PrimitiveFragmentShadingRateWithMultipleViewports;
+        [NativeTypeName("Bool32")] public uint PrimitiveFragmentShadingRateWithMultipleViewports;
 
-        [NativeTypeName("VkBool32")] public uint LayeredShadingRateAttachments;
+        [NativeTypeName("Bool32")] public uint LayeredShadingRateAttachments;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateNonTrivialCombinerOps;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateNonTrivialCombinerOps;
 
         public VkExtent2D MaxFragmentSize;
 
@@ -29,18 +29,18 @@ namespace Vulkan
 
         public VkSampleCountFlagBits MaxFragmentShadingRateRasterizationSamples;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithShaderDepthStencilWrites;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithShaderDepthStencilWrites;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithSampleMask;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithSampleMask;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithShaderSampleMask;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithShaderSampleMask;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithConservativeRasterization;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithConservativeRasterization;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithFragmentShaderInterlock;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithFragmentShaderInterlock;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateWithCustomSampleLocations;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateWithCustomSampleLocations;
 
-        [NativeTypeName("VkBool32")] public uint FragmentShadingRateStrictMultiplyCombiner;
+        [NativeTypeName("Bool32")] public uint FragmentShadingRateStrictMultiplyCombiner;
     }
 }

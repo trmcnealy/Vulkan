@@ -9,9 +9,9 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint HasPrimary;
+        [NativeTypeName("Bool32")] public uint HasPrimary;
 
-        [NativeTypeName("VkBool32")] public uint HasRender;
+        [NativeTypeName("Bool32")] public uint HasRender;
 
         [NativeTypeName("int64_t")] public long PrimaryMajor;
 

@@ -9,10 +9,10 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint FragmentDensityMap;
+        [NativeTypeName("Bool32")] public uint FragmentDensityMap;
 
-        [NativeTypeName("VkBool32")] public uint FragmentDensityMapDynamic;
+        [NativeTypeName("Bool32")] public uint FragmentDensityMapDynamic;
 
-        [NativeTypeName("VkBool32")] public uint FragmentDensityMapNonSubsampledImages;
+        [NativeTypeName("Bool32")] public uint FragmentDensityMapNonSubsampledImages;
     }
 }

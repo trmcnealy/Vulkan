@@ -11,17 +11,17 @@ namespace Vulkan
 
         [NativeTypeName("VkBuffer")] public VkBuffer VertexData;
 
-        [NativeTypeName("VkDeviceSize")] public ulong VertexOffset;
+        [NativeTypeName("ulong")] public ulong VertexOffset;
 
         [NativeTypeName("uint32_t")] public uint VertexCount;
 
-        [NativeTypeName("VkDeviceSize")] public ulong VertexStride;
+        [NativeTypeName("ulong")] public ulong VertexStride;
 
         public VkFormat VertexFormat;
 
         [NativeTypeName("VkBuffer")] public VkBuffer IndexData;
 
-        [NativeTypeName("VkDeviceSize")] public ulong IndexOffset;
+        [NativeTypeName("ulong")] public ulong IndexOffset;
 
         [NativeTypeName("uint32_t")] public uint IndexCount;
 
@@ -29,6 +29,6 @@ namespace Vulkan
 
         [NativeTypeName("VkBuffer")] public VkBuffer TransformData;
 
-        [NativeTypeName("VkDeviceSize")] public ulong TransformOffset;
+        [NativeTypeName("ulong")] public ulong TransformOffset;
     }
 }

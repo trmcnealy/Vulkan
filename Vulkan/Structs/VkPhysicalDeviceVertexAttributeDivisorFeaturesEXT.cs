@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint VertexAttributeInstanceRateDivisor;
+        [NativeTypeName("Bool32")] public uint VertexAttributeInstanceRateDivisor;
 
-        [NativeTypeName("VkBool32")] public uint VertexAttributeInstanceRateZeroDivisor;
+        [NativeTypeName("Bool32")] public uint VertexAttributeInstanceRateZeroDivisor;
     }
 }

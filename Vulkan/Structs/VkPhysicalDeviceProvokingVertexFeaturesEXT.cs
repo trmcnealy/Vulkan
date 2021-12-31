@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ProvokingVertexLast;
+        [NativeTypeName("Bool32")] public uint ProvokingVertexLast;
 
-        [NativeTypeName("VkBool32")] public uint TransformFeedbackPreservesProvokingVertex;
+        [NativeTypeName("Bool32")] public uint TransformFeedbackPreservesProvokingVertex;
     }
 }

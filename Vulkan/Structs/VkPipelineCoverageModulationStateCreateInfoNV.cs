@@ -13,7 +13,7 @@ namespace Vulkan
 
         public VkCoverageModulationModeNV CoverageModulationMode;
 
-        [NativeTypeName("VkBool32")] public uint CoverageModulationTableEnable;
+        [NativeTypeName("Bool32")] public uint CoverageModulationTableEnable;
 
         [NativeTypeName("uint32_t")] public uint CoverageModulationTableCount;
 

@@ -16,7 +16,7 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint DeviceNodeMask;
 
-        [NativeTypeName("VkBool32")] public uint DeviceLuidValid;
+        [NativeTypeName("Bool32")] public uint DeviceLuidValid;
 
         [NativeTypeName("uint32_t")] public uint SubgroupSize;
 
@@ -25,7 +25,7 @@ namespace Vulkan
         [NativeTypeName("VkSubgroupFeatureFlags")]
         public uint SubgroupSupportedOperations;
 
-        [NativeTypeName("VkBool32")] public uint SubgroupQuadOperationsInAllStages;
+        [NativeTypeName("Bool32")] public uint SubgroupQuadOperationsInAllStages;
 
         public VkPointClippingBehavior PointClippingBehavior;
 
@@ -33,10 +33,10 @@ namespace Vulkan
 
         [NativeTypeName("uint32_t")] public uint MaxMultiviewInstanceIndex;
 
-        [NativeTypeName("VkBool32")] public uint ProtectedNoFault;
+        [NativeTypeName("Bool32")] public uint ProtectedNoFault;
 
         [NativeTypeName("uint32_t")] public uint MaxPerSetDescriptors;
 
-        [NativeTypeName("VkDeviceSize")] public ulong MaxMemoryAllocationSize;
+        [NativeTypeName("ulong")] public ulong MaxMemoryAllocationSize;
     }
 }

@@ -10,7 +10,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ViewportWScalingEnable;
+        [NativeTypeName("Bool32")] public uint ViewportWScalingEnable;
 
         [NativeTypeName("uint32_t")]
         public uint ViewportCount;

@@ -13,8 +13,8 @@ namespace Vulkan
 
         [NativeTypeName("VkResolveModeFlags")] public uint SupportedStencilResolveModes;
 
-        [NativeTypeName("VkBool32")] public uint IndependentResolveNone;
+        [NativeTypeName("Bool32")] public uint IndependentResolveNone;
 
-        [NativeTypeName("VkBool32")] public uint IndependentResolve;
+        [NativeTypeName("Bool32")] public uint IndependentResolve;
     }
 }

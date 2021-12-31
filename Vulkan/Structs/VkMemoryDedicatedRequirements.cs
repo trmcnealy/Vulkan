@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint PrefersDedicatedAllocation;
+        [NativeTypeName("Bool32")] public uint PrefersDedicatedAllocation;
 
-        [NativeTypeName("VkBool32")] public uint RequiresDedicatedAllocation;
+        [NativeTypeName("Bool32")] public uint RequiresDedicatedAllocation;
     }
 }

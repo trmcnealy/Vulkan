@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ShaderSubgroupClock;
+        [NativeTypeName("Bool32")] public uint ShaderSubgroupClock;
 
-        [NativeTypeName("VkBool32")] public uint ShaderDeviceClock;
+        [NativeTypeName("Bool32")] public uint ShaderDeviceClock;
     }
 }

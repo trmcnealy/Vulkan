@@ -12,6 +12,6 @@ namespace Vulkan
         [NativeTypeName("VkPipelineRasterizationDepthClipStateCreateFlagsEXT")]
         public uint Flags;
 
-        [NativeTypeName("VkBool32")] public uint DepthClipEnable;
+        [NativeTypeName("Bool32")] public uint DepthClipEnable;
     }
 }

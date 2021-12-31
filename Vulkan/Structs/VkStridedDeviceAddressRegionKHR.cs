@@ -7,8 +7,8 @@ namespace Vulkan
     {
         [NativeTypeName("VkDeviceAddress")] public ulong DeviceAddress;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Stride;
+        [NativeTypeName("ulong")] public ulong Stride;
 
-        [NativeTypeName("VkDeviceSize")] public ulong Size;
+        [NativeTypeName("ulong")] public ulong Size;
     }
 }

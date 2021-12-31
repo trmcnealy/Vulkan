@@ -8,7 +8,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint pNext;
 
-        [NativeTypeName("VkBool32")] public uint viewportScissor2D;
+        [NativeTypeName("Bool32")] public uint viewportScissor2D;
 
         [NativeTypeName("uint32_t")] public uint viewportDepthCount;
 

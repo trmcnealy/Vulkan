@@ -13,7 +13,7 @@ namespace Vulkan
 
         [FieldOffset(0)] public float valueFloat;
 
-        [FieldOffset(0)] [NativeTypeName("VkBool32")]
+        [FieldOffset(0)] [NativeTypeName("Bool32")]
         public uint valueBool;
 
         [FieldOffset(0)] [NativeTypeName("const char *")] 

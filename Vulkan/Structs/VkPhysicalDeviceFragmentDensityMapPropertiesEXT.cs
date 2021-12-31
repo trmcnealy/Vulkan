@@ -13,6 +13,6 @@ namespace Vulkan
 
         public VkExtent2D MaxFragmentDensityTexelSize;
 
-        [NativeTypeName("VkBool32")] public uint FragmentDensityInvocations;
+        [NativeTypeName("Bool32")] public uint FragmentDensityInvocations;
     }
 }

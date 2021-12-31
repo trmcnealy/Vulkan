@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingMotionBlur;
+        [NativeTypeName("Bool32")] public uint RayTracingMotionBlur;
 
-        [NativeTypeName("VkBool32")] public uint RayTracingMotionBlurPipelineTraceRaysIndirect;
+        [NativeTypeName("Bool32")] public uint RayTracingMotionBlurPipelineTraceRaysIndirect;
     }
 }

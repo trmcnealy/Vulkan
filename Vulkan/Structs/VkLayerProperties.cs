@@ -12,7 +12,7 @@ namespace Vulkan
 
         [NativeTypeName("char [256]")] public fixed sbyte Description[256];
 
-        public override string ToString()
+        public override string? ToString()
         {
             fixed(sbyte* layerNamePtr = LayerName)
             fixed(sbyte* DescriptionPtr = Description)

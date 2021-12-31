@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint FormatA4R4G4B4;
+        [NativeTypeName("Bool32")] public uint FormatA4R4G4B4;
 
-        [NativeTypeName("VkBool32")] public uint FormatA4B4G4R4;
+        [NativeTypeName("Bool32")] public uint FormatA4B4G4R4;
     }
 }

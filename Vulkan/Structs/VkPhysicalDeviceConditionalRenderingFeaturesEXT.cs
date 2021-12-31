@@ -9,8 +9,8 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("VkBool32")] public uint ConditionalRendering;
+        [NativeTypeName("Bool32")] public uint ConditionalRendering;
 
-        [NativeTypeName("VkBool32")] public uint InheritedConditionalRendering;
+        [NativeTypeName("Bool32")] public uint InheritedConditionalRendering;
     }
 }

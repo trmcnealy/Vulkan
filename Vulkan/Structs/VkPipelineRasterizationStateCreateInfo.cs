@@ -12,9 +12,9 @@ namespace Vulkan
         [NativeTypeName("VkPipelineRasterizationStateCreateFlags")]
         public uint Flags;
 
-        [NativeTypeName("VkBool32")] public uint DepthClampEnable;
+        [NativeTypeName("Bool32")] public uint DepthClampEnable;
 
-        [NativeTypeName("VkBool32")] public uint RasterizerDiscardEnable;
+        [NativeTypeName("Bool32")] public uint RasterizerDiscardEnable;
 
         public VkPolygonMode PolygonMode;
 
@@ -22,7 +22,7 @@ namespace Vulkan
 
         public VkFrontFace FrontFace;
 
-        [NativeTypeName("VkBool32")] public uint DepthBiasEnable;
+        [NativeTypeName("Bool32")] public uint DepthBiasEnable;
 
         public float DepthBiasConstantFactor;
 

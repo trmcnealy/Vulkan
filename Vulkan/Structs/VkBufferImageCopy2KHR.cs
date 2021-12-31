@@ -9,7 +9,7 @@ namespace Vulkan
 
         [NativeTypeName("const void *")] public nint PNext;
 
-        [NativeTypeName("VkDeviceSize")] public ulong BufferOffset;
+        [NativeTypeName("ulong")] public ulong BufferOffset;
 
         [NativeTypeName("uint32_t")] public uint BufferRowLength;
 
