@@ -8,46 +8,46 @@ namespace Vulkan
 
         [NativeTypeName("void *")] public nint PNext;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Name[256];
+        [NativeTypeName("char [256]")] public utf8string<Const.UInt256> Name;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Version[256];
+        [NativeTypeName("char [256]")] public utf8string<Const.UInt256> Version;
 
         [NativeTypeName("VkToolPurposeFlagsEXT")]
         public uint Purposes;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Description[256];
+        [NativeTypeName("char [256]")] public utf8string<Const.UInt256> Description;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Layer[256];
-		
-		public utf8string NameAsUtf8String()
+        [NativeTypeName("char [256]")] public utf8string<Const.UInt256> Layer;
+        
+        public utf8string NameAsUtf8String()
         {
-            fixed(sbyte* ptr = Name)
+            //fixed(sbyte* ptr = Name)
             {
-                return new utf8string(ptr);
+                return Name.ToString();
             }
         }
-		
-		public utf8string VersionAsUtf8String()
+        
+        public utf8string VersionAsUtf8String()
         {
-            fixed(sbyte* ptr = Version)
+            //fixed(sbyte* ptr = Version)
             {
-                return new utf8string(ptr);
+                return Version.ToString();
             }
         }
-		
-		public utf8string DescriptionAsUtf8String()
+        
+        public utf8string DescriptionAsUtf8String()
         {
-            fixed(sbyte* ptr = Description)
+            //fixed(sbyte* ptr = Description)
             {
-                return new utf8string(ptr);
+                return Description.ToString();
             }
         }
-		
-		public utf8string LayerAsUtf8String()
+        
+        public utf8string LayerAsUtf8String()
         {
-            fixed(sbyte* ptr = Layer)
+            //fixed(sbyte* ptr = Layer)
             {
-                return new utf8string(ptr);
+                return Layer.ToString();
             }
         }
     }

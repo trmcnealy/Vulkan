@@ -54,11 +54,12 @@ namespace FreeType
 
             public ref utf8string this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(utf8string* pThis = &e0)
+                    //fixed(utf8string* pThis = &e0)
                     {
+                        utf8string* pThis = (utf8string*)Unsafe.AsPointer(ref e0);
                         return ref pThis[index];
                     }
                 }
@@ -86,7 +87,7 @@ namespace FreeType
 
             public ref int* this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
                     fixed(int** pThis = &e0)
@@ -106,11 +107,12 @@ namespace FreeType
 
             public unsafe ref PS_DesignMap this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(PS_DesignMap* pThis = &e0)
+                    //fixed(PS_DesignMap* pThis = &e0)
                     {
+                        PS_DesignMap* pThis = (PS_DesignMap*)Unsafe.AsPointer(ref e0);
                         return ref pThis[index];
                     }
                 }
@@ -139,7 +141,7 @@ namespace FreeType
 
             public ref PS_FontInfoRec* this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
                     fixed(PS_FontInfoRec** pThis = &e0)
@@ -172,7 +174,7 @@ namespace FreeType
 
             public ref PS_PrivateRec* this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
                     fixed(PS_PrivateRec** pThis = &e0)
@@ -205,7 +207,7 @@ namespace FreeType
 
             public ref FT_BBox* this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
                     fixed(FT_BBox** pThis = &e0)

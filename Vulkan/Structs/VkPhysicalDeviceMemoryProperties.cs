@@ -51,11 +51,12 @@ namespace Vulkan
 
             public unsafe ref VkMemoryType this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkMemoryType* pThis = &E0)
+                    //fixed(VkMemoryType* pThis = &E0)
                     {
+                        VkMemoryType* pThis = (VkMemoryType*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }
@@ -83,11 +84,12 @@ namespace Vulkan
 
             public unsafe ref VkMemoryHeap this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkMemoryHeap* pThis = &E0)
+                    //fixed(VkMemoryHeap* pThis = &E0)
                     {
+                        VkMemoryHeap* pThis = (VkMemoryHeap*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }

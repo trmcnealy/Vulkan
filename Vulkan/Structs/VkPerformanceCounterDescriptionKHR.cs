@@ -6,38 +6,42 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")]
+        public nint PNext;
 
         [NativeTypeName("VkPerformanceCounterDescriptionFlagsKHR")]
         public uint Flags;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Name[256];
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> Name;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Category[256];
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> Category;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Description[256];
-		
-		public utf8string NameAsUtf8String()
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> Description;
+        
+        public utf8string NameAsUtf8String()
         {
-            fixed(sbyte* ptr = Name)
+            //fixed(sbyte* ptr = Name)
             {
-                return new utf8string(ptr);
+                return Name.ToString();
             }
         }
-		
-		public utf8string CategoryAsUtf8String()
+        
+        public utf8string CategoryAsUtf8String()
         {
-            fixed(sbyte* ptr = Category)
+            //fixed(sbyte* ptr = Category)
             {
-                return new utf8string(ptr);
+                return Category.ToString();
             }
         }
-		
-		public utf8string DescriptionAsUtf8String()
+        
+        public utf8string DescriptionAsUtf8String()
         {
-            fixed(sbyte* ptr = Description)
+            //fixed(sbyte* ptr = Description)
             {
-                return new utf8string(ptr);
+                return Description.ToString();
             }
         }
     }

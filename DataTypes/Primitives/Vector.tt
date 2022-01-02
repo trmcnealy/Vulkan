@@ -177,13 +177,13 @@ namespace Vulkan
             return HashCode.Combine(_x, _y);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool IsZero()
         {
             return IsZero(this);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool IsZero(Vector2<#=vector.initial#> point)
         {
             if(point.X == 0 && point.Y == 0)
@@ -660,13 +660,13 @@ namespace Vulkan
             return sb.ToString();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool IsZero()
         {
             return IsZero(this);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool IsZero(Vector3<#=vector.initial#> point)
         {
             if(point.X == 0 && point.Y == 0 && point.Z == 0)
@@ -1276,13 +1276,13 @@ namespace Vulkan
             return sb.ToString();
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool IsZero()
         {
             return IsZero(this);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool IsZero(Vector4<#=vector.initial#> point)
         {
             if(point.X == 0 && point.Y == 0 && point.Z == 0 && point.W == 0)

@@ -7,10 +7,12 @@ namespace Vulkan
         public VkStructureType SType;
 
         [NativeTypeName("void *")] public nint PNext;
+        
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> Name;
 
-        [NativeTypeName("char [256]")] public fixed sbyte Name[256];
-
-        [NativeTypeName("char [256]")] public fixed sbyte Description[256];
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> Description;
 
         public VkPipelineExecutableStatisticFormatKHR Format;
 
@@ -18,17 +20,17 @@ namespace Vulkan
         
         public utf8string NameAsUtf8String()
         {
-            fixed(sbyte* ptr = Name)
+            //fixed(sbyte* ptr = Name)
             {
-                return new utf8string(ptr);
+                return Name.ToString();
             }
-        }	
+        }
         
         public utf8string DescriptionAsUtf8String()
         {
-            fixed(sbyte* ptr = Description)
+            //fixed(sbyte* ptr = Description)
             {
-                return new utf8string(ptr);
+                return Description.ToString();
             }
         }
     }

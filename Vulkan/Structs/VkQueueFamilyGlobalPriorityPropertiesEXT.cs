@@ -36,11 +36,12 @@ namespace Vulkan
 
             public unsafe ref VkQueueGlobalPriorityEXT this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkQueueGlobalPriorityEXT* pThis = &E0)
+                    //fixed(VkQueueGlobalPriorityEXT* pThis = &E0)
                     {
+                        VkQueueGlobalPriorityEXT* pThis = (VkQueueGlobalPriorityEXT*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }

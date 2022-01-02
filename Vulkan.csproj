@@ -4,9 +4,9 @@
 
     <PropertyGroup>
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <LangVersion>preview</LangVersion>
         <TargetFramework>net6.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -140,6 +140,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="DataTypes\Primitives\ConstUInt.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>ConstUInt.cs</LastGenOutput>
+      </None>
+      <None Update="DataTypes\Primitives\FixedStrings.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>FixedStrings.cs</LastGenOutput>
+      </None>
+      <None Update="DataTypes\Primitives\FixedStructs.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>FixedStructs.cs</LastGenOutput>
+      </None>
       <None Update="DataTypes\Primitives\Vector.tt">
         <Generator>TextTemplatingFileGenerator</Generator>
         <LastGenOutput>Vector.cs</LastGenOutput>
@@ -160,6 +172,21 @@
         <Generator>TextTemplatingFileGenerator</Generator>
         <LastGenOutput>VkResult.cs</LastGenOutput>
       </None>
+      <Compile Update="DataTypes\Primitives\ConstUInt.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ConstUInt.tt</DependentUpon>
+      </Compile>
+      <Compile Update="DataTypes\Primitives\FixedStrings.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FixedStrings.tt</DependentUpon>
+      </Compile>
+      <Compile Update="DataTypes\Primitives\FixedStructs.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FixedStructs.tt</DependentUpon>
+      </Compile>
       <Compile Update="DataTypes\Primitives\Vector.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>

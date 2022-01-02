@@ -15,9 +15,9 @@ namespace Vulkan
 
         public VkPhysicalDeviceType DeviceType;
 
-        [NativeTypeName("char [256]")] public fixed sbyte DeviceName[256];
+        [NativeTypeName("char [256]")] public utf8string<Const.UInt256> DeviceName;
 
-        [NativeTypeName("uint8_t [16]")] public fixed byte PipelineCacheUuid[16];
+        [NativeTypeName("uint8_t [16]")] public Fixed<byte, Const.UInt16> PipelineCacheUuid;
 
         public VkPhysicalDeviceLimits Limits;
 
@@ -26,9 +26,9 @@ namespace Vulkan
         
         public utf8string DeviceNameAsUtf8String()
         {
-            fixed(sbyte* ptr = DeviceName)
+            //fixed(sbyte* ptr = DeviceName)
             {
-                return new utf8string(ptr);
+                return DeviceName.ToString();
             }
         }
     }

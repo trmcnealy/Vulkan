@@ -52,7 +52,7 @@ namespace Vulkan
             return Dot(this, this);
         }
         
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public Vector3F Normalize()
         {
             return Normalize(this);
@@ -78,7 +78,7 @@ namespace Vulkan
             return Dot(difference, difference);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public bool IsNaN()
         {
             return IsNaN(this);
@@ -87,7 +87,7 @@ namespace Vulkan
         /// <summary>
         /// Gets a value indicting whether this vector is zero
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool IsNaN(Vector3F point)
         {
             if(float.IsNaN(point.X) || float.IsNaN(point.Y) || float.IsNaN(point.Z))

@@ -39,7 +39,7 @@ public struct VezImageBlit
 
         public unsafe VkOffset3D this[int index]
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             get
             {
                 VkOffset3D* ptr = (VkOffset3D*)Unsafe.AsPointer(ref E0);

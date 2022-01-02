@@ -25,11 +25,12 @@ namespace Vulkan
 
             public unsafe ref VkOffset3D this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkOffset3D* pThis = &E0)
+                    //fixed(VkOffset3D* pThis = &E0)
                     {
+                        VkOffset3D* pThis = (VkOffset3D*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }
@@ -43,11 +44,12 @@ namespace Vulkan
 
             public unsafe ref VkOffset3D this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkOffset3D* pThis = &E0)
+                    //fixed(VkOffset3D* pThis = &E0)
                     {
+                        VkOffset3D* pThis = (VkOffset3D*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }

@@ -23,11 +23,12 @@ namespace FreeType
 
             public unsafe ref FT_MM_Axis this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(FT_MM_Axis* pThis = &e0)
+                    //fixed(FT_MM_Axis* pThis = &e0)
                     {
+                        FT_MM_Axis* pThis = (FT_MM_Axis*)Unsafe.AsPointer(ref e0);
                         return ref pThis[index];
                     }
                 }

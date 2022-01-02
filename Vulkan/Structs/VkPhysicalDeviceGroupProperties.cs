@@ -54,11 +54,12 @@ namespace Vulkan
 
             public VkPhysicalDevice this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkPhysicalDevice* pThis = &E0)
+                    //fixed(VkPhysicalDevice* pThis = &E0)
                     {
+                        VkPhysicalDevice* pThis = (VkPhysicalDevice*)Unsafe.AsPointer(ref E0);
                         return pThis[index];
                     }
                 }

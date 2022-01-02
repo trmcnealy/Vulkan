@@ -6,29 +6,32 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")]
+        public nint PNext;
 
         public VkDriverId DriverId;
 
-        [NativeTypeName("char [256]")] public fixed sbyte DriverName[256];
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> DriverName;
 
-        [NativeTypeName("char [256]")] public fixed sbyte DriverInfo[256];
+        [NativeTypeName("char [256]")]
+        public utf8string<Const.UInt256> DriverInfo;
 
         public VkConformanceVersion ConformanceVersion;
-		
-		public utf8string DriverNameAsUtf8String()
+        
+        public utf8string DriverNameAsUtf8String()
         {
-            fixed(sbyte* ptr = DriverName)
+            //fixed(sbyte* ptr = DriverName)
             {
-                return new utf8string(ptr);
+                return DriverName.ToString();
             }
         }
-		
-		public utf8string DriverInfoAsUtf8String()
+        
+        public utf8string DriverInfoAsUtf8String()
         {
-            fixed(sbyte* ptr = DriverInfo)
+            //fixed(sbyte* ptr = DriverInfo)
             {
-                return new utf8string(ptr);
+                return DriverInfo.ToString();
             }
         }
     }

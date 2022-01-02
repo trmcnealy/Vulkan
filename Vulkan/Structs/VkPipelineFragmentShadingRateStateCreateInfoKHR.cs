@@ -22,11 +22,12 @@ namespace Vulkan
 
             public unsafe ref VkFragmentShadingRateCombinerOpKHR this[int index]
             {
-                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
                 get
                 {
-                    fixed(VkFragmentShadingRateCombinerOpKHR* pThis = &E0)
+                    //fixed(VkFragmentShadingRateCombinerOpKHR* pThis = &E0)
                     {
+                        VkFragmentShadingRateCombinerOpKHR* pThis = (VkFragmentShadingRateCombinerOpKHR*)Unsafe.AsPointer(ref E0);
                         return ref pThis[index];
                     }
                 }
