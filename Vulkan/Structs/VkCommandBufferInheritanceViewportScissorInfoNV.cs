@@ -6,7 +6,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("const void *")] public nint pNext;
+        [NativeTypeName("const void *")] public nuint PNext;
 
         [NativeTypeName("Bool32")] public uint viewportScissor2D;
 

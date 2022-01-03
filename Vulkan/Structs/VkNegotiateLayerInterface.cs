@@ -7,7 +7,7 @@ namespace Vulkan
     {
         public VkNegotiateLayerStructType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         [NativeTypeName("uint32_t")] public uint LoaderLayerInterfaceVersion;
 

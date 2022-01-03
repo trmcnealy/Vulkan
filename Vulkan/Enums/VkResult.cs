@@ -24,7 +24,7 @@ namespace Vulkan
             DeviceLost = new VkResult(DeviceLostConst);
             MemoryMapFailed = new VkResult(MemoryMapFailedConst);
             LayerNotPresent = new VkResult(LayerNotPresentConst);
-            ErrorExtensionNotPresent = new VkResult(ErrorExtensionNotPresentConst);
+            ExtensionNotPresent = new VkResult(ExtensionNotPresentConst);
             FeatureNotPresent = new VkResult(FeatureNotPresentConst);
             IncompatibleDriver = new VkResult(IncompatibleDriverConst);
             ErrorTooManyObjects = new VkResult(ErrorTooManyObjectsConst);
@@ -66,7 +66,7 @@ namespace Vulkan
                 {DeviceLost, "DeviceLost"},
                 {MemoryMapFailed, "MemoryMapFailed"},
                 {LayerNotPresent, "LayerNotPresent"},
-                {ErrorExtensionNotPresent, "ErrorExtensionNotPresent"},
+                {ExtensionNotPresent, "ExtensionNotPresent"},
                 {FeatureNotPresent, "FeatureNotPresent"},
                 {IncompatibleDriver, "IncompatibleDriver"},
                 {ErrorTooManyObjects, "ErrorTooManyObjects"},
@@ -141,8 +141,8 @@ namespace Vulkan
         public static readonly VkResult LayerNotPresent;
         public const int LayerNotPresentConst = -6;
 
-        public static readonly VkResult ErrorExtensionNotPresent;
-        public const int ErrorExtensionNotPresentConst = -7;
+        public static readonly VkResult ExtensionNotPresent;
+        public const int ExtensionNotPresentConst = -7;
 
         public static readonly VkResult FeatureNotPresent;
         public const int FeatureNotPresentConst = -8;
@@ -229,7 +229,7 @@ namespace Vulkan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static explicit operator VkResult(int value)
+        public static implicit operator VkResult(int value)
         {
             return new VkResult(value);
         }

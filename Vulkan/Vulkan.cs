@@ -18,7 +18,7 @@ namespace Vulkan
 {
     public static partial class Api
     {
-        public static readonly uint ApiVersion;
+        public static readonly Version ApiVersion;
 
         public static readonly string DLL_NAME;
 
@@ -234,13 +234,43 @@ namespace Vulkan
         public static readonly nint vkWaitSemaphoresOffset                                = 0x000019E0;
 
         #endregion
+
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy<T>(T* destination, T* source, int sizeInBytes)
+            where T : unmanaged
+        {
+            Buffer.MemoryCopy(source, destination, sizeInBytes, sizeInBytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy<T, TStruct>(T* destination, ref TStruct source, int sizeInBytes)
+            where T : unmanaged
+            where TStruct : unmanaged
+        {
+            TStruct* sourcePtr = (TStruct*)Unsafe.AsPointer(ref source);
+            Buffer.MemoryCopy(sourcePtr, destination, sizeInBytes, sizeInBytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy< TStruct>(ref TStruct destination, ref TStruct source, int sizeInBytes)
+            where TStruct : unmanaged
+        {
+            TStruct* sourcePtr      = (TStruct*)Unsafe.AsPointer(ref source);
+            TStruct* destinationPtr = (TStruct*)Unsafe.AsPointer(ref destination);
+            Buffer.MemoryCopy(sourcePtr, destinationPtr, sizeInBytes, sizeInBytes);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint ToVulkanVersion(this Version version)
+        {
+            return Api.MAKE_VERSION(version.Major, version.Minor, version.Build);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         static unsafe Api()
         {
-            ApiVersion = Api.MAKE_API_VERSION(1,
-                                              2,
-                                              189);
+            ApiVersion = new Version(1, 2, 189, 2);
             
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
@@ -723,7 +753,7 @@ namespace Vulkan
             GetBufferDeviceAddress = (delegate*<VkDevice, ref VkBufferDeviceAddressInfo, ulong>)(Handle + vkGetBufferDeviceAddressOffset);
             GetBufferOpaqueCaptureAddress = (delegate*<VkDevice, ref VkBufferDeviceAddressInfo, ulong>)(Handle + vkGetBufferOpaqueCaptureAddressOffset);
             GetDeviceMemoryOpaqueCaptureAddress = (delegate*<VkDevice, ref VkDeviceMemoryOpaqueCaptureAddressInfo, ulong>)(Handle + vkGetDeviceMemoryOpaqueCaptureAddressOffset);
-            GetPhysicalDeviceSurfaceSupportKHR = (delegate*<VkPhysicalDevice, uint, VkSurfaceKHR, out uint, VkResult>)(Handle + vkGetPhysicalDeviceSurfaceSupportKHROffset);
+            GetPhysicalDeviceSurfaceSupportKHR = (delegate*<VkPhysicalDevice, uint, VkSurfaceKHR, out Bool32, VkResult>)(Handle + vkGetPhysicalDeviceSurfaceSupportKHROffset);
             GetPhysicalDeviceSurfaceCapabilitiesKHR = (delegate*<VkPhysicalDevice, VkSurfaceKHR, out VkSurfaceCapabilitiesKHR, VkResult>)(Handle + vkGetPhysicalDeviceSurfaceCapabilitiesKHROffset);
             _GetPhysicalDeviceSurfaceFormatsKHR = (delegate*<VkPhysicalDevice, VkSurfaceKHR, out uint, VkSurfaceFormatKHR*, VkResult>)(Handle + vkGetPhysicalDeviceSurfaceFormatsKHROffset);
             _GetPhysicalDeviceSurfacePresentModesKHR = (delegate*<VkPhysicalDevice, VkSurfaceKHR, out uint, VkPresentModeKHR*, VkResult>)(Handle + vkGetPhysicalDeviceSurfacePresentModesKHROffset);
@@ -982,8 +1012,8 @@ namespace Vulkan
 
 //        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 //        public static void Trace(Action result,
-//                                 [CallerMemberName] string memberName = "",
-//                                 [CallerFilePath] string sourceFilePath = "",
+//                                 [CallerMemberName] utf8string memberName = "",
+//                                 [CallerFilePath] utf8string sourceFilePath = "",
 //                                 [CallerLineNumber] int sourceLineNumber = 0)
 //        {
 //#if DEBUG
@@ -993,8 +1023,8 @@ namespace Vulkan
 
 //        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 //        public static T Trace<T>(Func<T> result,
-//                                 [CallerMemberName] string memberName = "",
-//                                 [CallerFilePath] string sourceFilePath = "",
+//                                 [CallerMemberName] utf8string memberName = "",
+//                                 [CallerFilePath] utf8string sourceFilePath = "",
 //                                 [CallerLineNumber] int sourceLineNumber = 0)
 //        {
 //#if DEBUG
@@ -1005,8 +1035,8 @@ namespace Vulkan
 
 //        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 //        public static T Trace<T>(T result,
-//                                 [CallerMemberName] string memberName = "",
-//                                 [CallerFilePath] string sourceFilePath = "",
+//                                 [CallerMemberName] utf8string memberName = "",
+//                                 [CallerFilePath] utf8string sourceFilePath = "",
 //                                 [CallerLineNumber] int sourceLineNumber = 0)
 //        {
 //#if DEBUG
@@ -1052,7 +1082,7 @@ namespace Vulkan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static uint MAKE_API_VERSION(int major,
+        public static uint MAKE_VERSION(int major,
                                             int minor,
                                             int patch)
         {
@@ -1060,7 +1090,15 @@ namespace Vulkan
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static uint MAKE_API_VERSION(int variant,
+        public static uint MAKE_VERSION(uint major,
+                                            uint minor,
+                                            uint patch)
+        {
+            return (major << 22) | (minor << 12) | patch;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint MAKE_VERSION(int variant,
                                             int major,
                                             int minor,
                                             int patch)
@@ -1068,6 +1106,34 @@ namespace Vulkan
             return ((((uint)(variant)) << 29) | (((uint)(major)) << 22) | (((uint)(minor)) << 12) | ((uint)(patch)));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint MAKE_VERSION(uint variant,
+                                            uint major,
+                                            uint minor,
+                                            uint patch)
+        {
+            return ((variant << 29) | (major << 22) | (minor << 12) | patch);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_VARIANT(int version) { return ((uint)(version) >> 29); }
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_VARIANT(uint version) { return (version >> 29); }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_MAJOR(int version) { return(((uint)(version) >> 22) & 0x7FU); }
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_MAJOR(uint version) { return((version >> 22) & 0x7FU); }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_MINOR(int version) { return(((uint)(version) >> 12) & 0x3FFU); }
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_MINOR(uint version) { return((version >> 12) & 0x3FFU); }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_PATCH(int version) { return ((uint)(version) & 0xFFFU); }
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint GET_VERSION_PATCH(uint version) { return (version & 0xFFFU); }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static unsafe VkPipeline[] CreateGraphicsPipelines(VkDevice                       device,
@@ -1209,6 +1275,9 @@ namespace Vulkan
 
             return array;
         }
+
+
+
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static unsafe VkExtensionProperties[] EnumerateInstanceExtensionProperties()
@@ -1949,7 +2018,7 @@ namespace Vulkan
         //    }
         //}
 
-        //public static ExtensionProperties[] EnumerateInstanceExtensionProperties(string pLayerName = null)
+        //public static ExtensionProperties[] EnumerateInstanceExtensionProperties(utf8string pLayerName = null)
         //{
         //    Result result;
         //    unsafe

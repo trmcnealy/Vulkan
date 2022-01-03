@@ -7,7 +7,7 @@ namespace Vulkan
         public VkStructureType SType;
 
         [NativeTypeName("const void *")]
-        public nint PNext;
+        public nuint PNext;
 
         [NativeTypeName("VkCommandBufferUsageFlags")]
         public VkCommandBufferUsageFlagBits Flags;

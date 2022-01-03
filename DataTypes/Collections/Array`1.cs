@@ -479,6 +479,68 @@ namespace Vulkan
             }
         }
 
+        
+        public Array<T> this[Range range]
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get
+            {
+                uint count = (uint)(range.End.Value - range.Start.Value);
+
+                Array<T> list = new(count);
+
+                Array.Copy(_items, range.Start.Value, list._items, 0, count);
+
+                list._size = count;
+
+                return list;
+            }
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            set
+            {
+                uint count = (uint)(range.End.Value - range.Start.Value);
+
+                Array.Copy(value._items, range.Start.Value, _items, 0, count);
+                
+                for (int i = range.Start.Value; i < count; i++)
+                {
+                    if(_arrayversion[i] == 0)
+                    {
+                        _size++;
+                    }
+
+                    _arrayversion[i]++;
+                }
+
+                _version++;
+            }
+        }
+        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref T Ref(int index)
+        {
+            return ref _items[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref T Ref(uint index)
+        {
+            return ref _items[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref T Ref(long index)
+        {
+            return ref _items[index];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public ref T Ref(ulong index)
+        {
+            return ref _items[index];
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public void Add(T item)
         {

@@ -10,12 +10,17 @@ namespace Vulkan
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public readonly struct Bool32 : IEquatable<Bool32>
     {
-        public Bool32(uint value)
+        public readonly uint Value;
+
+        public Bool32(bool value)
         {
-            this.Value = value;
+            Value = value ? 1u : 0u;
         }
 
-        public readonly uint Value;
+        public Bool32(uint value)
+        {
+            Value = value;
+        }
             
         public bool Equals(Bool32 other)
         {
@@ -37,9 +42,19 @@ namespace Vulkan
             return Value.ToString();
         }
 
+        public static implicit operator bool(Bool32 from)
+        {
+            return @from.Value != 0u;
+        }
+
         public static implicit operator uint(Bool32 from)
         {
             return @from.Value;
+        }
+
+        public static implicit operator Bool32(bool from)
+        {
+            return new Bool32(@from ? 1u : 0u);
         }
 
         public static implicit operator Bool32(uint from)

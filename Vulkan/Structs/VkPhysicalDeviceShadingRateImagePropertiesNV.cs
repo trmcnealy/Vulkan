@@ -7,7 +7,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         public VkExtent2D ShadingRateTexelSize;
 

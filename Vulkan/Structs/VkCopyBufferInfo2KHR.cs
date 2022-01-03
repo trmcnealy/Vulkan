@@ -8,7 +8,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("const void *")] public nint PNext;
+        [NativeTypeName("const void *")] public nuint PNext;
 
         [NativeTypeName("VkBuffer")] public VkBuffer SrcBuffer;
 

@@ -6,7 +6,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         [NativeTypeName("ulong [16]")] public fixed ulong HeapBudget[16];
 

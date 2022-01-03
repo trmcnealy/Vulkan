@@ -142,9 +142,9 @@ namespace Vulkan
             corners[7] = new Vector3F(Minimum.X, Minimum.Y, Minimum.Z);
         }
 
-        public List<Vector3F> GetPoints()
+        public Array<Vector3F> GetPoints()
         {
-            List<Vector3F> corners = new List<Vector3F>(8);
+            Array<Vector3F> corners = new Array<Vector3F>(8);
 
             corners.Add(new Vector3F(Minimum.X, Maximum.Y, Maximum.Z));
             corners.Add(new Vector3F(Maximum.X, Maximum.Y, Maximum.Z));
@@ -158,9 +158,9 @@ namespace Vulkan
             return corners;
         }
 
-        public List<Tuple<Vector3F, Vector3F>> GetQuads()
+        public Array<Tuple<Vector3F, Vector3F>> GetQuads()
         {
-            //List<Tuple<Vector3F, Vector3F>> quads = new List<Tuple<Vector3F, Vector3F>>();
+            //Array<Tuple<Vector3F, Vector3F>> quads = new Array<Tuple<Vector3F, Vector3F>>();
 
             //1
             Vector3F upperBackRightMax = new Vector3F(Maximum.X, Maximum.Y, Maximum.Z);
@@ -195,7 +195,7 @@ namespace Vulkan
             Vector3F lowerBackLeftMin = new Vector3F(Minimum.X, Center.Y, Minimum.Z);
             Tuple<Vector3F, Vector3F> lowerBackLeft = new Tuple<Vector3F, Vector3F>(lowerBackLeftMax, lowerBackLeftMin);
 
-            return new List<Tuple<Vector3F, Vector3F>>() { upperBackRight, upperFrontRight, upperFrontLeft, upperBackLeft, lowerBackRight, lowerFrontRight, lowerBackLeft, lowerFrontLeft };
+            return new Array<Tuple<Vector3F, Vector3F>>() { upperBackRight, upperFrontRight, upperFrontLeft, upperBackLeft, lowerBackRight, lowerFrontRight, lowerBackLeft, lowerFrontLeft };
         }
 
         /// <summary>
@@ -666,16 +666,16 @@ namespace Vulkan
 
     //    public Point3D Max { get; private set; }
 
-    //    private readonly List<Point3D> _minHistory;
-    //    private readonly List<Point3D> _maxHistory;
+    //    private readonly Array<Point3D> _minHistory;
+    //    private readonly Array<Point3D> _maxHistory;
 
     //    public BoundingBox(Point3D min, Point3D max)
     //    {
     //        Min = min;// ?? Point3D.Null;
     //        Max = max;// ?? Point3D.Null;
 
-    //        _minHistory = new List<Point3D>();
-    //        _maxHistory = new List<Point3D>();
+    //        _minHistory = new Array<Point3D>();
+    //        _maxHistory = new Array<Point3D>();
 
     //        if (!Point3D.IsNaN(Min) && !Point3D.IsNaN(Max))
     //        {
@@ -705,8 +705,8 @@ namespace Vulkan
 
     //        Mid = new Point3D(xMid, yMid, zMid);
 
-    //        _minHistory = new List<Point3D>() { Min };
-    //        _maxHistory = new List<Point3D>() { Max };
+    //        _minHistory = new Array<Point3D>() { Min };
+    //        _maxHistory = new Array<Point3D>() { Max };
     //    }
 
     //    //public vtkPolyData GetVtkData()
@@ -933,9 +933,9 @@ namespace Vulkan
     //    }
     //    #endregion
 
-    //    public List<Tuple<Point3D, Point3D>> GetQuads()
+    //    public Array<Tuple<Point3D, Point3D>> GetQuads()
     //    {
-    //        //List<Tuple<Point3D, Point3D>> quads = new List<Tuple<Point3D, Point3D>>();
+    //        //Array<Tuple<Point3D, Point3D>> quads = new Array<Tuple<Point3D, Point3D>>();
 
     //        //1
     //        var upperBackRightMax = new Point3D(Max);
@@ -970,7 +970,7 @@ namespace Vulkan
     //        var lowerBackLeftMin = new Point3D(Min.X, Mid.Y, Min.Z);
     //        var lowerBackLeft = new Tuple<Point3D, Point3D>(lowerBackLeftMax, lowerBackLeftMin);
 
-    //        return new List<Tuple<Point3D, Point3D>>() { upperBackRight, upperFrontRight, upperFrontLeft, upperBackLeft, lowerBackRight, lowerFrontRight, lowerBackLeft, lowerFrontLeft };
+    //        return new Array<Tuple<Point3D, Point3D>>() { upperBackRight, upperFrontRight, upperFrontLeft, upperBackLeft, lowerBackRight, lowerFrontRight, lowerBackLeft, lowerFrontLeft };
     //    }
     //}
 }

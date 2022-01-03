@@ -6,7 +6,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         [NativeTypeName("char [256]")] public utf8string<Const.UInt256> Name;
 

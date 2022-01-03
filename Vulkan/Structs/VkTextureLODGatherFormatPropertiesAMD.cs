@@ -8,7 +8,7 @@ namespace Vulkan
         public VkStructureType SType;
 
         [NativeTypeName("void *")]
-        public nint PNext;
+        public nuint PNext;
 
         [NativeTypeName("Bool32")]
         public uint SupportsTextureGatherLodBiasAmd;

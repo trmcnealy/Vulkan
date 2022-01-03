@@ -9,7 +9,7 @@ public static partial class Api
     ///// ************************************************************************
     ///// </summary>
     ///// <returns>:
-    ///// A C~string or `NULL`, if any error occurred.</returns>
+    ///// A C~utf8string or `NULL`, if any error occurred.</returns>
     ///// <remarks>
     ///// :FT_Error_String@description :
     ///// Retrieve the description of a valid FreeType error code.@input :
@@ -80,7 +80,7 @@ public static partial class Api
     ///// aface ::
     ///// A handle to a new face object.  If `face_index` is greater than or
     ///// equal to zero, it must be non-`NULL`.@note :
-    ///// The `pathname` string should be recognizable as such by a standard
+    ///// The `pathname` utf8string should be recognizable as such by a standard
     ///// `fopen` call on your system; in particular, this means that `pathname`
     ///// must not contain null bytes.  If that is not sufficient to address all
     ///// file name possibilities (for example, to handle wide character file
@@ -635,7 +635,7 @@ public static partial class Api
     ///// An error is returned if the face doesn't provide glyph names or if the
     ///// glyph index is invalid.  In all cases of failure, the first byte of
     ///// `buffer` is set to~0 to indicate an empty name.The glyph name is truncated to fit within the buffer if it is too
-    ///// long.  The returned string is always zero-terminated.Be aware that FreeType reorders glyph indices internally so that glyph
+    ///// long.  The returned utf8string is always zero-terminated.Be aware that FreeType reorders glyph indices internally so that glyph
     ///// index~0 always corresponds to the 'missing glyph' (called '.notdef').This function always returns an error if the config macro
     ///// `FT_CONFIG_OPTION_NO_GLYPH_NAMES` is not defined in `ftoption.h`.
     ///// </remarks>
@@ -653,7 +653,7 @@ public static partial class Api
     ///// This only works with PostScript, TrueType, and OpenType fonts.@input :
     ///// face ::
     ///// A handle to the source face object.@note :
-    ///// The returned pointer is owned by the face and is destroyed with it.For variation fonts, this string changes if you select a different
+    ///// The returned pointer is owned by the face and is destroyed with it.For variation fonts, this utf8string changes if you select a different
     ///// instance, and you have to call `FT_Get_PostScript_Name` again to
     ///// retrieve it.  FreeType follows Adobe TechNote #5902, 'Generating
     ///// PostScript Names for Fonts Using OpenType Font Variations'.https://download.macromedia.com/pub/developer/opentype/tech-notes/5902.AdobePSNameGeneration.html[Since 2.9] Special PostScript names for named instances are only
@@ -1216,7 +1216,7 @@ public static partial class Api
     ///// ************************************************************************
     ///// </summary>
     ///// <returns>:
-    ///// List node.  `NULL` if it wasn't found.</returns>
+    ///// Array node.  `NULL` if it wasn't found.</returns>
     ///// <remarks>
     ///// :FT_List_Find@description :
     ///// Find the list node for a given listed object.@input :
@@ -1695,7 +1695,7 @@ public static partial class Api
     ///// Find a module by its name.@input :
     ///// library ::
     ///// A handle to the library object.module_name ::
-    ///// The module's name (as an ASCII string).@note :
+    ///// The module's name (as an ASCII utf8string).@note :
     ///// FreeType's internal modules aren't documented very well, and you
     ///// should look up the source code for details.
     ///// </remarks>
@@ -2258,7 +2258,7 @@ public static partial class Api
     ///// PostScript face handle.@output :
     ///// afont_private ::
     ///// Output private dictionary structure pointer.@note :
-    ///// The string pointers within the @PS _PrivateRec structure are owned by
+    ///// The utf8string pointers within the @PS _PrivateRec structure are owned by
     ///// the face and don't need to be freed by the caller.If the font's format is not PostScript-based, this function returns
     ///// the `FT_Err_Invalid_Argument` error code.
     ///// </remarks>
@@ -2437,8 +2437,8 @@ public static partial class Api
     ///// face ::
     ///// A handle to the input face.@output :
     ///// acharset_encoding ::
-    ///// Charset encoding, as a C~string, owned by the face.acharset_registry ::
-    ///// Charset registry, as a C~string, owned by the face.@note :
+    ///// Charset encoding, as a C~utf8string, owned by the face.acharset_registry ::
+    ///// Charset registry, as a C~utf8string, owned by the face.@note :
     ///// This function only works with BDF faces, returning an error otherwise.
     ///// </remarks>
 
@@ -2481,8 +2481,8 @@ public static partial class Api
     ///// face ::
     ///// A handle to the input face.@output :
     ///// registry ::
-    ///// The registry, as a C~string, owned by the face.ordering ::
-    ///// The ordering, as a C~string, owned by the face.supplement ::
+    ///// The registry, as a C~utf8string, owned by the face.ordering ::
+    ///// The ordering, as a C~utf8string, owned by the face.supplement ::
     ///// The supplement.@note :
     ///// This function only works with CID faces, returning an error
     ///// otherwise.@since :
@@ -3791,14 +3791,14 @@ public static partial class Api
     ///// FreeType error code.  0~means success.</returns>
     ///// <remarks>
     ///// :FT_Get_Sfnt_Name@description :
-    ///// Retrieve a string of the SFNT 'name' table for a given index.@input :
+    ///// Retrieve a utf8string of the SFNT 'name' table for a given index.@input :
     ///// face ::
     ///// A handle to the source face.idx ::
-    ///// The index of the 'name' string.@output :
+    ///// The index of the 'name' utf8string.@output :
     ///// aname ::
     ///// The indexed @FT _SfntName structure.@note :
-    ///// The `string` array returned in the `aname` structure is not
-    ///// null-terminated.  Note that you don't have to deallocate `string` by
+    ///// The `utf8string` array returned in the `aname` structure is not
+    ///// null-terminated.  Note that you don't have to deallocate `utf8string` by
     ///// yourself; FreeType takes care of it if you call @FT _Done_Face.Use @FT _Get_Sfnt_Name_Count to get the total number of available
     ///// 'name' table entries, then do a loop until you get the right platform,
     ///// encoding, and name ID.'name' table format~1 entries can use language tags also, see
@@ -3824,8 +3824,8 @@ public static partial class Api
     ///// alangTag ::
     ///// The language tag associated with the 'name' table entry's language
     ///// ID.@note :
-    ///// The `string` array returned in the `alangTag` structure is not
-    ///// null-terminated.  Note that you don't have to deallocate `string` by
+    ///// The `utf8string` array returned in the `alangTag` structure is not
+    ///// null-terminated.  Note that you don't have to deallocate `utf8string` by
     ///// yourself; FreeType takes care of it if you call @FT _Done_Face.Only 'name' table format~1 supports language tags.  For format~0
     ///// tables, this function always returns FT_Err_Invalid_Table.  For
     ///// invalid format~1 language ID values, FT_Err_Invalid_Argument is
@@ -4397,10 +4397,10 @@ public static partial class Api
     ///// ************************************************************************
     ///// </summary>
     ///// <returns>:
-    ///// Font format string.  `NULL` in case of error.</returns>
+    ///// Font format utf8string.  `NULL` in case of error.</returns>
     ///// <remarks>
     ///// :FT_Get_Font_Format@description :
-    ///// Return a string describing the format of a given face.  Possible values
+    ///// Return a utf8string describing the format of a given face.  Possible values
     ///// are 'TrueType', 'Type~1', 'BDF', 'PCF', 'Type~42', 'CID~Type~1', 'CFF',
     ///// 'PFR', and 'Windows~FNT'.The return value is suitable to be used as an X11 FONT_PROPERTY.@input :
     ///// face ::

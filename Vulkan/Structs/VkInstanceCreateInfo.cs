@@ -8,7 +8,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
         
-        public nint PNext;
+        public nuint PNext;
         
         public uint Flags;
 

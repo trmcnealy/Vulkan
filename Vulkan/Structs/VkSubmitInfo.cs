@@ -9,7 +9,7 @@ namespace Vulkan
         public VkStructureType SType;
 
         [NativeTypeName("const void *")]
-        public nint PNext;
+        public nuint PNext;
 
         [NativeTypeName("uint32_t")]
         public uint WaitSemaphoreCount;

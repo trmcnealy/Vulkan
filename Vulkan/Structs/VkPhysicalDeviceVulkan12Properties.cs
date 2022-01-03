@@ -6,7 +6,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         public VkDriverId DriverId;
 
@@ -20,51 +20,51 @@ namespace Vulkan
 
         public VkShaderFloatControlsIndependence RoundingModeIndependence;
 
-        [NativeTypeName("Bool32")] public uint ShaderSignedZeroInfNanPreserveFloat16;
+        [NativeTypeName("Bool32")] public Bool32 ShaderSignedZeroInfNanPreserveFloat16;
 
-        [NativeTypeName("Bool32")] public uint ShaderSignedZeroInfNanPreserveFloat32;
+        [NativeTypeName("Bool32")] public Bool32 ShaderSignedZeroInfNanPreserveFloat32;
 
-        [NativeTypeName("Bool32")] public uint ShaderSignedZeroInfNanPreserveFloat64;
+        [NativeTypeName("Bool32")] public Bool32 ShaderSignedZeroInfNanPreserveFloat64;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormPreserveFloat16;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormPreserveFloat16;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormPreserveFloat32;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormPreserveFloat32;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormPreserveFloat64;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormPreserveFloat64;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormFlushToZeroFloat16;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormFlushToZeroFloat16;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormFlushToZeroFloat32;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormFlushToZeroFloat32;
 
-        [NativeTypeName("Bool32")] public uint ShaderDenormFlushToZeroFloat64;
+        [NativeTypeName("Bool32")] public Bool32 ShaderDenormFlushToZeroFloat64;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRteFloat16;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRteFloat16;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRteFloat32;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRteFloat32;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRteFloat64;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRteFloat64;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRtzFloat16;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRtzFloat16;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRtzFloat32;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRtzFloat32;
 
-        [NativeTypeName("Bool32")] public uint ShaderRoundingModeRtzFloat64;
+        [NativeTypeName("Bool32")] public Bool32 ShaderRoundingModeRtzFloat64;
 
         [NativeTypeName("uint32_t")] public uint MaxUpdateAfterBindDescriptorsInAllPools;
 
-        [NativeTypeName("Bool32")] public uint ShaderUniformBufferArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public Bool32 ShaderUniformBufferArrayNonUniformIndexingNative;
 
-        [NativeTypeName("Bool32")] public uint ShaderSampledImageArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public Bool32 ShaderSampledImageArrayNonUniformIndexingNative;
 
-        [NativeTypeName("Bool32")] public uint ShaderStorageBufferArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public Bool32 ShaderStorageBufferArrayNonUniformIndexingNative;
 
-        [NativeTypeName("Bool32")] public uint ShaderStorageImageArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public Bool32 ShaderStorageImageArrayNonUniformIndexingNative;
 
-        [NativeTypeName("Bool32")] public uint ShaderInputAttachmentArrayNonUniformIndexingNative;
+        [NativeTypeName("Bool32")] public Bool32 ShaderInputAttachmentArrayNonUniformIndexingNative;
 
-        [NativeTypeName("Bool32")] public uint RobustBufferAccessUpdateAfterBind;
+        [NativeTypeName("Bool32")] public Bool32 RobustBufferAccessUpdateAfterBind;
 
-        [NativeTypeName("Bool32")] public uint QuadDivergentImplicitLod;
+        [NativeTypeName("Bool32")] public Bool32 QuadDivergentImplicitLod;
 
         [NativeTypeName("uint32_t")] public uint MaxPerStageDescriptorUpdateAfterBindSamplers;
 
@@ -100,13 +100,13 @@ namespace Vulkan
 
         [NativeTypeName("VkResolveModeFlags")] public uint SupportedStencilResolveModes;
 
-        [NativeTypeName("Bool32")] public uint IndependentResolveNone;
+        [NativeTypeName("Bool32")] public Bool32 IndependentResolveNone;
 
-        [NativeTypeName("Bool32")] public uint IndependentResolve;
+        [NativeTypeName("Bool32")] public Bool32 IndependentResolve;
 
-        [NativeTypeName("Bool32")] public uint FilterMinmaxSingleComponentFormats;
+        [NativeTypeName("Bool32")] public Bool32 FilterMinmaxSingleComponentFormats;
 
-        [NativeTypeName("Bool32")] public uint FilterMinmaxImageComponentMapping;
+        [NativeTypeName("Bool32")] public Bool32 FilterMinmaxImageComponentMapping;
 
         [NativeTypeName("uint64_t")] public ulong MaxTimelineSemaphoreValueDifference;
 

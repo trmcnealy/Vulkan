@@ -38,7 +38,8 @@
 //VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkDisplayModeKHR)
 
     List<string> structNames = new List<string>
-    {
+    {   "VkPhysicalDeviceShaderDrawParameterFeatures",
+        "VkPhysicalDeviceVariablePointerFeatures",
         "VkInstance",
         "VkPhysicalDevice",
         "VkDevice",
@@ -51,9 +52,9 @@
         "VkCommandPool",
         //"VkCuFunctionNVX",
         //"VkCuModuleNVX",
-        //"VkDebugReportCallbackEXT",
-        //"VkDebugUtilsMessengerEXT",
-        //"VkDeferredOperationKHR",
+        "VkDebugReportCallbackEXT",
+        "VkDebugUtilsMessengerEXT",
+        "VkDeferredOperationKHR",
         "VkDescriptorPool",
         "VkDescriptorSetLayout",
         "VkDescriptorSet",
@@ -85,6 +86,8 @@
 
     Dictionary<string, (string ctorArgs, string ctorApi)> structCtors = new Dictionary<string, (string ctorArgs, string ctorApi)>
     {
+        {"VkPhysicalDeviceShaderDrawParameterFeatures", ("","")},
+        {"VkPhysicalDeviceVariablePointerFeatures", ("","")},
         //{"VkAccelerationStructureKHR", ("(VkDevice device, ref VkAccelerationStructureCreateInfoKHR pCreateInfo)","Api.CreateAccelerationStructureKHR(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkAccelerationStructureKHR newHandle));")},
         //{"VkAccelerationStructureNV", ("(VkDevice device, ref VkAccelerationStructureCreateInfoNV pCreateInfo)","Api.CreateAccelerationStructureNV(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkAccelerationStructureNV newHandle));")},
         {"VkBuffer", ("(VkDevice device, ref VkBufferCreateInfo pCreateInfo)","Api.Check(Api.CreateBuffer(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkBuffer newHandle));")},
@@ -93,9 +96,9 @@
         {"_VkPipelineCompute", ("(VkDevice device, VkPipelineCache pipelineCache, uint createInfoCount, ref VkComputePipelineCreateInfo pCreateInfos)","Api.Check(Api.CreateComputePipelines(device, pipelineCache, createInfoCount, ref pCreateInfos, VkAllocationCallbacks.Null, out VkPipeline newHandle));")},
         //{"VkCuFunctionNVX", ("(VkDevice device, ref VkCuFunctionCreateInfoNVX pCreateInfo)","Api.Check(Api.CreateCuFunctionNVX(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkCuFunctionNVX newHandle));")},
         //{"VkCuModuleNVX", ("(VkDevice device, ref VkCuModuleCreateInfoNVX pCreateInfo)","Api.Check(Api.CreateCuModuleNVX(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkCuModuleNVX newHandle));")},
-        //{"VkDebugReportCallbackEXT", ("(VkInstance instance, ref VkDebugReportCallbackCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugReportCallbackEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugReportCallbackEXT newHandle));")},
-        //{"VkDebugUtilsMessengerEXT", ("(VkInstance instance, ref VkDebugUtilsMessengerCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugUtilsMessengerEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugUtilsMessengerEXT newHandle));")},
-        //{"VkDeferredOperationKHR", ("(VkDevice device)","Api.Check(Api.CreateDeferredOperationKHR(device, VkAllocationCallbacks.Null, out VkDeferredOperationKHR newHandle));")},
+        {"VkDebugReportCallbackEXT", ("","")},//, ("(VkInstance instance, ref VkDebugReportCallbackCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugReportCallbackEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugReportCallbackEXT newHandle));")},
+        {"VkDebugUtilsMessengerEXT", ("","")},//, ("(VkInstance instance, ref VkDebugUtilsMessengerCreateInfoEXT pCreateInfo)","Api.Check(Api.CreateDebugUtilsMessengerEXT(instance, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDebugUtilsMessengerEXT newHandle));")},
+        {"VkDeferredOperationKHR", ("","")},//, ("(VkDevice device)","Api.Check(Api.CreateDeferredOperationKHR(device, VkAllocationCallbacks.Null, out VkDeferredOperationKHR newHandle));")},
         {"VkDescriptorPool", ("(VkDevice device, ref VkDescriptorPoolCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorPool(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorPool newHandle));")},
         {"VkDescriptorSetLayout", ("(VkDevice device, ref VkDescriptorSetLayoutCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorSetLayout(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorSetLayout newHandle));")},
         {"VkDescriptorUpdateTemplate", ("(VkDevice device, ref VkDescriptorUpdateTemplateCreateInfo pCreateInfo)","Api.Check(Api.CreateDescriptorUpdateTemplate(device, ref pCreateInfo, VkAllocationCallbacks.Null, out VkDescriptorUpdateTemplate newHandle));")},

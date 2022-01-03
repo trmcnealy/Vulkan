@@ -22,7 +22,7 @@
         "DeviceLost",
         "MemoryMapFailed",
         "LayerNotPresent",
-        "ErrorExtensionNotPresent",
+        "ExtensionNotPresent",
         "FeatureNotPresent",
         "IncompatibleDriver",
         "ErrorTooManyObjects",

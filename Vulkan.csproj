@@ -31,6 +31,7 @@
     <ItemGroup>
       <Compile Remove="Vulkan\Delegates\*.cs" />
       <Compile Remove="Vulkan\Framework\Backup\*.cs" />
+      <Compile Remove="Vulkan\Framework\Converted\*.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -59,41 +60,22 @@
       <Compile Remove="Vulkan\Structs\VkCopyAccelerationStructureInfoKHR.cs" />
       <Compile Remove="Vulkan\Structs\VkCopyAccelerationStructureToMemoryInfoKHR.cs" />
       <Compile Remove="Vulkan\Structs\VkCopyMemoryToAccelerationStructureInfoKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
+      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
       <Compile Remove="Vulkan\Structs\VkCuFunctionCreateInfoNVX.cs" />
       <Compile Remove="Vulkan\Structs\VkCuLaunchInfoNVX.cs" />
       <Compile Remove="Vulkan\Structs\VkCuModuleCreateInfoNVX.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugReportCallbackCreateInfoEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugUtilsLabelEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugUtilsMessengerCallbackDataEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugUtilsMessengerCreateInfoEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugUtilsObjectNameInfoEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkDebugUtilsObjectTagInfoEXT.cs" />
       <Compile Remove="Vulkan\Structs\VkGeneratedCommandsInfoNV.cs" />
       <Compile Remove="Vulkan\Structs\VkGeneratedCommandsMemoryRequirementsInfoNV.cs" />
       <Compile Remove="Vulkan\Structs\VkShaderModuleValidationCacheCreateInfoEXT.cs" />
-      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
-      <Compile Remove="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
     </ItemGroup>
 
 
 
     <ItemGroup>
       <None Include="Vulkan\Framework\Backup\*.cs" />
-      <None Include="Vulkan\Framework\Barrier.cs" />
-      <None Include="Vulkan\Framework\BarrierBuffer.cs" />
-      <None Include="Vulkan\Framework\BarrierImage.cs" />
-      <None Include="Vulkan\Framework\Buffer.cs" />
-      <None Include="Vulkan\Framework\BufferRegions.cs" />
-      <None Include="Vulkan\Framework\BufferType.cs" />
-      <None Include="Vulkan\Framework\CommandBufferType.cs" />
-      <None Include="Vulkan\Framework\DefaultQueue.cs" />
-      <None Include="Vulkan\Framework\FilterType.cs" />
-      <None Include="Vulkan\Framework\GraphicsFlagBits.cs" />
-      <None Include="Vulkan\Framework\Images.cs" />
-      <None Include="Vulkan\Framework\ObjectStatus.cs" />
-      <None Include="Vulkan\Framework\ObjectType.cs" />
-      <None Include="Vulkan\Framework\QueueType.cs" />
-      <None Include="Vulkan\Framework\TextureAxis.cs" />
+      <None Include="Vulkan\Framework\Converted\*.cs" />
+
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildGeometryInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildRangeInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildSizesInfoKHR.cs" />
@@ -119,20 +101,14 @@
       <None Include="Vulkan\Structs\VkCopyAccelerationStructureInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkCopyAccelerationStructureToMemoryInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkCopyMemoryToAccelerationStructureInfoKHR.cs" />
+      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
+      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
       <None Include="Vulkan\Structs\VkCuFunctionCreateInfoNVX.cs" />
       <None Include="Vulkan\Structs\VkCuLaunchInfoNVX.cs" />
       <None Include="Vulkan\Structs\VkCuModuleCreateInfoNVX.cs" />
-      <None Include="Vulkan\Structs\VkDebugReportCallbackCreateInfoEXT.cs" />
-      <None Include="Vulkan\Structs\VkDebugUtilsLabelEXT.cs" />
-      <None Include="Vulkan\Structs\VkDebugUtilsMessengerCallbackDataEXT.cs" />
-      <None Include="Vulkan\Structs\VkDebugUtilsMessengerCreateInfoEXT.cs" />
-      <None Include="Vulkan\Structs\VkDebugUtilsObjectNameInfoEXT.cs" />
-      <None Include="Vulkan\Structs\VkDebugUtilsObjectTagInfoEXT.cs" />
       <None Include="Vulkan\Structs\VkGeneratedCommandsInfoNV.cs" />
       <None Include="Vulkan\Structs\VkGeneratedCommandsMemoryRequirementsInfoNV.cs" />
       <None Include="Vulkan\Structs\VkShaderModuleValidationCacheCreateInfoEXT.cs" />
-      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureKHR.cs" />
-      <None Include="Vulkan\Structs\VkWriteDescriptorSetAccelerationStructureNV.cs" />
     </ItemGroup>
 
     <ItemGroup>

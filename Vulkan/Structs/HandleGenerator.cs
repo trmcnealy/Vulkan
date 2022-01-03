@@ -9,6 +9,470 @@ namespace Vulkan
 {
 
     [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct VkPhysicalDeviceShaderDrawParameterFeatures : IEquatable<VkPhysicalDeviceShaderDrawParameterFeatures>
+    {
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe VkPhysicalDeviceShaderDrawParameterFeatures()
+        {
+            TSize = sizeof(nuint);
+        }
+
+        public static readonly VkPhysicalDeviceShaderDrawParameterFeatures Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _handle; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public VkPhysicalDeviceShaderDrawParameterFeatures(nuint handle)
+        {
+            _handle = handle;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {
+            return _handle == other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(VkPhysicalDeviceShaderDrawParameterFeatures other)
+        {
+            return _handle == other._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is VkPhysicalDeviceShaderDrawParameterFeatures other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {
+            return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator VkPhysicalDeviceShaderDrawParameterFeatures*(in VkPhysicalDeviceShaderDrawParameterFeatures value)
+        {
+            return (VkPhysicalDeviceShaderDrawParameterFeatures*)value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in VkPhysicalDeviceShaderDrawParameterFeatures value)
+        {
+            return value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator VkPhysicalDeviceShaderDrawParameterFeatures(nuint value)
+        {
+            return new VkPhysicalDeviceShaderDrawParameterFeatures(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, int right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, int right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, uint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, uint right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, long right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, long right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, ulong right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, ulong right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceShaderDrawParameterFeatures left, nuint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceShaderDrawParameterFeatures left, nuint right)
+        {
+            return !left.Equals(right);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in VkPhysicalDeviceShaderDrawParameterFeatures right)
+        {
+            return !right.Equals(left);
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct VkPhysicalDeviceVariablePointerFeatures : IEquatable<VkPhysicalDeviceVariablePointerFeatures>
+    {
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe VkPhysicalDeviceVariablePointerFeatures()
+        {
+            TSize = sizeof(nuint);
+        }
+
+        public static readonly VkPhysicalDeviceVariablePointerFeatures Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _handle; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public VkPhysicalDeviceVariablePointerFeatures(nuint handle)
+        {
+            _handle = handle;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {
+            return _handle == other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(VkPhysicalDeviceVariablePointerFeatures other)
+        {
+            return _handle == other._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is VkPhysicalDeviceVariablePointerFeatures other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {
+            return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator VkPhysicalDeviceVariablePointerFeatures*(in VkPhysicalDeviceVariablePointerFeatures value)
+        {
+            return (VkPhysicalDeviceVariablePointerFeatures*)value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in VkPhysicalDeviceVariablePointerFeatures value)
+        {
+            return value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator VkPhysicalDeviceVariablePointerFeatures(nuint value)
+        {
+            return new VkPhysicalDeviceVariablePointerFeatures(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, int right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, int right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, uint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, uint right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, long right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, long right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, ulong right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, ulong right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkPhysicalDeviceVariablePointerFeatures left, nuint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkPhysicalDeviceVariablePointerFeatures left, nuint right)
+        {
+            return !left.Equals(right);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in VkPhysicalDeviceVariablePointerFeatures right)
+        {
+            return !right.Equals(left);
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
     public readonly partial struct VkInstance : IDispose, IEquatable<VkInstance>
     {
         private static readonly int TSize;
@@ -1954,6 +2418,702 @@ namespace Vulkan
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         public static bool operator !=(nuint left, in VkCommandPool right)
+        {
+            return !right.Equals(left);
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct VkDebugReportCallbackEXT : IEquatable<VkDebugReportCallbackEXT>
+    {
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe VkDebugReportCallbackEXT()
+        {
+            TSize = sizeof(nuint);
+        }
+
+        public static readonly VkDebugReportCallbackEXT Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _handle; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public VkDebugReportCallbackEXT(nuint handle)
+        {
+            _handle = handle;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {
+            return _handle == other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(VkDebugReportCallbackEXT other)
+        {
+            return _handle == other._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is VkDebugReportCallbackEXT other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {
+            return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator VkDebugReportCallbackEXT*(in VkDebugReportCallbackEXT value)
+        {
+            return (VkDebugReportCallbackEXT*)value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in VkDebugReportCallbackEXT value)
+        {
+            return value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator VkDebugReportCallbackEXT(nuint value)
+        {
+            return new VkDebugReportCallbackEXT(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, in VkDebugReportCallbackEXT right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, in VkDebugReportCallbackEXT right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, int right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, int right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, uint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, uint right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, long right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, long right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, ulong right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, ulong right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugReportCallbackEXT left, nuint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugReportCallbackEXT left, nuint right)
+        {
+            return !left.Equals(right);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in VkDebugReportCallbackEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in VkDebugReportCallbackEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in VkDebugReportCallbackEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in VkDebugReportCallbackEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in VkDebugReportCallbackEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in VkDebugReportCallbackEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in VkDebugReportCallbackEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in VkDebugReportCallbackEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in VkDebugReportCallbackEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in VkDebugReportCallbackEXT right)
+        {
+            return !right.Equals(left);
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct VkDebugUtilsMessengerEXT : IEquatable<VkDebugUtilsMessengerEXT>
+    {
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe VkDebugUtilsMessengerEXT()
+        {
+            TSize = sizeof(nuint);
+        }
+
+        public static readonly VkDebugUtilsMessengerEXT Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _handle; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public VkDebugUtilsMessengerEXT(nuint handle)
+        {
+            _handle = handle;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {
+            return _handle == other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(VkDebugUtilsMessengerEXT other)
+        {
+            return _handle == other._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is VkDebugUtilsMessengerEXT other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {
+            return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator VkDebugUtilsMessengerEXT*(in VkDebugUtilsMessengerEXT value)
+        {
+            return (VkDebugUtilsMessengerEXT*)value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in VkDebugUtilsMessengerEXT value)
+        {
+            return value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator VkDebugUtilsMessengerEXT(nuint value)
+        {
+            return new VkDebugUtilsMessengerEXT(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, in VkDebugUtilsMessengerEXT right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, int right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, int right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, uint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, uint right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, long right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, long right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, ulong right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, ulong right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDebugUtilsMessengerEXT left, nuint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDebugUtilsMessengerEXT left, nuint right)
+        {
+            return !left.Equals(right);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in VkDebugUtilsMessengerEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in VkDebugUtilsMessengerEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in VkDebugUtilsMessengerEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in VkDebugUtilsMessengerEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in VkDebugUtilsMessengerEXT right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in VkDebugUtilsMessengerEXT right)
+        {
+            return !right.Equals(left);
+        }
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    public readonly partial struct VkDeferredOperationKHR : IEquatable<VkDeferredOperationKHR>
+    {
+        private static readonly int TSize;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        static unsafe VkDeferredOperationKHR()
+        {
+            TSize = sizeof(nuint);
+        }
+
+        public static readonly VkDeferredOperationKHR Null = new(0);
+
+        [FieldOffset(0)]
+        private readonly nuint _handle;
+        public nuint Handle
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+            get { return _handle; }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public VkDeferredOperationKHR(nuint handle)
+        {
+            _handle = handle;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(int other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(uint other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(long other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(ulong other)
+        {
+            return _handle == (nuint)other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(nuint other)
+        {
+            return _handle == other;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public bool Equals(VkDeferredOperationKHR other)
+        {
+            return _handle == other._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override bool Equals(object? obj)
+        {
+            return obj is VkDeferredOperationKHR other && Equals(other);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override int GetHashCode()
+        {
+            return _handle.GetHashCode();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public override string? ToString()
+        {
+            return "0x" + (TSize == 8 ? _handle.ToString("X16") : _handle.ToString("X8"));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe implicit operator VkDeferredOperationKHR*(in VkDeferredOperationKHR value)
+        {
+            return (VkDeferredOperationKHR*)value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator nuint(in VkDeferredOperationKHR value)
+        {
+            return value._handle;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static implicit operator VkDeferredOperationKHR(nuint value)
+        {
+            return new VkDeferredOperationKHR(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, in VkDeferredOperationKHR right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, in VkDeferredOperationKHR right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, int right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, int right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, uint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, uint right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, long right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, long right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, ulong right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, ulong right)
+        {
+            return !left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(in VkDeferredOperationKHR left, nuint right)
+        {
+            return left.Equals(right);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(in VkDeferredOperationKHR left, nuint right)
+        {
+            return !left.Equals(right);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(int left, in VkDeferredOperationKHR right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(int left, in VkDeferredOperationKHR right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(uint left, in VkDeferredOperationKHR right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(uint left, in VkDeferredOperationKHR right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(long left, in VkDeferredOperationKHR right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(long left, in VkDeferredOperationKHR right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(ulong left, in VkDeferredOperationKHR right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(ulong left, in VkDeferredOperationKHR right)
+        {
+            return !right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator ==(nuint left, in VkDeferredOperationKHR right)
+        {
+            return right.Equals(left);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static bool operator !=(nuint left, in VkDeferredOperationKHR right)
         {
             return !right.Equals(left);
         }

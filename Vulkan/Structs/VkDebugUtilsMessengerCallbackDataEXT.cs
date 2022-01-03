@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace Vulkan
@@ -6,7 +8,7 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("const void *")] public nint PNext;
+        [NativeTypeName("const void *")] public nuint PNext;
 
         [NativeTypeName("VkDebugUtilsMessengerCallbackDataFlagsEXT")]
         public uint Flags;

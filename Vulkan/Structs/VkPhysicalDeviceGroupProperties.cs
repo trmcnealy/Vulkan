@@ -8,14 +8,14 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("void *")] public nint PNext;
+        [NativeTypeName("void *")] public nuint PNext;
 
         [NativeTypeName("uint32_t")] public uint PhysicalDeviceCount;
 
         [NativeTypeName("VkPhysicalDevice [32]")]
         public _physicalDevices_e__FixedBuffer PhysicalDevices;
 
-        [NativeTypeName("Bool32")] public uint SubsetAllocation;
+        [NativeTypeName("Bool32")] public Bool32 SubsetAllocation;
 
         public unsafe struct _physicalDevices_e__FixedBuffer
         {

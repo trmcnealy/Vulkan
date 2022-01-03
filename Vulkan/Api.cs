@@ -600,7 +600,7 @@ namespace Vulkan
         public static readonly unsafe delegate*<VkDevice, ref VkDeviceMemoryOpaqueCaptureAddressInfo, ulong> GetDeviceMemoryOpaqueCaptureAddress;
 
         public static readonly unsafe   delegate*<VkInstance, VkSurfaceKHR, VkAllocationCallbacks*, void>                  DestroySurfaceKHR;
-        public static readonly unsafe   delegate*<VkPhysicalDevice, uint, VkSurfaceKHR, out uint, VkResult>                GetPhysicalDeviceSurfaceSupportKHR;
+        public static readonly unsafe   delegate*<VkPhysicalDevice, uint, VkSurfaceKHR, out Bool32, VkResult>              GetPhysicalDeviceSurfaceSupportKHR;
         public static readonly unsafe   delegate*<VkPhysicalDevice, VkSurfaceKHR, out VkSurfaceCapabilitiesKHR, VkResult>  GetPhysicalDeviceSurfaceCapabilitiesKHR;
         internal static readonly unsafe delegate*<VkPhysicalDevice, VkSurfaceKHR, out uint, VkSurfaceFormatKHR*, VkResult> _GetPhysicalDeviceSurfaceFormatsKHR;
         internal static readonly unsafe delegate*<VkPhysicalDevice, VkSurfaceKHR, out uint, VkPresentModeKHR*, VkResult>   _GetPhysicalDeviceSurfacePresentModesKHR;
