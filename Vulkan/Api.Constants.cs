@@ -363,8 +363,8 @@ namespace Vulkan
         [NativeTypeName("#define VK_USE_64_BIT_PTR_DEFINES 1")]
         public const int VK_USE_64_BIT_PTR_DEFINES = 1;
 
-        [NativeTypeName("#define VK_NULL_HANDLE nullptr")]
-        public static readonly nint VK_NULL_HANDLE = 0;
+        //[NativeTypeName("#define 0 nullptr")]
+        //public static readonly nint 0 = 0;
 
         [NativeTypeName("#define VK_API_VERSION_1_0 VK_MAKE_API_VERSION(0, 1, 0, 0)")]
         public const uint VK_API_VERSION_1_0 = ((((uint)(0)) << 29) | (((uint)(1)) << 22) | (((uint)(0)) << 12) | ((uint)(0)));

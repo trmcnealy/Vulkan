@@ -42,7 +42,7 @@ public enum VmaAllocationCreateFlagBits : uint
     /// </summary>
     /// <remarks>
     /// To check if allocation is not lost, call vmaGetAllocationInfo() and check if
-    /// VmaAllocationInfo::deviceMemory is not `VK_NULL_HANDLE`.For details about supporting lost allocations, see Lost Allocations
+    /// VmaAllocationInfo::deviceMemory is not `0`.For details about supporting lost allocations, see Lost Allocations
     /// chapter of User Guide on Main Page.You should not use this flag together with #VMA_ALLOCATION_CREATE_MAPPED_BIT.
     /// </remarks>
     VMA_ALLOCATION_CREATE_CAN_BECOME_LOST_BIT = 0x00000008,

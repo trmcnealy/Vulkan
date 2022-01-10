@@ -236,7 +236,7 @@ namespace Vulkan.MemoryAllocator
         /// It is just a general purpose allocation function able to make multiple allocations at once.
         /// It may be internally optimized to be more efficient than calling vmaAllocateMemory() `allocationCount` times.All allocations are made using same parameters. All of them are created out of the same memory pool and type.
         /// If any allocation fails, all allocations already made within this function call are also freed, so that when
-        /// returned result is not `VK_SUCCESS`, `pAllocation` array is always entirely filled with `VK_NULL_HANDLE`.
+        /// returned result is not `VK_SUCCESS`, `pAllocation` array is always entirely filled with `0`.
         /// </remarks>
         public static unsafe delegate* <VmaAllocator, in VkMemoryRequirements, in VmaAllocationCreateInfo, ulong, ref VmaAllocation, ref VmaAllocationInfo, VkResult> AllocateMemoryPages;
 
@@ -261,7 +261,7 @@ namespace Vulkan.MemoryAllocator
         /// 
         /// </summary>
         /// <remarks>
-        /// @brief Frees memory previously allocated using vmaAllocateMemory(), vmaAllocateMemoryForBuffer(), or vmaAllocateMemoryForImage().Passing `VK_NULL_HANDLE` as `allocation` is valid. Such function call is just skipped.
+        /// @brief Frees memory previously allocated using vmaAllocateMemory(), vmaAllocateMemoryForBuffer(), or vmaAllocateMemoryForImage().Passing `0` as `allocation` is valid. Such function call is just skipped.
         /// </remarks>
         public static unsafe delegate* <VmaAllocator, VmaAllocation, void> FreeMemory;
 
@@ -273,7 +273,7 @@ namespace Vulkan.MemoryAllocator
         /// It is just a general purpose function to free memory and destroy allocations made using e.g. vmaAllocateMemory(),
         /// vmaAllocateMemoryPages() and other functions.
         /// It may be internally optimized to be more efficient than calling vmaFreeMemory() `allocationCount` times.Allocations in `pAllocations` array can come from any memory pools and types.
-        /// Passing `VK_NULL_HANDLE` as elements of `pAllocations` array is valid. Such entries are just skipped.
+        /// Passing `0` as elements of `pAllocations` array is valid. Such entries are just skipped.
         /// </remarks>
         public static unsafe delegate* <VmaAllocator, ulong, ref VmaAllocation, void> FreeMemoryPages;
 
@@ -283,7 +283,7 @@ namespace Vulkan.MemoryAllocator
         /// <remarks>
         /// @brief Returns current information about specified allocation and atomically marks it as used in current frame.Current paramteres of given allocation are returned in `pAllocationInfo`.This function also atomically "touches" allocation - marks it as used in current frame,
         /// just like vmaTouchAllocation().
-        /// If the allocation is in lost state, `pAllocationInfo-&gt;deviceMemory == VK_NULL_HANDLE`.Although this function uses atomics and doesn't lock any mutex, so it should be quite efficient,
+        /// If the allocation is in lost state, `pAllocationInfo-&gt;deviceMemory == 0`.Although this function uses atomics and doesn't lock any mutex, so it should be quite efficient,
         /// you can avoid calling it too often.- You can retrieve same VmaAllocationInfo structure while creating your resource, from function
         /// vmaCreateBuffer(), vmaCreateImage(). You can remember it if you are sure parameters don't change
         /// (e.g. due to defragmentation or allocation becoming lost).

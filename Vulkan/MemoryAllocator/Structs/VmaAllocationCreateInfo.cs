@@ -50,7 +50,7 @@ public partial struct VmaAllocationCreateInfo
     /// 
     /// </summary>
     /// <remarks>
-    /// @brief Pool that this allocation should be created in.Leave `VK_NULL_HANDLE` to allocate from default pool. If not null, members:
+    /// @brief Pool that this allocation should be created in.Leave `0` to allocate from default pool. If not null, members:
     /// `usage`, `requiredFlags`, `preferredFlags`, `memoryTypeBits` are ignored.
     /// </remarks>
     public VmaPool pool;

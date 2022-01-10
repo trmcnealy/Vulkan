@@ -144,7 +144,7 @@ namespace Vulkan
         public static readonly utf8string VK_EXT_HDR_METADATA                                = "VK_EXT_hdr_metadata";
         public static readonly utf8string VK_EXT_EXTERNAL_MEMORY_DMA_BUF                     = "VK_EXT_external_memory_dma_buf";
         public static readonly utf8string VK_EXT_QUEUE_FAMILY_FOREIGN                        = "VK_EXT_queue_family_foreign";
-        public static readonly utf8string VK_EXT_DEBUG_UTILS_EXTENSION_NAME                  = "VK_EXT_debug_utils";
+        public static readonly utf8string VK_EXT_DEBUG_UTILS                                 = "VK_EXT_debug_utils";
         public static readonly utf8string VK_EXT_SAMPLER_FILTER_MINMAX                       = "VK_EXT_sampler_filter_minmax";
         public static readonly utf8string VK_AMD_GPU_SHADER_INT16                            = "VK_AMD_gpu_shader_int16";
         public static readonly utf8string VK_AMD_MIXED_ATTACHMENT_SAMPLES                    = "VK_AMD_mixed_attachment_samples";

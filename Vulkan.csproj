@@ -30,8 +30,12 @@
 
     <ItemGroup>
       <Compile Remove="Vulkan\Delegates\*.cs" />
+      <Compile Remove="Vulkan\Enums\Backup\**" />
       <Compile Remove="Vulkan\Framework\Backup\*.cs" />
       <Compile Remove="Vulkan\Framework\Converted\*.cs" />
+      <Compile Remove="Vulkan\Framework\**\*.cs" />
+      <EmbeddedResource Remove="Vulkan\Enums\Backup\**" />
+      <None Remove="Vulkan\Enums\Backup\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -75,6 +79,7 @@
     <ItemGroup>
       <None Include="Vulkan\Framework\Backup\*.cs" />
       <None Include="Vulkan\Framework\Converted\*.cs" />
+      <None Include="Vulkan\Framework\**\*.cs" />
 
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildGeometryInfoKHR.cs" />
       <None Include="Vulkan\Structs\VkAccelerationStructureBuildRangeInfoKHR.cs" />

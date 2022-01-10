@@ -236,36 +236,7 @@ namespace Vulkan
         #endregion
 
         
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static unsafe void MemoryCopy<T>(T* destination, T* source, int sizeInBytes)
-            where T : unmanaged
-        {
-            Buffer.MemoryCopy(source, destination, sizeInBytes, sizeInBytes);
-        }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static unsafe void MemoryCopy<T, TStruct>(T* destination, ref TStruct source, int sizeInBytes)
-            where T : unmanaged
-            where TStruct : unmanaged
-        {
-            TStruct* sourcePtr = (TStruct*)Unsafe.AsPointer(ref source);
-            Buffer.MemoryCopy(sourcePtr, destination, sizeInBytes, sizeInBytes);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static unsafe void MemoryCopy< TStruct>(ref TStruct destination, ref TStruct source, int sizeInBytes)
-            where TStruct : unmanaged
-        {
-            TStruct* sourcePtr      = (TStruct*)Unsafe.AsPointer(ref source);
-            TStruct* destinationPtr = (TStruct*)Unsafe.AsPointer(ref destination);
-            Buffer.MemoryCopy(sourcePtr, destinationPtr, sizeInBytes, sizeInBytes);
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static uint ToVulkanVersion(this Version version)
-        {
-            return Api.MAKE_VERSION(version.Major, version.Minor, version.Build);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
         static unsafe Api()
@@ -1079,6 +1050,37 @@ namespace Vulkan
                 return true;
             }
             return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy<T>(T* destination, T* source, int sizeInBytes)
+            where T : unmanaged
+        {
+            Buffer.MemoryCopy(source, destination, sizeInBytes, sizeInBytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy<T, TStruct>(T* destination, ref TStruct source, int sizeInBytes)
+            where T : unmanaged
+            where TStruct : unmanaged
+        {
+            TStruct* sourcePtr = (TStruct*)Unsafe.AsPointer(ref source);
+            Buffer.MemoryCopy(sourcePtr, destination, sizeInBytes, sizeInBytes);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe void MemoryCopy< TStruct>(ref TStruct destination, ref TStruct source, int sizeInBytes)
+            where TStruct : unmanaged
+        {
+            TStruct* sourcePtr      = (TStruct*)Unsafe.AsPointer(ref source);
+            TStruct* destinationPtr = (TStruct*)Unsafe.AsPointer(ref destination);
+            Buffer.MemoryCopy(sourcePtr, destinationPtr, sizeInBytes, sizeInBytes);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static uint ToVulkanVersion(this Version version)
+        {
+            return Api.MAKE_VERSION(version.Major, version.Minor, version.Build);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]

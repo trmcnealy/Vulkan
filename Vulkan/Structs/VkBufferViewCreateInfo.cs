@@ -7,17 +7,21 @@ namespace Vulkan
     {
         public VkStructureType SType;
 
-        [NativeTypeName("const void *")] public nuint PNext;
+        [NativeTypeName("const void *")]
+        public nuint PNext;
 
         [NativeTypeName("VkBufferViewCreateFlags")]
         public uint Flags;
 
-        [NativeTypeName("VkBuffer")] public VkBuffer Buffer;
+        [NativeTypeName("VkBuffer")]
+        public VkBuffer Buffer;
 
         public VkFormat Format;
 
-        [NativeTypeName("ulong")] public ulong Offset;
+        [NativeTypeName("ulong")]
+        public ulong Offset;
 
-        [NativeTypeName("ulong")] public ulong Range;
+        [NativeTypeName("ulong")]
+        public ulong Range;
     }
 }

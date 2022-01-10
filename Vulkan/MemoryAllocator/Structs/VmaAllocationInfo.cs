@@ -25,7 +25,7 @@ public partial struct VmaAllocationInfo
     /// 
     /// </summary>
     /// <remarks>
-    /// @brief Handle to Vulkan memory object.Same memory object can be shared by multiple allocations.It can change after call to vmaDefragment() if this allocation is passed to the function, or if allocation is lost.If the allocation is lost, it is equal to `VK_NULL_HANDLE`.
+    /// @brief Handle to Vulkan memory object.Same memory object can be shared by multiple allocations.It can change after call to vmaDefragment() if this allocation is passed to the function, or if allocation is lost.If the allocation is lost, it is equal to `0`.
     /// </remarks>
     public VkDeviceMemory deviceMemory;
 

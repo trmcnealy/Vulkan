@@ -96,7 +96,7 @@
 //            }
 //            else
 //            {
-//                descriptor_set_layout_handles.Add(VK_NULL_HANDLE);
+//                descriptor_set_layout_handles.Add(0);
 //            }
 //        }
 
@@ -133,13 +133,13 @@
 //        this.shader_resources = std::move(other.shader_resources);
 //        this.shader_sets = std::move(other.shader_sets);
 //        this.descriptor_set_layouts = std::move(other.descriptor_set_layouts);
-//        other.handle = VK_NULL_HANDLE;
+//        other.handle = 0;
 //    }
 
 //    public void Dispose()
 //    {
 //        // Destroy pipeline layout
-//        if (handle != VK_NULL_HANDLE)
+//        if (handle != 0)
 //        {
 //            vkDestroyPipelineLayout(device.get_handle(), handle, null);
 //        }

@@ -13,7 +13,7 @@ namespace Vulkan
         public nuint PNext;
 
         [NativeTypeName("VkBufferCreateFlags")]
-        public VkBufferUsageFlagBits Flags;
+        public VkBufferCreateFlagBits Flags;
 
         [NativeTypeName("ulong")]
         public ulong Size;
